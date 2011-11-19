@@ -19,6 +19,39 @@ class User extends AppModel {
  * @var string
  */
 	public $displayField = 'name';
+
+/*
+ * static enum: Model::function()
+ * @access static
+ */
+    public static function groups($value = null) {
+        $options = array(
+            self::MEMBER => __('Membre'),
+            self::MODERATOR => __('Modérateur'),
+            self::GAMEMASTER => __('Maître du jeu'),
+            self::ANIM_RP => __('Animateur RP'),
+            self::ADMIN => __('Administrateur'),
+        );
+        return parent::enum($value, $options);
+    }
+    
+    const MEMBER = 0;
+    const MODERATOR = 1;
+    const GAMEMASTER = 2;
+    const ANIM_RP = 3;
+    const ADMIN = 4;
+    
+    public static function genders($value = null) {
+        $options = array(
+            self::MALE => __('Homme'),
+            self::FEMALE => __('Femme'),
+        );
+        return parent::enum($value, $options);
+    }    
+     
+    const MALE = 0;
+    const FEMALE = 1;
+
 /**
  * Validation rules
  *
