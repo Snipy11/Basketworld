@@ -1,0 +1,85 @@
+2011-11-18 17:58:29 Error: [MissingActionException] Action TestController::index() could not be found.
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(107): Controller->invokeAction(Object(CakeRequest))
+#1 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(89): Dispatcher->_invoke(Object(TestController), Object(CakeRequest), Object(CakeResponse))
+#2 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2011-11-18 17:58:48 Error: [MissingViewException] View file "C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\View\Test\index.ctp" is missing.
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\View\View.php(363): View->_getViewFileName(NULL)
+#1 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Controller.php(899): View->render(NULL, NULL)
+#2 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(114): Controller->render()
+#3 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(89): Dispatcher->_invoke(Object(TestController), Object(CakeRequest), Object(CakeResponse))
+#4 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2011-11-18 17:59:03 Error: [MissingViewException] View file "C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\View\Test\index.ctp" is missing.
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\View\View.php(363): View->_getViewFileName(NULL)
+#1 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Controller.php(899): View->render(NULL, NULL)
+#2 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(114): Controller->render()
+#3 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(89): Dispatcher->_invoke(Object(TestController), Object(CakeRequest), Object(CakeResponse))
+#4 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2011-11-18 17:59:05 Error: [MissingViewException] View file "C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\View\Test\index.ctp" is missing.
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\View\View.php(363): View->_getViewFileName(NULL)
+#1 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Controller.php(899): View->render(NULL, NULL)
+#2 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(114): Controller->render()
+#3 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(89): Dispatcher->_invoke(Object(TestController), Object(CakeRequest), Object(CakeResponse))
+#4 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2011-11-19 10:35:37 Error: [MissingControllerException] Controller class TeamsController could not be found.
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2011-11-19 10:35:50 Error: [MissingControllerException] Controller class VipsController could not be found.
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2011-11-19 18:04:09 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'gender' cannot be null
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(436): PDOStatement->execute(Array)
+#1 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(403): DboSource->_execute('INSERT INTO `us...', Array)
+#2 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(967): DboSource->execute('INSERT INTO `us...')
+#3 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Model.php(1629): DboSource->create(Object(User), Array, Array)
+#4 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Scaffold.php(242): Model->save(Array)
+#5 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Scaffold.php(392): Scaffold->_scaffoldSave(Object(CakeRequest), 'add')
+#6 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Scaffold.php(150): Scaffold->_scaffold(Object(CakeRequest))
+#7 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Controller.php(518): Scaffold->__construct(Object(UsersController), Object(CakeRequest))
+#8 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Controller.php(477): Controller->_getScaffold(Object(CakeRequest))
+#9 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(107): Controller->invokeAction(Object(CakeRequest))
+#10 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(89): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#11 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2011-11-20 11:39:23 Error: [MissingControllerException] Controller class CountriesController could not be found.
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2011-11-20 12:35:07 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`basket_world`.`teams`, CONSTRAINT `fk_teams_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(436): PDOStatement->execute(Array)
+#1 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(403): DboSource->_execute('INSERT INTO `te...', Array)
+#2 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(967): DboSource->execute('INSERT INTO `te...')
+#3 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Model.php(1629): DboSource->create(Object(Team), Array, Array)
+#4 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\Controller\TeamsController.php(43): Model->save(Array)
+#5 [internal function]: TeamsController->add()
+#6 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Controller.php(473): ReflectionMethod->invokeArgs(Object(TeamsController), Array)
+#7 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(107): Controller->invokeAction(Object(CakeRequest))
+#8 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(89): Dispatcher->_invoke(Object(TeamsController), Object(CakeRequest), Object(CakeResponse))
+#9 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2011-11-20 12:45:26 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`basket_world`.`teams`, CONSTRAINT `fk_teams_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(436): PDOStatement->execute(Array)
+#1 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(403): DboSource->_execute('INSERT INTO `te...', Array)
+#2 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(967): DboSource->execute('INSERT INTO `te...')
+#3 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Model.php(1629): DboSource->create(Object(Team), Array, Array)
+#4 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\Controller\TeamsController.php(43): Model->save(Array)
+#5 [internal function]: TeamsController->add()
+#6 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Controller.php(473): ReflectionMethod->invokeArgs(Object(TeamsController), Array)
+#7 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(107): Controller->invokeAction(Object(CakeRequest))
+#8 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(89): Dispatcher->_invoke(Object(TeamsController), Object(CakeRequest), Object(CakeResponse))
+#9 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2011-11-20 12:46:11 Error: [PDOException] SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`basket_world`.`teams`, CONSTRAINT `fk_teams_users1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+#0 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(436): PDOStatement->execute(Array)
+#1 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(403): DboSource->_execute('INSERT INTO `te...', Array)
+#2 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Datasource\DboSource.php(967): DboSource->execute('INSERT INTO `te...')
+#3 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Model\Model.php(1629): DboSource->create(Object(Team), Array, Array)
+#4 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\Controller\TeamsController.php(43): Model->save(Array)
+#5 [internal function]: TeamsController->add()
+#6 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Controller\Controller.php(473): ReflectionMethod->invokeArgs(Object(TeamsController), Array)
+#7 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(107): Controller->invokeAction(Object(CakeRequest))
+#8 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\lib\Cake\Routing\Dispatcher.php(89): Dispatcher->_invoke(Object(TeamsController), Object(CakeRequest), Object(CakeResponse))
+#9 C:\Program Files\EasyPHP-5.3.1\www\BasketWorld\app\webroot\index.php(96): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
