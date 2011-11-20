@@ -9,7 +9,7 @@
 		echo $this->Form->input('lastconnect');
 		echo $this->Form->input('email');
 		echo $this->Form->input('presentation');
-		echo $this->Form->input('birthdate');
+		echo $this->Form->input('birthdate', array('minYear' => '1940'));
 		echo $this->Form->input('gender', array('options' => User::genders() ));
 		echo $this->Form->input('ip');
 		echo $this->Form->input('avatar');
