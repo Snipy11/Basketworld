@@ -33,6 +33,8 @@ App::uses('Model', 'Model');
  */
 class AppModel extends Model {
     
+    public $actsAs = array('Containable');
+    
     /**
      * @param string $value or array $keys or NULL for complete array result
      * @param array $options (actual data)
