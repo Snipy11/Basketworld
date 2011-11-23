@@ -6,7 +6,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('match_id');
 		echo $this->Form->input('player_id');
-		echo $this->Form->input('position');
+		echo $this->Form->input('position', array('options' => MatchesPlayer::positions() ));
 		echo $this->Form->input('at_home');
 		echo $this->Form->input('play_time');
 		echo $this->Form->input('2pts_attempts');
