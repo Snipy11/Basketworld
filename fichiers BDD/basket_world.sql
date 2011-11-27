@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Mer 23 Novembre 2011 à 20:41
+-- Généré le : Dim 27 Novembre 2011 à 17:38
 -- Version du serveur: 5.1.43
 -- Version de PHP: 5.3.1
 
@@ -25,7 +25,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Structure de la table `actions`
 --
 
-DROP TABLE IF EXISTS `actions`;
 CREATE TABLE IF NOT EXISTS `actions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `description` varchar(64) NOT NULL,
@@ -43,7 +42,6 @@ CREATE TABLE IF NOT EXISTS `actions` (
 -- Structure de la table `actions_matches`
 --
 
-DROP TABLE IF EXISTS `actions_matches`;
 CREATE TABLE IF NOT EXISTS `actions_matches` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `match_id` int(10) unsigned NOT NULL,
@@ -68,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `actions_matches` (
 -- Structure de la table `action_descriptions`
 --
 
-DROP TABLE IF EXISTS `action_descriptions`;
 CREATE TABLE IF NOT EXISTS `action_descriptions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `long_description` text NOT NULL,
@@ -90,7 +87,6 @@ CREATE TABLE IF NOT EXISTS `action_descriptions` (
 -- Structure de la table `countries`
 --
 
-DROP TABLE IF EXISTS `countries`;
 CREATE TABLE IF NOT EXISTS `countries` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `country` varchar(64) NOT NULL,
@@ -112,7 +108,6 @@ INSERT INTO `countries` (`id`, `country`, `flag`) VALUES
 -- Structure de la table `divisions`
 --
 
-DROP TABLE IF EXISTS `divisions`;
 CREATE TABLE IF NOT EXISTS `divisions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `hierarchy` int(10) unsigned NOT NULL,
@@ -137,7 +132,6 @@ INSERT INTO `divisions` (`id`, `hierarchy`, `name`, `country_id`, `season_id`) V
 -- Structure de la table `events`
 --
 
-DROP TABLE IF EXISTS `events`;
 CREATE TABLE IF NOT EXISTS `events` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `team_id` int(10) unsigned NOT NULL,
@@ -159,7 +153,6 @@ CREATE TABLE IF NOT EXISTS `events` (
 -- Structure de la table `friendly_match_requests`
 --
 
-DROP TABLE IF EXISTS `friendly_match_requests`;
 CREATE TABLE IF NOT EXISTS `friendly_match_requests` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `from_team_id` int(10) unsigned NOT NULL,
@@ -184,7 +177,6 @@ CREATE TABLE IF NOT EXISTS `friendly_match_requests` (
 -- Structure de la table `friends`
 --
 
-DROP TABLE IF EXISTS `friends`;
 CREATE TABLE IF NOT EXISTS `friends` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `from_user_id` int(10) unsigned NOT NULL,
@@ -207,7 +199,6 @@ CREATE TABLE IF NOT EXISTS `friends` (
 -- Structure de la table `goals`
 --
 
-DROP TABLE IF EXISTS `goals`;
 CREATE TABLE IF NOT EXISTS `goals` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `description` text COLLATE latin1_german2_ci NOT NULL,
@@ -228,7 +219,6 @@ CREATE TABLE IF NOT EXISTS `goals` (
 -- Structure de la table `grades_matches`
 --
 
-DROP TABLE IF EXISTS `grades_matches`;
 CREATE TABLE IF NOT EXISTS `grades_matches` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `match_id` int(10) unsigned NOT NULL,
@@ -251,7 +241,6 @@ CREATE TABLE IF NOT EXISTS `grades_matches` (
 -- Structure de la table `instructions`
 --
 
-DROP TABLE IF EXISTS `instructions`;
 CREATE TABLE IF NOT EXISTS `instructions` (
   `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(128) COLLATE latin1_german2_ci NOT NULL,
@@ -272,7 +261,6 @@ CREATE TABLE IF NOT EXISTS `instructions` (
 -- Structure de la table `languages`
 --
 
-DROP TABLE IF EXISTS `languages`;
 CREATE TABLE IF NOT EXISTS `languages` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `language` varchar(64) NOT NULL,
@@ -290,7 +278,6 @@ CREATE TABLE IF NOT EXISTS `languages` (
 -- Structure de la table `matches`
 --
 
-DROP TABLE IF EXISTS `matches`;
 CREATE TABLE IF NOT EXISTS `matches` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `home_team_id` int(10) unsigned NOT NULL,
@@ -322,11 +309,10 @@ INSERT INTO `matches` (`id`, `home_team_id`, `visitor_team_id`, `start_date`, `h
 -- Structure de la table `matches_players`
 --
 
-DROP TABLE IF EXISTS `matches_players`;
 CREATE TABLE IF NOT EXISTS `matches_players` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `match_id` int(10) unsigned NOT NULL,
-  `player_id` int(10) unsigned NOT NULL,
+  `players_team_id` int(10) unsigned NOT NULL,
   `position` tinyint(3) unsigned NOT NULL COMMENT 'Meneur:0, Arrière:1, Ailier_shooter:2, Ailier_fort:3, Pivot:4, Réserve:5',
   `at_home` tinyint(1) NOT NULL,
   `play_time` time NOT NULL DEFAULT '00:00:00',
@@ -345,24 +331,24 @@ CREATE TABLE IF NOT EXISTS `matches_players` (
   `injury` smallint(5) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_players_matches_matches1` (`match_id`),
-  KEY `fk_matches_players_players1` (`player_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+  KEY `players_team_id` (`players_team_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
 
 --
 -- Contenu de la table `matches_players`
 --
 
-INSERT INTO `matches_players` (`id`, `match_id`, `player_id`, `position`, `at_home`, `play_time`, `2pts_attempts`, `2pts_scored`, `3pts_attempts`, `3pts_scored`, `rebounds_offensive`, `rebounds_defensive`, `freethrows_attempts`, `freethrows_scored`, `assists`, `steals`, `blocks`, `fouls`, `injury`) VALUES
-(1, 1, 54254, 2, 1, '15:06:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 1, 54255, 0, 1, '15:06:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 1, 54256, 1, 1, '15:07:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 1, 54257, 3, 1, '15:07:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 1, 54258, 4, 1, '15:07:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 1, 54259, 0, 0, '15:07:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 1, 54260, 1, 0, '15:07:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 1, 54261, 2, 0, '15:08:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 1, 54262, 3, 0, '15:08:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 1, 54263, 4, 0, '15:08:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `matches_players` (`id`, `match_id`, `players_team_id`, `position`, `at_home`, `play_time`, `2pts_attempts`, `2pts_scored`, `3pts_attempts`, `3pts_scored`, `rebounds_offensive`, `rebounds_defensive`, `freethrows_attempts`, `freethrows_scored`, `assists`, `steals`, `blocks`, `fouls`, `injury`) VALUES
+(11, 1, 2, 0, 1, '13:41:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 1, 3, 1, 1, '13:42:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 1, 4, 2, 1, '13:42:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 1, 5, 3, 1, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 1, 6, 4, 1, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 1, 7, 0, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 1, 8, 1, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(18, 1, 9, 2, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(19, 1, 10, 3, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 1, 11, 4, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -370,7 +356,6 @@ INSERT INTO `matches_players` (`id`, `match_id`, `player_id`, `position`, `at_ho
 -- Structure de la table `players`
 --
 
-DROP TABLE IF EXISTS `players`;
 CREATE TABLE IF NOT EXISTS `players` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `country_id` int(10) unsigned NOT NULL,
@@ -420,7 +405,6 @@ INSERT INTO `players` (`id`, `country_id`, `first_name`, `name`, `age`, `height`
 -- Structure de la table `players_teams`
 --
 
-DROP TABLE IF EXISTS `players_teams`;
 CREATE TABLE IF NOT EXISTS `players_teams` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `team_id` int(10) unsigned NOT NULL,
@@ -452,7 +436,6 @@ INSERT INTO `players_teams` (`id`, `team_id`, `player_id`) VALUES
 -- Structure de la table `press_releases`
 --
 
-DROP TABLE IF EXISTS `press_releases`;
 CREATE TABLE IF NOT EXISTS `press_releases` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `team_id` int(10) unsigned NOT NULL,
@@ -475,7 +458,6 @@ CREATE TABLE IF NOT EXISTS `press_releases` (
 -- Structure de la table `rankings`
 --
 
-DROP TABLE IF EXISTS `rankings`;
 CREATE TABLE IF NOT EXISTS `rankings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `division_id` int(10) unsigned NOT NULL,
@@ -502,7 +484,6 @@ CREATE TABLE IF NOT EXISTS `rankings` (
 -- Structure de la table `rumors`
 --
 
-DROP TABLE IF EXISTS `rumors`;
 CREATE TABLE IF NOT EXISTS `rumors` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `division_id` int(10) unsigned NOT NULL,
@@ -526,7 +507,6 @@ CREATE TABLE IF NOT EXISTS `rumors` (
 -- Structure de la table `seasons`
 --
 
-DROP TABLE IF EXISTS `seasons`;
 CREATE TABLE IF NOT EXISTS `seasons` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `year` smallint(5) unsigned NOT NULL,
@@ -547,7 +527,6 @@ INSERT INTO `seasons` (`id`, `year`, `start_date`) VALUES
 -- Structure de la table `strategies`
 --
 
-DROP TABLE IF EXISTS `strategies`;
 CREATE TABLE IF NOT EXISTS `strategies` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `team_id` int(10) unsigned NOT NULL,
@@ -570,7 +549,6 @@ CREATE TABLE IF NOT EXISTS `strategies` (
 -- Structure de la table `teams`
 --
 
-DROP TABLE IF EXISTS `teams`;
 CREATE TABLE IF NOT EXISTS `teams` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned DEFAULT NULL,
@@ -605,8 +583,8 @@ CREATE TABLE IF NOT EXISTS `teams` (
 --
 
 INSERT INTO `teams` (`id`, `user_id`, `division_id`, `name`, `logo`, `gymnasium_name`, `places_assises`, `places_vip`, `adjoints`, `attaches`, `eplucheurs`, `medecins`, `kines`, `chasseurs`, `stats`, `confiance`, `cash`, `matos`, `tenues`, `muscu`, `supporters`, `com_politique_gestion`, `com_ambition`) VALUES
-(30, NULL, 5, 'Dan''s Team', '', 'Dan''s Stadium', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
-(31, 115, 5, 'Test team', '', 'test stadium', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(30, 115, 5, 'Equipe A', '', 'Dan''s Stadium', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
+(31, 115, 5, 'Equipe B', '', 'test stadium', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -614,7 +592,6 @@ INSERT INTO `teams` (`id`, `user_id`, `division_id`, `name`, `logo`, `gymnasium_
 -- Structure de la table `trainers`
 --
 
-DROP TABLE IF EXISTS `trainers`;
 CREATE TABLE IF NOT EXISTS `trainers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `team_id` int(10) unsigned NOT NULL DEFAULT '0',
@@ -643,7 +620,6 @@ CREATE TABLE IF NOT EXISTS `trainers` (
 -- Structure de la table `trainings`
 --
 
-DROP TABLE IF EXISTS `trainings`;
 CREATE TABLE IF NOT EXISTS `trainings` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `team_id` int(10) unsigned NOT NULL,
@@ -665,7 +641,6 @@ CREATE TABLE IF NOT EXISTS `trainings` (
 -- Structure de la table `transactions`
 --
 
-DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE IF NOT EXISTS `transactions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `team_id` int(10) unsigned NOT NULL,
@@ -687,7 +662,6 @@ CREATE TABLE IF NOT EXISTS `transactions` (
 -- Structure de la table `transferts`
 --
 
-DROP TABLE IF EXISTS `transferts`;
 CREATE TABLE IF NOT EXISTS `transferts` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `player_id` int(10) unsigned NOT NULL,
@@ -717,7 +691,6 @@ CREATE TABLE IF NOT EXISTS `transferts` (
 -- Structure de la table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE latin1_german2_ci NOT NULL,
@@ -750,7 +723,6 @@ INSERT INTO `users` (`id`, `name`, `password`, `validated`, `created`, `lastconn
 -- Structure de la table `users_goals`
 --
 
-DROP TABLE IF EXISTS `users_goals`;
 CREATE TABLE IF NOT EXISTS `users_goals` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `goal_id` int(10) unsigned NOT NULL,
@@ -774,7 +746,6 @@ CREATE TABLE IF NOT EXISTS `users_goals` (
 -- Structure de la table `vips`
 --
 
-DROP TABLE IF EXISTS `vips`;
 CREATE TABLE IF NOT EXISTS `vips` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
@@ -795,7 +766,6 @@ CREATE TABLE IF NOT EXISTS `vips` (
 -- Structure de la table `youth_investments`
 --
 
-DROP TABLE IF EXISTS `youth_investments`;
 CREATE TABLE IF NOT EXISTS `youth_investments` (
   `id` int(10) unsigned NOT NULL,
   `team_id` int(10) unsigned NOT NULL,
@@ -876,7 +846,7 @@ ALTER TABLE `matches`
 -- Contraintes pour la table `matches_players`
 --
 ALTER TABLE `matches_players`
-  ADD CONSTRAINT `fk_matches_players_players1` FOREIGN KEY (`player_id`) REFERENCES `players` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `matches_players_ibfk_1` FOREIGN KEY (`players_team_id`) REFERENCES `players_teams` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_players_matches_matches1` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
