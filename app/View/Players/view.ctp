@@ -8,7 +8,7 @@
 		</dd>
 		<dt><?php echo __('Country'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($player['Country']['id'], array('controller' => 'countries', 'action' => 'view', $player['Country']['id'])); ?>
+			<?php echo $this->Html->link($player['Country']['country'], array('controller' => 'countries', 'action' => 'view', $player['Country']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('First Name'); ?></dt>
@@ -124,8 +124,6 @@
 		<li><?php echo $this->Html->link(__('New Country'), array('controller' => 'countries', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Transferts'), array('controller' => 'transferts', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Transfert'), array('controller' => 'transferts', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Matches Players'), array('controller' => 'matches_players', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Player In Match'), array('controller' => 'matches_players', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Actions Matches'), array('controller' => 'actions_matches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Player Actionee'), array('controller' => 'actions_matches', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Teams'), array('controller' => 'teams', 'action' => 'index')); ?> </li>
@@ -176,71 +174,6 @@
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Transfert'), array('controller' => 'transferts', 'action' => 'add'));?> </li>
-		</ul>
-	</div>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Matches Players');?></h3>
-	<?php if (!empty($player['PlayerInMatch'])):?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Match Id'); ?></th>
-		<th><?php echo __('Player Id'); ?></th>
-		<th><?php echo __('Position'); ?></th>
-		<th><?php echo __('At Home'); ?></th>
-		<th><?php echo __('Play Time'); ?></th>
-		<th><?php echo __('2pts Attempts'); ?></th>
-		<th><?php echo __('2pts Scored'); ?></th>
-		<th><?php echo __('3pts Attempts'); ?></th>
-		<th><?php echo __('3pts Scored'); ?></th>
-		<th><?php echo __('Rebounds Offensive'); ?></th>
-		<th><?php echo __('Rebounds Defensive'); ?></th>
-		<th><?php echo __('Freethrows Attempts'); ?></th>
-		<th><?php echo __('Freethrows Scored'); ?></th>
-		<th><?php echo __('Assists'); ?></th>
-		<th><?php echo __('Steals'); ?></th>
-		<th><?php echo __('Blocks'); ?></th>
-		<th><?php echo __('Fouls'); ?></th>
-		<th><?php echo __('Injury'); ?></th>
-		<th class="actions"><?php echo __('Actions');?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($player['PlayerInMatch'] as $playerInMatch): ?>
-		<tr>
-			<td><?php echo $playerInMatch['id'];?></td>
-			<td><?php echo $playerInMatch['match_id'];?></td>
-			<td><?php echo $playerInMatch['player_id'];?></td>
-			<td><?php echo $playerInMatch['position'];?></td>
-			<td><?php echo $playerInMatch['at_home'];?></td>
-			<td><?php echo $playerInMatch['play_time'];?></td>
-			<td><?php echo $playerInMatch['2pts_attempts'];?></td>
-			<td><?php echo $playerInMatch['2pts_scored'];?></td>
-			<td><?php echo $playerInMatch['3pts_attempts'];?></td>
-			<td><?php echo $playerInMatch['3pts_scored'];?></td>
-			<td><?php echo $playerInMatch['rebounds_offensive'];?></td>
-			<td><?php echo $playerInMatch['rebounds_defensive'];?></td>
-			<td><?php echo $playerInMatch['freethrows_attempts'];?></td>
-			<td><?php echo $playerInMatch['freethrows_scored'];?></td>
-			<td><?php echo $playerInMatch['assists'];?></td>
-			<td><?php echo $playerInMatch['steals'];?></td>
-			<td><?php echo $playerInMatch['blocks'];?></td>
-			<td><?php echo $playerInMatch['fouls'];?></td>
-			<td><?php echo $playerInMatch['injury'];?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'matches_players', 'action' => 'view', $playerInMatch['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'matches_players', 'action' => 'edit', $playerInMatch['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'matches_players', 'action' => 'delete', $playerInMatch['id']), null, __('Are you sure you want to delete # %s?', $playerInMatch['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Player In Match'), array('controller' => 'matches_players', 'action' => 'add'));?> </li>
 		</ul>
 	</div>
 </div>

@@ -4,9 +4,11 @@ App::uses('AppModel', 'Model');
  * MatchesPlayer Model
  *
  * @property Match $Match
- * @property Player $Player
+ * @property PlayersTeam $PlayersTeam
  */
 class MatchesPlayer extends AppModel {
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 /*
  * static enum: Model::function()
@@ -32,36 +34,6 @@ class MatchesPlayer extends AppModel {
     const RESERVE = 5;
 
 /**
- * Validation rules
- *
- * @var array
- */
-	public $validate = array(
-		'position' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'play_time' => array(
-			'time' => array(
-				'rule' => array('time'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-	);
-
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
  * belongsTo associations
  *
  * @var array
@@ -74,9 +46,9 @@ class MatchesPlayer extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		'Player' => array(
-			'className' => 'Player',
-			'foreignKey' => 'player_id',
+		'PlayersTeam' => array(
+			'className' => 'PlayersTeam',
+			'foreignKey' => 'players_team_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
