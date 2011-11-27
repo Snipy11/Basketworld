@@ -140,9 +140,12 @@ class MatchSimulator {
     public $playerBallCarrier;
     public $matchDescription = array();
     public $freeThrowsLeft = 0;
+    public $teamFaults;
     
     public function __construct($match)  {
 	$this->match = $match;
+    $this->teamFaults['HomeTeam'] = 0;
+    $this->teamFaults['VisitorTeam'] = 0;
     }
     
     public function play() {
@@ -180,8 +183,8 @@ abstract class State {
     {
         $positionsWithoutBall = range(0,4);
         $positionsWithoutBall = array_diff($positionsWithoutBall, array($sim->match['PlayersInMatch'][$sim->playerBallCarrier]['position']));
-        $newPlayerBallCarrier = array_rand($positionsWithoutBall);
-        $sim->playerBallCarrier = $this->getPlayerKeyAtPosition($sim->match, $newPlayerBallCarrier, $sim->teamBall);
+        $newPlayerPosition = array_rand($positionsWithoutBall);
+        $sim->playerBallCarrier = $this->getPlayerKeyAtPosition($sim->match, $newPlayerPosition, $sim->teamBall);
     }
     
 }
