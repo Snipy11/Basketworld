@@ -126,21 +126,30 @@ class MatchesController extends AppController {
             ),
             'conditions' => array('Match.id' => '1')
         ));
-        $this->set('match', $match);
-        $StateMachine = new StateMachine;
-        $StateMachine->changeState(new MiseEnJeu);
-        $StateMachine->play($match);
-        
+        $MatchSimulator = new MatchSimulator($match);
+        $MatchSimulator->changeState(new MiseEnJeu);
+        $MatchSimulator->play();
+	$this->set('matchDescriptions', $MatchSimulator->matchDescription);
+	$this->set('match', $match);
     }
     
 }
 
-class StateMachine {
+class MatchSimulator {
+
     private $previousState;
     private $currentState;
+    public $match;
+    public $teamBall;
+    public $playerBallCarrier;
+    public $matchDescription = array();
     
-    public function play(& $match) {
-        $this->currentState->play($match);
+    public function __construct($match)  {
+	$this->match = $match;
+    }
+    
+    public function play() {
+        $this->currentState->play($this);
     }
     
     public function changeState($newState) {
@@ -151,24 +160,25 @@ class StateMachine {
 
 abstract class State {
     
-    public abstract function play(& $match);
+    public abstract function play(& $matchSimulator);
     
-    protected function chooseRandomPlayer($match) {
-        $players = array_merge($match['HomeTeam']['Player'], $match['VisitorTeam']['Player']);
-        echo "<pre>";
-        print_r($players);
-        echo "</pre>";
+    protected function getPlayerKeyAtPosition($position, $team)  {
+	foreach($team['Player'] as $key => $player) {
+	    if ($player['PlayerInMatch'][0]['position'] == $position) return $key;
+	}
     }
     
 }
 
 class MiseEnJeu extends State {
-    public function play(& $match) {
+    public function play(& $sim) {
         $randomPlayer = mt_rand(0, 9);
-        $HomeTeam = $randomPlayer % 2;
-        $playerPosition = $randomPlayer / 2;
-        
-        
-    }
-    
+        $sim->teamBall = ($randomPlayer % 2 == 0) ? 'HomeTeam' : 'VisitorTeam';
+        $playerPosition = (int)($randomPlayer / 2);
+        $sim->playerBallCarrier = $this->getPlayerKeyAtPosition($playerPosition, $sim->match[$sim->teamBall]);
+	array_push($sim->matchDescription, 
+	"Mise en Jeu. {$sim->match[$sim->teamBall]['Player'][$sim->playerBallCarrier]['name']} s'empare du ballon.");
+	$nextStates = ['JeuPlace', 'Interception'];
+	$sim->changeState($nextStates[array_rand($nextStates)]);
+    }    
 }
