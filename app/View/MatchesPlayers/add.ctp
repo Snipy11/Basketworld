@@ -1,5 +1,5 @@
 <div class="matchesPlayers form">
-<?php echo $this->Form->create('MatchesPlayer');?>
+<?php echo $this->Form->create('playersTeams');?>
 	<fieldset>
 		<legend><?php echo __('Add Matches Player'); ?></legend>
 	<?php
