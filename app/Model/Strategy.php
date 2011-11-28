@@ -12,7 +12,7 @@ class Strategy extends AppModel {
  * static enum: Model::function()
  * @access static
  */
-    public static function groups($value = null) {
+    public static function type($value = null) {
         $options = array(
             self::PRESS => __('Pressing'),
             self::MANTOMAN => __('Man to man'),
