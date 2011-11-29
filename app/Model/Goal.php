@@ -3,10 +3,16 @@ App::uses('AppModel', 'Model');
 /**
  * Goal Model
  *
- * @property UsersGoal $UsersGoal
+ * @property UsersGoal $GoalUser
  */
 class Goal extends AppModel {
 /**
+ * Display field
+ *
+ * @var string
+ */
+	public $displayField = 'description';
+
  * Validation rules
  *
  * @var array
