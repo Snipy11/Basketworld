@@ -5,10 +5,9 @@ App::uses('AppModel', 'Model');
  *
  * @property Country $Country
  * @property Transfert $Transfert
- * @property MatchesPlayer $PlayerInMatch
  * @property ActionsMatch $PlayerActionee
  * @property ActionsMatch $PlayerInvolvedInAction
- * @property Team $Team
+ * @property PlayersTeam $PlayerInTeam
  */
 class Player extends AppModel {
 /**
@@ -50,7 +49,6 @@ class Player extends AppModel {
     const DUNKER = 0;
     const NASHER = 1;
     const BLOCKER = 2;
-
 
 /**
  * Validation rules
@@ -228,7 +226,27 @@ class Player extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'temperament' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		'injury' => array(
+			'numeric' => array(
+				'rule' => array('numeric'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'speciality' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -276,19 +294,6 @@ class Player extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'PlayerInMatch' => array(
-			'className' => 'MatchesPlayer',
-			'foreignKey' => 'player_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 		'PlayerActionee' => array(
 			'className' => 'ActionsMatch',
 			'foreignKey' => 'player1_id',
@@ -314,30 +319,19 @@ class Player extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
-
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
-	public $hasAndBelongsToMany = array(
-		'Team' => array(
-			'className' => 'Team',
-			'joinTable' => 'players_teams',
+		),
+		'PlayerInTeam' => array(
+			'className' => 'PlayersTeam',
 			'foreignKey' => 'player_id',
-			'associationForeignKey' => 'team_id',
-			'unique' => true,
+			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
 			'limit' => '',
 			'offset' => '',
+			'exclusive' => '',
 			'finderQuery' => '',
-			'deleteQuery' => '',
-			'insertQuery' => ''
+			'counterQuery' => ''
 		)
 	);
 

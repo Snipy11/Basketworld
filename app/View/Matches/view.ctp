@@ -178,7 +178,7 @@
 		<tr>
 			<td><?php echo $playersInMatch['id'];?></td>
 			<td><?php echo $playersInMatch['match_id'];?></td>
-			<td><?php echo $playersInMatch['player_id'];?></td>
+			<td><?php echo $playersInMatch['players_team_id'];?></td>
 			<td><?php echo $playersInMatch['position'];?></td>
 			<td><?php echo $playersInMatch['at_home'];?></td>
 			<td><?php echo $playersInMatch['play_time'];?></td>

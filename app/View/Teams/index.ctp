@@ -107,11 +107,11 @@
 		<li><?php echo $this->Html->link(__('New Youth Investment'), array('controller' => 'youth_investments', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Friendly Match Requests'), array('controller' => 'friendly_match_requests', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Friendly Match Request To'), array('controller' => 'friendly_match_requests', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Players Teams'), array('controller' => 'players_teams', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Players In Team'), array('controller' => 'players_teams', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Matches'), array('controller' => 'matches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Match Home'), array('controller' => 'matches', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Transferts'), array('controller' => 'transferts', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Transfert Buyer'), array('controller' => 'transferts', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Players'), array('controller' => 'players', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Player'), array('controller' => 'players', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

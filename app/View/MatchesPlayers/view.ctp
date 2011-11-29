@@ -11,9 +11,9 @@
 			<?php echo $this->Html->link($matchesPlayer['Match']['id'], array('controller' => 'matches', 'action' => 'view', $matchesPlayer['Match']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Player'); ?></dt>
+		<dt><?php echo __('Players Team'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($matchesPlayer['Player']['name'], array('controller' => 'players', 'action' => 'view', $matchesPlayer['Player']['id'])); ?>
+			<?php echo $this->Html->link($matchesPlayer['PlayersTeam']['id'], array('controller' => 'players_teams', 'action' => 'view', $matchesPlayer['PlayersTeam']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Position'); ?></dt>
@@ -107,7 +107,7 @@
 		<li><?php echo $this->Html->link(__('New Matches Player'), array('action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Matches'), array('controller' => 'matches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Match'), array('controller' => 'matches', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Players'), array('controller' => 'players', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Player'), array('controller' => 'players', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Players Teams'), array('controller' => 'players_teams', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Players Team'), array('controller' => 'players_teams', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

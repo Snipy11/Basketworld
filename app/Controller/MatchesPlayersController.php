@@ -48,8 +48,11 @@ class MatchesPlayersController extends AppController {
 			}
 		}
 		$matches = $this->MatchesPlayer->Match->find('list');
-		$players = $this->MatchesPlayer->Player->find('list');
-		$this->set(compact('matches', 'players'));
+		$playersTeams = $this->MatchesPlayer->PlayersTeam->find('list', array(
+			'fields' => array('PlayersTeam.id', 'Player.name', 'Team.name'),
+			'recursive' => 0
+		));
+		$this->set(compact('matches', 'playersTeams'));
 	}
 
 /**
@@ -74,8 +77,11 @@ class MatchesPlayersController extends AppController {
 			$this->request->data = $this->MatchesPlayer->read(null, $id);
 		}
 		$matches = $this->MatchesPlayer->Match->find('list');
-		$players = $this->MatchesPlayer->Player->find('list');
-		$this->set(compact('matches', 'players'));
+				$playersTeams = $this->MatchesPlayer->PlayersTeam->find('list', array(
+			'fields' => array('PlayersTeam.id', 'Player.name', 'Team.name'),
+			'recursive' => 0
+		));
+		$this->set(compact('matches', 'playersTeams'));
 	}
 
 /**
