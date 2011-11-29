@@ -125,7 +125,6 @@ class MatchesController extends AppController {
         while($MatchSimulator->match['Match']['home_points'] < 15 &&
                $MatchSimulator->match['Match']['visitor_points'] < 15 ) {
             $MatchSimulator->play();
-	    $MatchSimulator->play();
         }
         $this->set('matchDescriptions', $MatchSimulator->matchDescription);
         $this->set('match', $match);
