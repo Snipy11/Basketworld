@@ -19,6 +19,6 @@
 		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Goal.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Goal.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('List Goals'), array('action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('List Users Goals'), array('controller' => 'users_goals', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Goal User'), array('controller' => 'users_goals', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Users Goal'), array('controller' => 'users_goals', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

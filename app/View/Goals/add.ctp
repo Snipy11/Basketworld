@@ -17,6 +17,6 @@
 
 		<li><?php echo $this->Html->link(__('List Goals'), array('action' => 'index'));?></li>
 		<li><?php echo $this->Html->link(__('List Users Goals'), array('controller' => 'users_goals', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Goal User'), array('controller' => 'users_goals', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Users Goal'), array('controller' => 'users_goals', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

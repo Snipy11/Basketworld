@@ -4,7 +4,7 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('match_id');?></th>
-			<th><?php echo $this->Paginator->sort('player_id');?></th>
+			<th><?php echo $this->Paginator->sort('players_team_id');?></th>
 			<th><?php echo $this->Paginator->sort('position');?></th>
 			<th><?php echo $this->Paginator->sort('at_home');?></th>
 			<th><?php echo $this->Paginator->sort('play_time');?></th>
@@ -32,7 +32,7 @@
 			<?php echo $this->Html->link($matchesPlayer['Match']['id'], array('controller' => 'matches', 'action' => 'view', $matchesPlayer['Match']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($matchesPlayer['Player']['name'], array('controller' => 'players', 'action' => 'view', $matchesPlayer['Player']['id'])); ?>
+			<?php echo $this->Html->link($matchesPlayer['PlayersTeam']['id'], array('controller' => 'players_teams', 'action' => 'view', $matchesPlayer['PlayersTeam']['id'])); ?>
 		</td>
 		<td><?php echo h($matchesPlayer['MatchesPlayer']['position']); ?>&nbsp;</td>
 		<td><?php echo h($matchesPlayer['MatchesPlayer']['at_home']); ?>&nbsp;</td>
@@ -79,7 +79,7 @@
 		<li><?php echo $this->Html->link(__('New Matches Player'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Matches'), array('controller' => 'matches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Match'), array('controller' => 'matches', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Players'), array('controller' => 'players', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Player'), array('controller' => 'players', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Players Teams'), array('controller' => 'players_teams', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Players Team'), array('controller' => 'players_teams', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

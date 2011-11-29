@@ -48,8 +48,7 @@ class PlayersController extends AppController {
 			}
 		}
 		$countries = $this->Player->Country->find('list');
-		$teams = $this->Player->Team->find('list');
-		$this->set(compact('countries', 'teams'));
+		$this->set(compact('countries'));
 	}
 
 /**
@@ -74,8 +73,7 @@ class PlayersController extends AppController {
 			$this->request->data = $this->Player->read(null, $id);
 		}
 		$countries = $this->Player->Country->find('list');
-		$teams = $this->Player->Team->find('list');
-		$this->set(compact('countries', 'teams'));
+		$this->set(compact('countries'));
 	}
 
 /**

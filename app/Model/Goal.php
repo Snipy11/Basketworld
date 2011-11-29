@@ -12,7 +12,7 @@ class Goal extends AppModel {
  * @var string
  */
 	public $displayField = 'description';
-/**
+
  * Validation rules
  *
  * @var array
@@ -21,26 +21,6 @@ class Goal extends AppModel {
 		'description' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'visible' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'auto' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -68,7 +48,7 @@ class Goal extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'GoalUser' => array(
+		'UsersGoal' => array(
 			'className' => 'UsersGoal',
 			'foreignKey' => 'goal_id',
 			'dependent' => false,

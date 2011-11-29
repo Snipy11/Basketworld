@@ -22,10 +22,9 @@
 		echo $this->Form->input('fatigue');
 		echo $this->Form->input('form');
 		echo $this->Form->input('experience');
-		echo $this->Form->input('temperament', array('options' => Player::temperaments() ));
+		echo $this->Form->input('temperament');
 		echo $this->Form->input('injury');
-		echo $this->Form->input('speciality', array('options' => Player::specialities() ));
-		echo $this->Form->input('Team');
+		echo $this->Form->input('speciality');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
@@ -40,11 +39,9 @@
 		<li><?php echo $this->Html->link(__('New Country'), array('controller' => 'countries', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Transferts'), array('controller' => 'transferts', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Transfert'), array('controller' => 'transferts', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Matches Players'), array('controller' => 'matches_players', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Player In Match'), array('controller' => 'matches_players', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Actions Matches'), array('controller' => 'actions_matches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Player Actionee'), array('controller' => 'actions_matches', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Teams'), array('controller' => 'teams', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Team'), array('controller' => 'teams', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Players Teams'), array('controller' => 'players_teams', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Player In Team'), array('controller' => 'players_teams', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

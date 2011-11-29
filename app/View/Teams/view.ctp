@@ -147,12 +147,12 @@
 		<li><?php echo $this->Html->link(__('New Youth Investment'), array('controller' => 'youth_investments', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Friendly Match Requests'), array('controller' => 'friendly_match_requests', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Friendly Match Request To'), array('controller' => 'friendly_match_requests', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Players Teams'), array('controller' => 'players_teams', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Players In Team'), array('controller' => 'players_teams', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Matches'), array('controller' => 'matches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Match Home'), array('controller' => 'matches', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Transferts'), array('controller' => 'transferts', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Transfert Buyer'), array('controller' => 'transferts', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Players'), array('controller' => 'players', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Player'), array('controller' => 'players', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
 	<div class="related">
@@ -563,6 +563,39 @@
 	</div>
 </div>
 <div class="related">
+	<h3><?php echo __('Related Players Teams');?></h3>
+	<?php if (!empty($team['PlayersInTeam'])):?>
+	<table cellpadding = "0" cellspacing = "0">
+	<tr>
+		<th><?php echo __('Id'); ?></th>
+		<th><?php echo __('Team Id'); ?></th>
+		<th><?php echo __('Player Id'); ?></th>
+		<th class="actions"><?php echo __('Actions');?></th>
+	</tr>
+	<?php
+		$i = 0;
+		foreach ($team['PlayersInTeam'] as $playersInTeam): ?>
+		<tr>
+			<td><?php echo $playersInTeam['id'];?></td>
+			<td><?php echo $playersInTeam['team_id'];?></td>
+			<td><?php echo $playersInTeam['player_id'];?></td>
+			<td class="actions">
+				<?php echo $this->Html->link(__('View'), array('controller' => 'players_teams', 'action' => 'view', $playersInTeam['id'])); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'players_teams', 'action' => 'edit', $playersInTeam['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'players_teams', 'action' => 'delete', $playersInTeam['id']), null, __('Are you sure you want to delete # %s?', $playersInTeam['id'])); ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+
+	<div class="actions">
+		<ul>
+			<li><?php echo $this->Html->link(__('New Players In Team'), array('controller' => 'players_teams', 'action' => 'add'));?> </li>
+		</ul>
+	</div>
+</div>
+<div class="related">
 	<h3><?php echo __('Related Matches');?></h3>
 	<?php if (!empty($team['MatchHome'])):?>
 	<table cellpadding = "0" cellspacing = "0">
@@ -747,77 +780,6 @@
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Transfert Seller'), array('controller' => 'transferts', 'action' => 'add'));?> </li>
-		</ul>
-	</div>
-</div>
-<div class="related">
-	<h3><?php echo __('Related Players');?></h3>
-	<?php if (!empty($team['Player'])):?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Country Id'); ?></th>
-		<th><?php echo __('First Name'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Age'); ?></th>
-		<th><?php echo __('Height'); ?></th>
-		<th><?php echo __('Salary'); ?></th>
-		<th><?php echo __('Skill'); ?></th>
-		<th><?php echo __('Shoot'); ?></th>
-		<th><?php echo __('3points'); ?></th>
-		<th><?php echo __('Dribble'); ?></th>
-		<th><?php echo __('Assist'); ?></th>
-		<th><?php echo __('Rebound'); ?></th>
-		<th><?php echo __('Block'); ?></th>
-		<th><?php echo __('Steal'); ?></th>
-		<th><?php echo __('Defence'); ?></th>
-		<th><?php echo __('Fatigue'); ?></th>
-		<th><?php echo __('Form'); ?></th>
-		<th><?php echo __('Experience'); ?></th>
-		<th><?php echo __('Temperament'); ?></th>
-		<th><?php echo __('Injury'); ?></th>
-		<th><?php echo __('Speciality'); ?></th>
-		<th class="actions"><?php echo __('Actions');?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($team['Player'] as $player): ?>
-		<tr>
-			<td><?php echo $player['id'];?></td>
-			<td><?php echo $player['country_id'];?></td>
-			<td><?php echo $player['first_name'];?></td>
-			<td><?php echo $player['name'];?></td>
-			<td><?php echo $player['age'];?></td>
-			<td><?php echo $player['height'];?></td>
-			<td><?php echo $player['salary'];?></td>
-			<td><?php echo $player['skill'];?></td>
-			<td><?php echo $player['shoot'];?></td>
-			<td><?php echo $player['3points'];?></td>
-			<td><?php echo $player['dribble'];?></td>
-			<td><?php echo $player['assist'];?></td>
-			<td><?php echo $player['rebound'];?></td>
-			<td><?php echo $player['block'];?></td>
-			<td><?php echo $player['steal'];?></td>
-			<td><?php echo $player['defence'];?></td>
-			<td><?php echo $player['fatigue'];?></td>
-			<td><?php echo $player['form'];?></td>
-			<td><?php echo $player['experience'];?></td>
-			<td><?php echo $player['temperament'];?></td>
-			<td><?php echo $player['injury'];?></td>
-			<td><?php echo $player['speciality'];?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'players', 'action' => 'view', $player['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'players', 'action' => 'edit', $player['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'players', 'action' => 'delete', $player['id']), null, __('Are you sure you want to delete # %s?', $player['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Player'), array('controller' => 'players', 'action' => 'add'));?> </li>
 		</ul>
 	</div>
 </div>
