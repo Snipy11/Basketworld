@@ -47,9 +47,9 @@ class FriendlyMatchRequestsController extends AppController {
 				$this->Session->setFlash(__('The friendly match request could not be saved. Please, try again.'));
 			}
 		}
-		$teamFroms = $this->FriendlyMatchRequest->TeamFrom->find('list');
-		$teamTos = $this->FriendlyMatchRequest->TeamTo->find('list');
-		$this->set(compact('teamFroms', 'teamTos'));
+		$fromTeams = $this->FriendlyMatchRequest->TeamFrom->find('list');
+		$toTeams = $this->FriendlyMatchRequest->TeamTo->find('list');
+		$this->set(compact('fromTeams', 'toTeams'));
 	}
 
 /**
@@ -73,9 +73,9 @@ class FriendlyMatchRequestsController extends AppController {
 		} else {
 			$this->request->data = $this->FriendlyMatchRequest->read(null, $id);
 		}
-		$teamFroms = $this->FriendlyMatchRequest->TeamFrom->find('list');
-		$teamTos = $this->FriendlyMatchRequest->TeamTo->find('list');
-		$this->set(compact('teamFroms', 'teamTos'));
+		$fromTeams = $this->FriendlyMatchRequest->TeamFrom->find('list');
+		$toTeams = $this->FriendlyMatchRequest->TeamTo->find('list');
+		$this->set(compact('fromTeams', 'toTeams'));
 	}
 
 /**

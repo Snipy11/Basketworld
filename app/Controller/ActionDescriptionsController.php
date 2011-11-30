@@ -49,6 +49,7 @@ class ActionDescriptionsController extends AppController {
 		}
 		$actions = $this->ActionDescription->Action->find('list');
 		$languages = $this->ActionDescription->Language->find('list');
+		print_r($languages);
 		$this->set(compact('actions', 'languages'));
 	}
 
