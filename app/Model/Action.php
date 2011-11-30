@@ -1,18 +1,18 @@
 <?php
 App::uses('AppModel', 'Model');
 /**
- * Goal Model
+ * Action Model
  *
- * @property UsersGoal $GoalUser
+ * @property ActionDescription $ActionDescription
+ * @property ActionsMatch $ActionsInMatch
  */
-class Goal extends AppModel {
+class Action extends AppModel {
 /**
  * Display field
  *
  * @var string
  */
 	public $displayField = 'description';
-
 /**
  * Validation rules
  *
@@ -22,16 +22,6 @@ class Goal extends AppModel {
 		'description' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'points' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -49,9 +39,22 @@ class Goal extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'UsersGoal' => array(
-			'className' => 'UsersGoal',
-			'foreignKey' => 'goal_id',
+		'ActionDescription' => array(
+			'className' => 'ActionDescription',
+			'foreignKey' => 'action_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'ActionsInMatch' => array(
+			'className' => 'ActionsMatch',
+			'foreignKey' => 'action_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',

@@ -5,7 +5,7 @@
 	<?php
 		echo $this->Form->input('team_id');
 		echo $this->Form->input('amount');
-		echo $this->Form->input('type');
+		echo $this->Form->input('type', array('options' => Transaction::types() ));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

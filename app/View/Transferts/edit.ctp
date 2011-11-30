@@ -7,7 +7,7 @@
 		echo $this->Form->input('player_id');
 		echo $this->Form->input('acquire_team_id');
 		echo $this->Form->input('sell_team_id');
-		echo $this->Form->input('gm_watch');
+		echo $this->Form->input('gm_watch', array('options' => $gmWatches));
 		echo $this->Form->input('finish_date');
 		echo $this->Form->input('first_price');
 		echo $this->Form->input('current_price');
