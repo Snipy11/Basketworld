@@ -68,7 +68,7 @@ class User extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 			'between' => array(
-				'rule' => array('between', 5, 15),
+				'rule' => array('between', 1, 15),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,

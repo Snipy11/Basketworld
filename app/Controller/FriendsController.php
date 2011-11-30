@@ -47,9 +47,9 @@ class FriendsController extends AppController {
 				$this->Session->setFlash(__('The friend could not be saved. Please, try again.'));
 			}
 		}
-		$userFroms = $this->Friend->UserFrom->find('list');
-		$userTos = $this->Friend->UserTo->find('list');
-		$this->set(compact('userFroms', 'userTos'));
+		$fromUsers = $this->Friend->UserFrom->find('list');
+		$toUsers = $this->Friend->UserTo->find('list');
+		$this->set(compact('fromUsers', 'toUsers'));
 	}
 
 /**
@@ -73,9 +73,9 @@ class FriendsController extends AppController {
 		} else {
 			$this->request->data = $this->Friend->read(null, $id);
 		}
-		$userFroms = $this->Friend->UserFrom->find('list');
-		$userTos = $this->Friend->UserTo->find('list');
-		$this->set(compact('userFroms', 'userTos'));
+		$fromUsers = $this->Friend->UserFrom->find('list');
+		$toUsers = $this->Friend->UserTo->find('list');
+		$this->set(compact('fromUsers', 'toUsers'));
 	}
 
 /**

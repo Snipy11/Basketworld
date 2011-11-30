@@ -6,7 +6,6 @@
 		echo $this->Form->input('team_id');
 		echo $this->Form->input('match_id');
 		echo $this->Form->input('type', array('options' => Strategy::type() ));
-		echo $this->Form->input('condition');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

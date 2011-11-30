@@ -13,6 +13,7 @@ class Goal extends AppModel {
  */
 	public $displayField = 'description';
 
+/**
  * Validation rules
  *
  * @var array
