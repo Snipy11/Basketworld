@@ -85,6 +85,20 @@ class User extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+            'Match Passwords' => array(
+                'rule' => array('matchPasswords'),
+                'message' => 'Vos mots de passe ne sont pas identiques.'
+            )
+		),
+		'password_confirmation' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
 		),
 		'email' => array(
 			'email' => array(
@@ -125,6 +139,26 @@ class User extends AppModel {
 			),
 		),
 	);
+
+    public function matchPasswords($data) {
+        if($data['password'] == $this->data['User']['password_confirmation']) {
+            return true;
+        }
+        $this->invalidate('password_confirmation', 'Vos mots de passe ne sont pas identiques.');
+        return false;
+    }
+    
+    public function beforeSave() 
+    {
+        if(isset($this->data['User']['password'])) {
+            $this->data['User']['password'] = AuthComponent::password($this->data['User']['password']);
+        }
+        return true;
+    }
+
+    
+    
+    
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
