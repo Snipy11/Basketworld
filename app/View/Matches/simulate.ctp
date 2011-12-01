@@ -25,7 +25,7 @@
 			<tr><td><?php echo __("Tentatives 2 points"); ?></td><td><?php echo $playerStat['2pts_attempts']; ?></td></tr>
 			<tr><td><?php echo __("2 points marqués"); ?></td><td><?php echo $playerStat['2pts_scored']; ?></td></tr>
 			<tr><td><?php echo __("Tentatives 3 points"); ?></td><td><?php echo $playerStat['3pts_attempts']; ?></td></tr>
-			<tr><td><?php echo __("3 points lancés"); ?></td><td><?php echo $playerStat['3pts_scored']; ?></td></tr>
+			<tr><td><?php echo __("3 points marqués"); ?></td><td><?php echo $playerStat['3pts_scored']; ?></td></tr>
 			<tr><td><?php echo __("Rebonds offensifs"); ?></td><td><?php echo $playerStat['rebounds_offensive']; ?></td></tr>
 			<tr><td><?php echo __("Rebonds défensifs"); ?></td><td><?php echo $playerStat['rebounds_defensive']; ?></td></tr>
 			<tr><td><?php echo __("Tentatives lancer francs"); ?></td><td><?php echo $playerStat['freethrows_attempts']; ?></td></tr>
@@ -46,7 +46,7 @@
 			<tr><td><?php echo __("Tentatives 2 points"); ?></td><td><?php echo $playerStat['2pts_attempts']; ?></td></tr>
 			<tr><td><?php echo __("2 points marqués"); ?></td><td><?php echo $playerStat['2pts_scored']; ?></td></tr>
 			<tr><td><?php echo __("Tentatives 3 points"); ?></td><td><?php echo $playerStat['3pts_attempts']; ?></td></tr>
-			<tr><td><?php echo __("3 points lancés"); ?></td><td><?php echo $playerStat['3pts_scored']; ?></td></tr>
+			<tr><td><?php echo __("3 points marqués"); ?></td><td><?php echo $playerStat['3pts_scored']; ?></td></tr>
 			<tr><td><?php echo __("Rebonds offensifs"); ?></td><td><?php echo $playerStat['rebounds_offensive']; ?></td></tr>
 			<tr><td><?php echo __("Rebonds défensifs"); ?></td><td><?php echo $playerStat['rebounds_defensive']; ?></td></tr>
 			<tr><td><?php echo __("Tentatives lancer francs"); ?></td><td><?php echo $playerStat['freethrows_attempts']; ?></td></tr>

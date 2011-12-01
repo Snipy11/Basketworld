@@ -265,8 +265,8 @@ class LayUp extends State {
         "{$sim->match['PlayersInMatch'][$sim->playerBallCarrier]['PlayersTeam']['Player']['name']} va au layup.");
         $sim->match['PlayersInMatch'][$sim->playerBallCarrier]['2pts_attempts']++;
 	$d100 = mt_rand(1, 100);
-	if($d100<50) $sim->changeState(Reussi::getInstance());
-	elseif($d100<70) $sim->changeState(Rate::getInstance());
+	if($d100<70) $sim->changeState(Reussi::getInstance());
+	elseif($d100<80) $sim->changeState(Rate::getInstance());
 	else $sim->changeState(Contre::getInstance());
     }
 }
