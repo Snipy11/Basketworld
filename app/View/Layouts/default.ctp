@@ -29,6 +29,7 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
                 <?php echo __('Bienvenue ').$current_user['name'].". "; ?> <?php echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')); ?>
             <?php else: ?>
                 <?php echo $this->Html->link('Login', array('controller' => 'users', 'action' => 'login')); ?>
+                &nbsp;<?php echo $this->Html->link(__('Enregistrement'), array('controller' => 'users', 'action' => 'add')); ?>
             <?php endif; ?>
             </div>
 			<?php echo $this->Session->flash(); ?>
