@@ -12,8 +12,8 @@ class TeamsController extends AppController {
             if($user['id'] != $this->request->params['pass'][0]) {
                 return false;
             }
-            return true;
         }
+        return true;
     }
     
 /**

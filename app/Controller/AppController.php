@@ -6,8 +6,8 @@ class AppController extends Controller {
     public $components = array(
         'Session',
         'Auth' => array (
-            'RedirectLogin' => array('controller' => 'users', 'action' => 'index'),
-            'RedirectLogout' => array('controller' => 'users', 'action' => 'index'),
+            'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'index'),
             'authError' => 'Vous ne pouvez pas accéder à cette page',
             'authorize' => 'controller',
             'authenticate' => array(
@@ -30,6 +30,9 @@ class AppController extends Controller {
         $this->Auth->allow('index', 'view', 'login', 'logout');
         $this->set('logged_in', $this->Auth->loggedIn());
         $this->set('current_user', $this->Auth->user());
+        if($this->Auth->loggedIn()) {
+            $this->layout = 'member';
+        }
     }
     
 }
