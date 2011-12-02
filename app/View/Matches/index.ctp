@@ -33,6 +33,7 @@
 		<td><?php echo h($match['Match']['finished']); ?>&nbsp;</td>
 		<td><?php echo h($match['Match']['type']); ?>&nbsp;</td>
 		<td class="actions">
+            <?php echo $this->Html->link(__('Simulate'), array('action' => 'simulate', $match['Match']['id'])); ?>
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $match['Match']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $match['Match']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $match['Match']['id']), null, __('Are you sure you want to delete # %s?', $match['Match']['id'])); ?>
@@ -59,7 +60,6 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Match'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('Simulate match'), array('action' => 'simulate')); ?> </li>
         <li><?php echo $this->Html->link(__('List Teams'), array('controller' => 'teams', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Home Team'), array('controller' => 'teams', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Strategies'), array('controller' => 'strategies', 'action' => 'index')); ?> </li>

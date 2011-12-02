@@ -3,7 +3,6 @@
 	<fieldset>
 		<legend><?php echo __('Add Team'); ?></legend>
 	<?php
-		echo $this->Form->input('user_id');
 		echo $this->Form->input('division_id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('logo');

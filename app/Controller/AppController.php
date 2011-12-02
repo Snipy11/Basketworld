@@ -18,6 +18,8 @@ class AppController extends Controller {
         )
     );
     
+    public $helpers = array('Form', 'Html', 'Session', 'Auth');
+    
     public function isAuthorized($user) 
     {
         return true;

@@ -106,7 +106,11 @@ class MatchesController extends AppController {
  * 
  * @return void
  */
-    public function simulate() {
+    public function simulate($id = null) {
+        $this->Match->id = $id;
+		if (!$this->Match->exists()) {
+			throw new NotFoundException(__('Invalid match'));
+		}
         $match = $this->Match->find('first', array(
             'contain' => array(
                 'PlayersInMatch' => array(
@@ -117,7 +121,7 @@ class MatchesController extends AppController {
                 'HomeTeam',
                 'VisitorTeam'
             ),
-            'conditions' => array('Match.id' => '1')
+            'conditions' => array('Match.id' => $id)
         ));
 	// Initialize all the stats to 0
 	foreach($match['PlayersInMatch'] as &$playerInMatch) {
