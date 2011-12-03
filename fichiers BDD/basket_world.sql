@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: 127.0.0.1
--- Généré le : Ven 02 Décembre 2011 à 17:51
+-- Généré le : Sam 03 Décembre 2011 à 15:36
 -- Version du serveur: 5.5.16
 -- Version de PHP: 5.3.8
 
@@ -283,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `matches_players` (
   `injury` smallint(5) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_players_matches_matches1` (`match_id`),
-  KEY `players_team_id` (`players_team_id`)
+  KEY `fk_matches_players_players_teams1` (`players_team_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
@@ -334,11 +334,10 @@ CREATE TABLE IF NOT EXISTS `players` (
   `rebound` tinyint(3) unsigned NOT NULL,
   `block` tinyint(3) unsigned NOT NULL,
   `steal` tinyint(3) unsigned NOT NULL,
-  `defence` tinyint(3) unsigned NOT NULL,
-  `fatigue` tinyint(3) unsigned NOT NULL,
+  `defense` tinyint(3) unsigned NOT NULL,
   `form` tinyint(3) unsigned NOT NULL,
   `experience` mediumint(8) unsigned NOT NULL,
-  `temperament` tinyint(3) unsigned NOT NULL COMMENT 'aggressive:0, calm:1, vicous:2, timid:3',
+  `spirit` tinyint(3) unsigned NOT NULL COMMENT 'aggressive:0, calm:1, vicous:2, timid:3',
   `injury` tinyint(3) unsigned NOT NULL,
   `speciality` tinyint(3) unsigned NOT NULL COMMENT 'dunker:0, nasher:1, blocker:2',
   PRIMARY KEY (`id`),
@@ -349,17 +348,17 @@ CREATE TABLE IF NOT EXISTS `players` (
 -- Contenu de la table `players`
 --
 
-INSERT INTO `players` (`id`, `country_id`, `first_name`, `name`, `age`, `height`, `salary`, `skill`, `shoot`, `3points`, `dribble`, `assist`, `rebound`, `block`, `steal`, `defence`, `fatigue`, `form`, `experience`, `temperament`, `injury`, `speciality`) VALUES
-(54254, 1, 'A3', 'PlayerA3', 22, 180, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0),
-(54255, 1, 'A1', 'PlayerA1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54256, 1, 'A2', 'PlayerA2', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54257, 1, 'A4', 'PlayerA4', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54258, 1, 'A5', 'PlayerA5', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54259, 1, 'B1', 'PlayerB1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54260, 1, 'B2', 'PlayerB2', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54261, 1, 'B3', 'PlayerB3', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54262, 1, 'B4', 'PlayerB4', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54263, 1, 'B5', 'PlayerB5', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0);
+INSERT INTO `players` (`id`, `country_id`, `first_name`, `name`, `age`, `height`, `salary`, `skill`, `shoot`, `3points`, `dribble`, `assist`, `rebound`, `block`, `steal`, `defense`, `form`, `experience`, `spirit`, `injury`, `speciality`) VALUES
+(54254, 1, 'A3', 'PlayerA3', 22, 180, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0),
+(54255, 1, 'A1', 'PlayerA1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54256, 1, 'A2', 'PlayerA2', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54257, 1, 'A4', 'PlayerA4', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54258, 1, 'A5', 'PlayerA5', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54259, 1, 'B1', 'PlayerB1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54260, 1, 'B2', 'PlayerB2', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54261, 1, 'B3', 'PlayerB3', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54262, 1, 'B4', 'PlayerB4', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54263, 1, 'B5', 'PlayerB5', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -536,7 +535,7 @@ INSERT INTO `teams` (`id`, `user_id`, `division_id`, `name`, `logo`, `gymnasium_
 
 CREATE TABLE IF NOT EXISTS `trainers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `team_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `team_id` int(10) unsigned DEFAULT NULL,
   `first_name` varchar(64) COLLATE latin1_german2_ci NOT NULL,
   `name` varchar(64) COLLATE latin1_german2_ci NOT NULL,
   `age` smallint(5) unsigned NOT NULL,
@@ -547,9 +546,16 @@ CREATE TABLE IF NOT EXISTS `trainers` (
   `price` int(10) unsigned NOT NULL,
   `available` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `fk_trainers_teams1` (`team_id`),
-  KEY `fk_trainers_countries1` (`country_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
+  KEY `fk_trainers_countries1` (`country_id`),
+  KEY `fk_trainers_teams1` (`team_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `trainers`
+--
+
+INSERT INTO `trainers` (`id`, `team_id`, `first_name`, `name`, `age`, `country_id`, `level`, `style`, `salary`, `price`, `available`) VALUES
+(2, NULL, 'John', 'Doe', 38, 1, 1, 0, 1000, 10000, 1);
 
 -- --------------------------------------------------------
 

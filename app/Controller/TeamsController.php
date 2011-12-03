@@ -7,14 +7,6 @@ App::uses('AppController', 'Controller');
  */
 class TeamsController extends AppController {
 
-    public function isAuthorized($user) {
-        if(in_array($this->action, array('edit', 'delete'))) {
-            if($user['id'] != $this->request->params['pass'][0]) {
-                return false;
-            }
-        }
-        return true;
-    }
     
 /**
  * index method

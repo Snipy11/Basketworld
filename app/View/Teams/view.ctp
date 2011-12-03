@@ -206,9 +206,9 @@
 		</dl>
 	<?php endif; ?>
 		<div class="actions">
-			<ul>
-				<li><?php echo $this->Html->link(__('Edit Trainer'), array('controller' => 'trainers', 'action' => 'edit', $team['Trainer']['id'])); ?></li>
-			</ul>
+            <ul>
+                <li><?php echo $this->Html->link(__('Edit Trainer'), array('controller' => 'trainers', 'action' => 'edit', $team['Trainer']['id'])); ?></li>
+            </ul>
 		</div>
 	</div>
 	<div class="related">

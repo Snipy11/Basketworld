@@ -3,7 +3,7 @@
 	<fieldset>
 		<legend><?php echo __('Add Trainer'); ?></legend>
 	<?php
-		echo $this->Form->input('team_id');
+        echo $this->Form->input('team_id',array('type'=>'select', 'empty'=>'None'));
 		echo $this->Form->input('first_name');
 		echo $this->Form->input('name');
 		echo $this->Form->input('age');

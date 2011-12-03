@@ -21,7 +21,7 @@ class Player extends AppModel {
  * static enum: Model::function()
  * @access static
  */
-    public static function temperaments($value = null) {
+    public static function spirits($value = null) {
         $options = array(
             self::AGGRESSIVE => __('Agressif'),
             self::CALM => __('Calme'),
@@ -186,17 +186,7 @@ class Player extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'defence' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'fatigue' => array(
+		'defense' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -226,7 +216,7 @@ class Player extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'temperament' => array(
+		'spirit' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
