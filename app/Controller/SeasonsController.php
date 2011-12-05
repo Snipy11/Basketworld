@@ -41,13 +41,28 @@ class SeasonsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Season->create();
 			if ($this->Season->save($this->request->data)) {
+                $this->createDivisions($this->Season->id);
 				$this->Session->setFlash(__('The season has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The season could not be saved. Please, try again.'));
 			}
 		}
+        $this->set('season', $this->Season->find('first', array(
+            'order' => 'Season.start_date DESC'
+        )));
 	}
+    
+    private function createDivisions($season) {
+        
+    }
+    
+    
+    private function createMatches($division)
+    {
+        
+    }
+    
 
 /**
  * edit method

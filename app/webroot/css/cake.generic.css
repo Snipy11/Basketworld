@@ -109,6 +109,10 @@ p {
 	text-align: right;
 }
 
+#menu {
+    width: 100%;
+}
+
 /** containers **/
 div.form,
 div.index,
