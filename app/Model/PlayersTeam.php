@@ -61,7 +61,7 @@ class PlayersTeam extends AppModel {
 	public function createPlayers($team_id) {
 		// To access the static enums from Player model
 		App::uses('Player', 'Model');
-		
+
 		for ($i = 0; $i < 10; $i++) {
 			$this->create();
 			$data['Player']['country_id'] = 1;
@@ -77,8 +77,9 @@ class PlayersTeam extends AppModel {
 			$data['Player']['injury'] = 0;
 			$data['Player']['speciality'] = Player::NASHER;
 			$data['Team']['id'] = $team_id;
-			$this->saveAll($data);
+			$this->saveAssociated($data, array('validate' => false));
 		}
+		
 		
 		
 	}

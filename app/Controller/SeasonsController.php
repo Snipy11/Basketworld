@@ -136,12 +136,6 @@ class SeasonsController extends AppController {
 		)
 	    ))
 	 ));
-	 
-	 /*
-	 echo "<pre>";
-	 print_r($data);
-	 echo "</pre>";
-	 */
 	
 	// For each division ordered by hierarchy DESC
 	foreach($data['season']['Division'] as $new_division) {
@@ -197,19 +191,26 @@ class SeasonsController extends AppController {
 	    ));
 	    
 	    foreach($updatedTeams as $team) {
-		$this->Season->Division->Ranking->create();
-		$newRanking['division_id'] = $new_division['id'];
-		$newRanking['team_id'] = $team['Team']['id'];
-		$newRanking['points'] = $newRanking['played'] = $newRanking['victories'] = $newRanking['defeats'] = 
-		$newRanking['points_scored'] = $newRanking['points_against'] = 0;
-		$this->Season->Division->Ranking->save($newRanking);
+		$newRanking[] = array(
+		    'division_id' => $new_division['id'],
+		    'team_id' => $team['Team']['id'],
+		    'points' => 0,
+		    'played' => 0,
+		    'victories' => 0,
+		    'defeats' => 0,
+		    'points_scored' => 0,
+		    'points_against' => 0
+		);
 	    }
+	    $this->Season->Division->Ranking->saveMany($newRanking);
 	}
+	
 	$this->Session->setFlash(__('Les équipes ont été mises à jour. La nouvelle saison est prête.'));
-	$this->redirect(array('action' => 'index'));
+	
+	//$this->redirect(array('action' => 'index'));
     }
     
-    private function getUpperDivisionId(&$data, &$new_division) {
+    private function getUpperDivisionId($data, $new_division) {
 	foreach($data['season']['Division'] as $key => $division) {
 	    if($division['country_id'] == $new_division['country_id'] &&
 		$division['hierarchy'] == floor($new_division['hierarchy'] / 2) ) {
@@ -219,7 +220,7 @@ class SeasonsController extends AppController {
 	return false;
     }
     
-    private function getLowerDivisionIds(&$data, &$new_division) {
+    private function getLowerDivisionIds($data, $new_division) {
 	foreach($data['season']['Division'] as $key => $division) {
 	    if($division['country_id'] == $new_division['country_id'] &&
 		$division['hierarchy'] == $new_division['hierarchy'] * 2 ) {
@@ -231,7 +232,7 @@ class SeasonsController extends AppController {
 	return false;
     }
 
-    private function divisionPreviousSeasonKey(&$data, &$new_division) {
+    private function divisionPreviousSeasonKey($data, $new_division) {
 	if(!empty($data['previous_season'])) {
 	    foreach($data['previous_season']['Division'] as $key => $division) {
 		if($division['country_id'] == $new_division['country_id'] &&

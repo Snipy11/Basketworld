@@ -496,13 +496,9 @@ class Team extends AppModel {
             $team['supporters'] = 200;
             $team['com_politique_gestion'] = Team::NOTHING;
             $team['com_ambition'] = Team::TRADING;
-            $this->save($team);
+            $this->save($team, false);
 			$this->PlayersInTeam->createPlayers($this->id);
-			
         }
     }
-
-
-	
 
 }
