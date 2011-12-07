@@ -21,6 +21,7 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
+		<li><?php echo $this->Html->link(__('Activer'), array('action' => 'activate', $season['Season']['id']), null, __('Etes-vous sûr de vouloir activer cette saison ? Cette opération est irréversible.')); ?></li>
 		<li><?php echo $this->Html->link(__('Edit Season'), array('action' => 'edit', $season['Season']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Delete Season'), array('action' => 'delete', $season['Season']['id']), null, __('Are you sure you want to delete # %s?', $season['Season']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Seasons'), array('action' => 'index')); ?> </li>

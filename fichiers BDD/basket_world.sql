@@ -19,7 +19,12 @@ SET time_zone = "+00:00";
 --
 -- Base de données: `basket_world`
 --
-
+--
+-- Database: `basket_world`
+--
+DROP DATABASE `basket_world`;
+CREATE DATABASE `basket_world` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `basket_world`;
 -- --------------------------------------------------------
 
 --

@@ -468,5 +468,41 @@ class Team extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	public function updateTeamDivision($id, $new_division_id) {
+		$this->recursive = -1;
+		$this->read('division_id', $id);
+		$this->data['Team']['division_id'] = $new_division_id;
+		$this->save($this->data);
+	}
+
+/**
+ * Create new teams and 10 new players in each team.
+ * 
+ */    
+    public function createDivisionTeams($division_id, $number_of_teams) {
+        for($i=0; $i<$number_of_teams; $i++) {
+            $this->create();
+            $team['division_id'] = $division_id;
+            $team['name'] = "Team " . $i; //TODO Need team names.
+            $team['gymnasium_name'] = "{$team['name']} Arena";
+            $team['places_assises'] = 500;
+            $team['places_vip'] = 0;
+            $team['adjoints'] = $team['attaches'] = $team['eplucheurs'] = $team['medecins'] = $team['kines'] =
+            $team['chasseurs'] = $team['stats'] = 0;
+            $team['confiance'] = 50;
+            $team['cash'] = 50000;
+            $team['matos'] = $team['tenues'] = $team['muscu'] = 0;
+            $team['supporters'] = 200;
+            $team['com_politique_gestion'] = Team::NOTHING;
+            $team['com_ambition'] = Team::TRADING;
+            $this->save($team);
+			$this->PlayersInTeam->createPlayers($this->id);
+			
+        }
+    }
+
+
+	
 
 }

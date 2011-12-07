@@ -53,5 +53,34 @@ class PlayersTeam extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+/**
+ * Create new teams and 10 new players in each team.
+ * 
+ */    
+	public function createPlayers($team_id) {
+		// To access the static enums from Player model
+		App::uses('Player', 'Model');
+		
+		for ($i = 0; $i < 10; $i++) {
+			$this->create();
+			$data['Player']['country_id'] = 1;
+			$data['Player']['first_name'] = 'John';
+			$data['Player']['name'] = 'Doe';
+			$data['Player']['age'] = 20;
+			$data['Player']['height'] = 200;
+			$data['Player']['salary'] = 1000;
+			$data['Player']['skill'] = $data['Player']['shoot'] = $data['Player']['3points'] = $data['Player']['dribble'] = $data['Player']['assist'] =
+			$data['Player']['rebound'] = $data['Player']['block'] = $data['Player']['steal'] = $data['Player']['defense'] = $data['Player']['form'] = 20;
+			$data['Player']['experience'] = 0;
+			$data['Player']['spirit'] = Player::CALM;
+			$data['Player']['injury'] = 0;
+			$data['Player']['speciality'] = Player::NASHER;
+			$data['Team']['id'] = $team_id;
+			$this->saveAll($data);
+		}
+		
+		
+	}
 
 }

@@ -3,37 +3,24 @@
 	<fieldset>
 		<legend><?php echo __('Add Season'); ?></legend>
 	<?php
-		echo $this->Form->input('year', array('type' => 'text') );
-		echo $this->Form->input('start_date');
-	?>
+		echo $this->Form->input('year', array(
+			'type' => 'text',
+			'default' => $season['Season']['year'] + 1
+			));
+		echo $this->Form->input('start_date');?>
+		<fieldset>
+				<legend><?php echo __('Niveau de profondeur des divisions.') ?></legend>
+		<?php
+		foreach($countries as $key => $country):
+			echo $this->Form->hidden("Country.{$key}.id", array('value' => $country['Country']['id']));
+			echo $this->Form->input("Country.{$key}.level", array(
+				'label' => $country['Country']['country'],
+				'default' => $country['level']
+			));
+		endforeach;
+	?></fieldset>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
-
-<div class="related">
-	<h3><?php echo __('Related Divisions');?></h3>
-	<?php if (!empty($season['Division'])):?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Hierarchy'); ?></th>
-		<th><?php echo __('Name'); ?></th>
-		<th><?php echo __('Country Id'); ?></th>
-		<th><?php echo __('Season Id'); ?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($season['Division'] as $division): ?>
-		<tr>
-			<td><?php echo $division['id'];?></td>
-			<td><?php echo $division['hierarchy'];?></td>
-			<td><?php echo $division['name'];?></td>
-			<td><?php echo $division['country_id'];?></td>
-			<td><?php echo $division['season_id'];?></td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
-</div>
 
 </div>
 
