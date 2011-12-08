@@ -126,6 +126,11 @@ class SeasonsController extends AppController {
 	    $this->redirect(array('action' => 'index'));
 	}
 	
+	if(!$this->Season->Division->Team->MatchHome->createCalendarMatches($id)) {
+	    $this->Session->setFlash(__('Les équipes et les classements ont été mis à jour. Cependant le calendrier des matches n\'a pas pu être sauvegardé.'));
+	    $this->redirect(array('action' => 'index'));
+	}
+	
 	$this->Session->setFlash(__('Les équipes ont été mises à jour. La nouvelle saison est prête.'));
 	$this->redirect(array('action' => 'index'));
     }

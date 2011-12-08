@@ -416,7 +416,7 @@ class Team extends AppModel {
 			'counterQuery' => ''
 		),
 		'MatchHome' => array(
-			'className' => 'Matches',
+			'className' => 'Match',
 			'foreignKey' => 'home_team_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -429,7 +429,7 @@ class Team extends AppModel {
 			'counterQuery' => ''
 		),
 		'MatchVisit' => array(
-			'className' => 'Matches',
+			'className' => 'Match',
 			'foreignKey' => 'visitor_team_id',
 			'dependent' => false,
 			'conditions' => '',

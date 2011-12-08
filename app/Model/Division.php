@@ -148,8 +148,6 @@ class Division extends AppModel {
 			$this->save($division);
 		}
 	}
-	
-
 
 
 }

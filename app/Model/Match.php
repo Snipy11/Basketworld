@@ -177,4 +177,58 @@ class Match extends AppModel {
 		)
 	);
 
+	public function createCalendarMatches($season_id) {
+		$data = $this->HomeTeam->Division->find('all', array(
+			'conditions' => array ('Division.season_id' => $season_id),
+			'contain' => array('Team' => array(
+				'fields' => 'Team.id'
+			))
+		));
+		foreach($data as $division) {
+			$teamCount = count($division['Team']);
+			for ($j = 0; $j < $teamCount-1; $j++) {
+				for ($i = 0; $i < $teamCount/2; $i++) {
+					$matches[] = array(
+						$division['Team'][$i]['id'],
+						$division['Team'][$teamCount-1 - $i]['id'],
+						date('Y-m-d H:i:s'),
+						0,
+						0,
+						0,
+						Match::LEAGUE
+					);
+				}
+				$this->array_rotate($division['Team']);	
+			}
+		}		
+
+		$fields = array(
+			'home_team_id',
+			'visitor_team_id',
+			'start_date',
+			'normal_spectators',
+			'vip_spectators',
+			'finished',
+			'type'
+		);
+		$db = $this->getDataSource();
+		if(!$db->insertMulti($this->table, $fields, $matches)) {
+			$db->rollback($this);
+			return false;
+		}
+		return true;
+	}
+	
+	private function array_rotate(&$array, $size = null) {
+		if(is_null($size)) {
+			$size = count($array);
+		}
+		$head = $array[0];
+		$tail = $array[1];
+		for ($i = 1; $i < $size-1; $i++) {
+			$array[$i] = $array[$i+1];
+		}
+		$array[$size-1] = $tail;
+	}
+
 }
