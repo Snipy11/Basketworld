@@ -55,33 +55,14 @@ class PlayersTeam extends AppModel {
 	);
 	
 /**
- * Create new teams and 10 new players in each team.
+ * Create a new link of a player in a team.
  * 
  */    
-	public function createPlayers($team_id) {
-		// To access the static enums from Player model
-		App::uses('Player', 'Model');
-
-		for ($i = 0; $i < 10; $i++) {
-			$this->create();
-			$data['Player']['country_id'] = 1;
-			$data['Player']['first_name'] = 'John';
-			$data['Player']['name'] = 'Doe';
-			$data['Player']['age'] = 20;
-			$data['Player']['height'] = 200;
-			$data['Player']['salary'] = 1000;
-			$data['Player']['skill'] = $data['Player']['shoot'] = $data['Player']['3points'] = $data['Player']['dribble'] = $data['Player']['assist'] =
-			$data['Player']['rebound'] = $data['Player']['block'] = $data['Player']['steal'] = $data['Player']['defense'] = $data['Player']['form'] = 20;
-			$data['Player']['experience'] = 0;
-			$data['Player']['spirit'] = Player::CALM;
-			$data['Player']['injury'] = 0;
-			$data['Player']['speciality'] = Player::NASHER;
-			$data['Team']['id'] = $team_id;
-			$this->saveAssociated($data, array('validate' => false));
-		}
-		
-		
-		
+	public function createPlayerInTeam($team_id, $player_id) {
+		$this->create();
+		$data['team_id'] = $team_id;
+		$data['player_id'] = $player_id;
+		$this->save($data, false);		
 	}
 
 }

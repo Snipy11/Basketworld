@@ -470,10 +470,14 @@ class Team extends AppModel {
 	);
 	
 	public function updateTeamDivision($id, $new_division_id) {
+		$this->id = $id;
+		$this->saveField('division_id', $new_division_id);
+		/*
 		$this->recursive = -1;
 		$this->read('division_id', $id);
 		$this->data['Team']['division_id'] = $new_division_id;
 		$this->save($this->data);
+		*/
 	}
 
 /**
@@ -497,7 +501,7 @@ class Team extends AppModel {
             $team['com_politique_gestion'] = Team::NOTHING;
             $team['com_ambition'] = Team::TRADING;
             $this->save($team, false);
-			$this->PlayersInTeam->createPlayers($this->id);
+			$this->PlayersInTeam->Player->createPlayers($this->id);
         }
     }
 
