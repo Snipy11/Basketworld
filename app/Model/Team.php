@@ -33,7 +33,7 @@ class Team extends AppModel {
  * static enum: Model::function()
  * @access static
  */
-    public static function comPolitiqueGestion($value = null) {
+    public static function comAmbition($value = null) {
         $options = array(
             self::NOTHING => __('Aucune'),
             self::NOT_RELEGATED => __('Pas descendre'),
@@ -50,7 +50,7 @@ class Team extends AppModel {
     const TOP = 3;
     const CHAMPION = 4;
 
-    public static function comAmbition($value = null) {
+    public static function comPolitiqueGestion($value = null) {
         $options = array(
             self::TRADING => __('Marché des transferts'),
             self::FORMATION => __('Formation'),
@@ -498,8 +498,8 @@ class Team extends AppModel {
             $team['cash'] = 50000;
             $team['matos'] = $team['tenues'] = $team['muscu'] = 0;
             $team['supporters'] = 200;
-            $team['com_politique_gestion'] = Team::NOTHING;
-            $team['com_ambition'] = Team::TRADING;
+            $team['com_politique_gestion'] = Team::TRADING;
+            $team['com_ambition'] = Team::NOTHING;
             $this->save($team, false);
 			$this->PlayersInTeam->Player->createPlayers($this->id);
         }
