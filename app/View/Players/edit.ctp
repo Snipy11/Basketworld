@@ -18,13 +18,12 @@
 		echo $this->Form->input('rebound');
 		echo $this->Form->input('block');
 		echo $this->Form->input('steal');
-		echo $this->Form->input('defence');
-		echo $this->Form->input('fatigue');
+		echo $this->Form->input('defense');
 		echo $this->Form->input('form');
 		echo $this->Form->input('experience');
-		echo $this->Form->input('temperament');
+		echo $this->Form->input('spirit', array('options' => Player::spirits() ));
 		echo $this->Form->input('injury');
-		echo $this->Form->input('speciality');
+		echo $this->Form->input('speciality', array('options' => Player::specialities() ));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

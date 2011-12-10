@@ -7,7 +7,7 @@ App::uses('AppController', 'Controller');
  */
 class TeamsController extends AppController {
 
-
+    
 /**
  * index method
  *
@@ -40,6 +40,7 @@ class TeamsController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Team->create();
+            $this->Team->user_id = $this->Auth->user('id');
 			if ($this->Team->save($this->request->data)) {
 				$this->Session->setFlash(__('The team has been saved'));
 				$this->redirect(array('action' => 'index'));

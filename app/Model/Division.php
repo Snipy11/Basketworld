@@ -114,5 +114,40 @@ class Division extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	/*
+	 * Find the lowest division created for a country and a season
+	 * 
+	 * @param int $country_id
+	 * @param int $season_id
+	 * @return int $level
+	 */
+	public function deepestLevel($country_id, $season_id) {
+		$last_hierarchy = $this->field('hierarchy', 
+			array(
+				'Division.country_id' => $country_id,
+				'Division.season_id' => $season_id
+			),
+			'Division.hierarchy DESC'
+		);
+		if($last_hierarchy !== false) {
+			$level = floor(log($last_hierarchy, 2)) + 1;
+			return $level;
+		}
+		return 0;
+	}
+	
+	public function createDivisions($country_id, $season_id, $level) {
+		for ($i = 1; $i < pow(2, $level); $i++)  {
+			$this->create();
+			$division['hierarchy'] = $i;
+			$current_level = floor(log($i, 2)) + 1;
+			$division['name'] = "Division " . ($current_level) . chr(65 + ($i % pow(2, $current_level-1)));
+			$division['country_id'] = $country_id;
+			$division['season_id'] = $season_id;
+			$this->save($division);
+		}
+	}
+
 
 }

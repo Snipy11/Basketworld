@@ -4,7 +4,6 @@
 		<legend><?php echo __('Edit Team'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('user_id');
 		echo $this->Form->input('division_id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('logo');

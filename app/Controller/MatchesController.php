@@ -106,7 +106,11 @@ class MatchesController extends AppController {
  * 
  * @return void
  */
-    public function simulate() {
+    public function simulate($id = null) {
+        $this->Match->id = $id;
+		if (!$this->Match->exists()) {
+			throw new NotFoundException(__('Invalid match'));
+		}
         $match = $this->Match->find('first', array(
             'contain' => array(
                 'PlayersInMatch' => array(
@@ -117,7 +121,7 @@ class MatchesController extends AppController {
                 'HomeTeam',
                 'VisitorTeam'
             ),
-            'conditions' => array('Match.id' => '1')
+            'conditions' => array('Match.id' => $id)
         ));
 	// Initialize all the stats to 0
 	foreach($match['PlayersInMatch'] as &$playerInMatch) {
@@ -265,8 +269,8 @@ class LayUp extends State {
         "{$sim->match['PlayersInMatch'][$sim->playerBallCarrier]['PlayersTeam']['Player']['name']} va au layup.");
         $sim->match['PlayersInMatch'][$sim->playerBallCarrier]['2pts_attempts']++;
 	$d100 = mt_rand(1, 100);
-	if($d100<50) $sim->changeState(Reussi::getInstance());
-	elseif($d100<70) $sim->changeState(Rate::getInstance());
+	if($d100<70) $sim->changeState(Reussi::getInstance());
+	elseif($d100<80) $sim->changeState(Rate::getInstance());
 	else $sim->changeState(Contre::getInstance());
     }
 }

@@ -53,5 +53,16 @@ class PlayersTeam extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+/**
+ * Create a new link of a player in a team.
+ * 
+ */    
+	public function createPlayerInTeam($team_id, $player_id) {
+		$this->create();
+		$data['team_id'] = $team_id;
+		$data['player_id'] = $player_id;
+		$this->save($data, false);		
+	}
 
 }

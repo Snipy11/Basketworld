@@ -56,7 +56,8 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Match'), array('action' => 'edit', $match['Match']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Simulate'), array('action' => 'simulate', $match['Match']['id'])); ?></li>
+        <li><?php echo $this->Html->link(__('Edit Match'), array('action' => 'edit', $match['Match']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Delete Match'), array('action' => 'delete', $match['Match']['id']), null, __('Are you sure you want to delete # %s?', $match['Match']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Matches'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Match'), array('action' => 'add')); ?> </li>

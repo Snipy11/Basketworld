@@ -33,7 +33,7 @@ class Team extends AppModel {
  * static enum: Model::function()
  * @access static
  */
-    public static function comPolitiqueGestion($value = null) {
+    public static function comAmbition($value = null) {
         $options = array(
             self::NOTHING => __('Aucune'),
             self::NOT_RELEGATED => __('Pas descendre'),
@@ -50,7 +50,7 @@ class Team extends AppModel {
     const TOP = 3;
     const CHAMPION = 4;
 
-    public static function comAmbition($value = null) {
+    public static function comPolitiqueGestion($value = null) {
         $options = array(
             self::TRADING => __('Marché des transferts'),
             self::FORMATION => __('Formation'),
@@ -416,7 +416,7 @@ class Team extends AppModel {
 			'counterQuery' => ''
 		),
 		'MatchHome' => array(
-			'className' => 'Matches',
+			'className' => 'Match',
 			'foreignKey' => 'home_team_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -429,7 +429,7 @@ class Team extends AppModel {
 			'counterQuery' => ''
 		),
 		'MatchVisit' => array(
-			'className' => 'Matches',
+			'className' => 'Match',
 			'foreignKey' => 'visitor_team_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -468,5 +468,41 @@ class Team extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	public function updateTeamDivision($id, $new_division_id) {
+		$this->id = $id;
+		$this->saveField('division_id', $new_division_id);
+		/*
+		$this->recursive = -1;
+		$this->read('division_id', $id);
+		$this->data['Team']['division_id'] = $new_division_id;
+		$this->save($this->data);
+		*/
+	}
+
+/**
+ * Create new teams and 10 new players in each team.
+ * 
+ */    
+    public function createDivisionTeams($division_id, $number_of_teams) {
+        for($i=0; $i<$number_of_teams; $i++) {
+            $this->create();
+            $team['division_id'] = $division_id;
+            $team['name'] = "Team " . $i; //TODO Need team names.
+            $team['gymnasium_name'] = "{$team['name']} Arena";
+            $team['places_assises'] = 500;
+            $team['places_vip'] = 0;
+            $team['adjoints'] = $team['attaches'] = $team['eplucheurs'] = $team['medecins'] = $team['kines'] =
+            $team['chasseurs'] = $team['stats'] = 0;
+            $team['confiance'] = 50;
+            $team['cash'] = 50000;
+            $team['matos'] = $team['tenues'] = $team['muscu'] = 0;
+            $team['supporters'] = 200;
+            $team['com_politique_gestion'] = Team::TRADING;
+            $team['com_ambition'] = Team::NOTHING;
+            $this->save($team, false);
+			$this->PlayersInTeam->Player->createPlayers($this->id);
+        }
+    }
 
 }

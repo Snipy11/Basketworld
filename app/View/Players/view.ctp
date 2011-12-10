@@ -76,14 +76,9 @@
 			<?php echo h($player['Player']['steal']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Defence'); ?></dt>
+		<dt><?php echo __('Defense'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['defence']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Fatigue'); ?></dt>
-		<dd>
-			<?php echo h($player['Player']['fatigue']); ?>
+			<?php echo h($player['Player']['defense']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Form'); ?></dt>
@@ -96,9 +91,9 @@
 			<?php echo h($player['Player']['experience']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Temperament'); ?></dt>
+		<dt><?php echo __('Spirit'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['temperament']); ?>
+			<?php echo h(Player::spirits($player['Player']['spirit'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Injury'); ?></dt>
@@ -108,7 +103,7 @@
 		</dd>
 		<dt><?php echo __('Speciality'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['speciality']); ?>
+			<?php echo h(Player::specialities($player['Player']['speciality'])); ?>
 			&nbsp;
 		</dd>
 	</dl>

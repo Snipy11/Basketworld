@@ -38,19 +38,22 @@ class DivisionsController extends AppController {
  * @return void
  */
 	public function add() {
-		if ($this->request->is('post')) {
-			$this->Division->create();
-			if ($this->Division->save($this->request->data)) {
-				$this->Session->setFlash(__('The division has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The division could not be saved. Please, try again.'));
-			}
+	    if ($this->request->is('post')) {
+		$this->Division->create();
+		if ($this->Division->save($this->request->data)) {
+		    $this->createDivisionTeams($this->Division->id);
+		    $this->Session->setFlash(__('The division has been saved'));
+		    //$this->redirect(array('action' => 'index'));
+		} else {
+			$this->Session->setFlash(__('The division could not be saved. Please, try again.'));
 		}
-		$countries = $this->Division->Country->find('list');
-		$seasons = $this->Division->Season->find('list');
-		$this->set(compact('countries', 'seasons'));
+	    }
+	    $countries = $this->Division->Country->find('list');
+	    $seasons = $this->Division->Season->find('list');
+	    $this->set(compact('countries', 'seasons'));
+        
 	}
+
 
 /**
  * edit method

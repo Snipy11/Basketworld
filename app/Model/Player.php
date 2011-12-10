@@ -21,7 +21,7 @@ class Player extends AppModel {
  * static enum: Model::function()
  * @access static
  */
-    public static function temperaments($value = null) {
+    public static function spirits($value = null) {
         $options = array(
             self::AGGRESSIVE => __('Agressif'),
             self::CALM => __('Calme'),
@@ -186,17 +186,7 @@ class Player extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'defence' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'fatigue' => array(
+		'defense' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -226,7 +216,7 @@ class Player extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'temperament' => array(
+		'spirit' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
@@ -335,4 +325,27 @@ class Player extends AppModel {
 		)
 	);
 
+/**
+ * Create new teams and 10 new players in each team.
+ * 
+ */    
+	public function createPlayers($team_id) {
+		for ($i = 0; $i < 10; $i++) {
+			$this->create();
+			$data['country_id'] = 1;
+			$data['first_name'] = 'John';
+			$data['name'] = 'Doe';
+			$data['age'] = 20;
+			$data['height'] = 200;
+			$data['salary'] = 1000;
+			$data['skill'] = $data['shoot'] = $data['3points'] = $data['dribble'] = $data['assist'] =
+			$data['rebound'] = $data['block'] = $data['steal'] = $data['defense'] = $data['form'] = 20;
+			$data['experience'] = 0;
+			$data['spirit'] = Player::CALM;
+			$data['injury'] = 0;
+			$data['speciality'] = Player::NASHER;
+			$this->save($data, false);
+			$this->PlayerInTeam->createPlayerInTeam($team_id, $this->id);
+		}
+	}
 }

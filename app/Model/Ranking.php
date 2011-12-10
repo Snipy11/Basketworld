@@ -98,4 +98,50 @@ class Ranking extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	public function createRankings($season_id) {
+		// Make 8 new ranking entries for each teams in each divisions
+		$fields = array(
+			'division_id',
+			'team_id',
+			'points',
+			'played',
+			'victories',
+			'defeats',
+			'points_scored',
+			'points_against'
+		);
+		// Update with the new teams
+		$data = $this->Division->find('all', array(
+			'conditions' => array('Division.season_id' => $season_id),
+			'fields' => array('Division.season_id', 'Division.id'),
+			'contain' => array(
+				'Team' => array(
+					'fields' => array('Team.id')
+				)
+			)	
+		));
+
+		foreach($data as $new_division) {	
+			foreach($new_division['Team'] as $team) {
+				$values[] = array(
+				$new_division['Division']['id'],
+				$team['id'],
+				0,
+				0,
+				0,
+				0,
+				0,
+				0
+				);
+			}
+		}
+		$db = $this->getDataSource();
+		if(!$db->insertMulti($this->table, $fields, $values)) {
+			$db->rollback($this);
+			return false;
+		}
+		return true;
+	}
+	
 }

@@ -90,11 +90,10 @@
 		<th><?php echo __('Rebound'); ?></th>
 		<th><?php echo __('Block'); ?></th>
 		<th><?php echo __('Steal'); ?></th>
-		<th><?php echo __('Defence'); ?></th>
-		<th><?php echo __('Fatigue'); ?></th>
+		<th><?php echo __('Defense'); ?></th>
 		<th><?php echo __('Form'); ?></th>
 		<th><?php echo __('Experience'); ?></th>
-		<th><?php echo __('Temperament'); ?></th>
+		<th><?php echo __('Spirit'); ?></th>
 		<th><?php echo __('Injury'); ?></th>
 		<th><?php echo __('Speciality'); ?></th>
 		<th class="actions"><?php echo __('Actions');?></th>
@@ -118,13 +117,12 @@
 			<td><?php echo $player['rebound'];?></td>
 			<td><?php echo $player['block'];?></td>
 			<td><?php echo $player['steal'];?></td>
-			<td><?php echo $player['defence'];?></td>
-			<td><?php echo $player['fatigue'];?></td>
+			<td><?php echo $player['defense'];?></td>
 			<td><?php echo $player['form'];?></td>
 			<td><?php echo $player['experience'];?></td>
-			<td><?php echo $player['temperament'];?></td>
+			<td><?php echo Player::spirits($player['spirit']);?></td>
 			<td><?php echo $player['injury'];?></td>
-			<td><?php echo $player['speciality'];?></td>
+			<td><?php echo Player::specialities($player['speciality']);?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'players', 'action' => 'view', $player['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'players', 'action' => 'edit', $player['id'])); ?>

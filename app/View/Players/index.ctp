@@ -17,11 +17,10 @@
 			<th><?php echo $this->Paginator->sort('rebound');?></th>
 			<th><?php echo $this->Paginator->sort('block');?></th>
 			<th><?php echo $this->Paginator->sort('steal');?></th>
-			<th><?php echo $this->Paginator->sort('defence');?></th>
-			<th><?php echo $this->Paginator->sort('fatigue');?></th>
+			<th><?php echo $this->Paginator->sort('defense');?></th>
 			<th><?php echo $this->Paginator->sort('form');?></th>
 			<th><?php echo $this->Paginator->sort('experience');?></th>
-			<th><?php echo $this->Paginator->sort('temperament');?></th>
+			<th><?php echo $this->Paginator->sort('spirit');?></th>
 			<th><?php echo $this->Paginator->sort('injury');?></th>
 			<th><?php echo $this->Paginator->sort('speciality');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
@@ -47,13 +46,12 @@
 		<td><?php echo h($player['Player']['rebound']); ?>&nbsp;</td>
 		<td><?php echo h($player['Player']['block']); ?>&nbsp;</td>
 		<td><?php echo h($player['Player']['steal']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['defence']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['fatigue']); ?>&nbsp;</td>
+		<td><?php echo h($player['Player']['defense']); ?>&nbsp;</td>
 		<td><?php echo h($player['Player']['form']); ?>&nbsp;</td>
 		<td><?php echo h($player['Player']['experience']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['temperament']); ?>&nbsp;</td>
+		<td><?php echo h(Player::spirits($player['Player']['spirit'])); ?>&nbsp;</td>
 		<td><?php echo h($player['Player']['injury']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['speciality']); ?>&nbsp;</td>
+		<td><?php echo h(Player::specialities($player['Player']['speciality'])); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $player['Player']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $player['Player']['id'])); ?>

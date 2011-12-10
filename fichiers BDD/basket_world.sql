@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.5
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
--- Serveur: localhost
--- Généré le : Dim 27 Novembre 2011 à 17:38
--- Version du serveur: 5.1.43
--- Version de PHP: 5.3.1
+-- Client: 127.0.0.1
+-- Généré le : Sam 03 Décembre 2011 à 15:36
+-- Version du serveur: 5.5.16
+-- Version de PHP: 5.3.8
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,7 +19,12 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Base de données: `basket_world`
 --
-
+--
+-- Database: `basket_world`
+--
+DROP DATABASE `basket_world`;
+CREATE DATABASE `basket_world` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `basket_world`;
 -- --------------------------------------------------------
 
 --
@@ -30,11 +36,6 @@ CREATE TABLE IF NOT EXISTS `actions` (
   `description` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `actions`
---
-
 
 -- --------------------------------------------------------
 
@@ -55,11 +56,6 @@ CREATE TABLE IF NOT EXISTS `actions_matches` (
   KEY `fk_actions_matches_actions1` (`action_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `actions_matches`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -75,11 +71,6 @@ CREATE TABLE IF NOT EXISTS `action_descriptions` (
   KEY `fk_action_descriptions_actions1` (`action_id`),
   KEY `fk_action_descriptions_languages1` (`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `action_descriptions`
---
-
 
 -- --------------------------------------------------------
 
@@ -142,11 +133,6 @@ CREATE TABLE IF NOT EXISTS `events` (
   KEY `fk_events_teams1` (`team_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `events`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -166,11 +152,6 @@ CREATE TABLE IF NOT EXISTS `friendly_match_requests` (
   KEY `fk_friendly match requests_teams2` (`to_team_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `friendly_match_requests`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -188,11 +169,6 @@ CREATE TABLE IF NOT EXISTS `friends` (
   KEY `fk_amis_users2` (`to_user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `friends`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -207,11 +183,6 @@ CREATE TABLE IF NOT EXISTS `goals` (
   `points` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `goals`
---
-
 
 -- --------------------------------------------------------
 
@@ -230,11 +201,6 @@ CREATE TABLE IF NOT EXISTS `grades_matches` (
   KEY `fk_notes_matchs_users1` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `grades_matches`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -250,11 +216,6 @@ CREATE TABLE IF NOT EXISTS `instructions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `instructions`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -266,11 +227,6 @@ CREATE TABLE IF NOT EXISTS `languages` (
   `language` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `languages`
---
-
 
 -- --------------------------------------------------------
 
@@ -294,14 +250,15 @@ CREATE TABLE IF NOT EXISTS `matches` (
   KEY `id_equipe_ext` (`visitor_team_id`),
   KEY `buts_dom` (`home_points`),
   KEY `buts_ext` (`visitor_points`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `matches`
 --
 
 INSERT INTO `matches` (`id`, `home_team_id`, `visitor_team_id`, `start_date`, `home_points`, `visitor_points`, `normal_spectators`, `vip_spectators`, `finished`, `type`) VALUES
-(1, 30, 31, '2011-11-23 14:12:00', 0, 0, 0, 0, 0, 1);
+(1, 30, 31, '2011-11-23 14:12:00', 0, 0, 0, 0, 0, 1),
+(2, 31, 30, '2011-12-02 10:59:00', 0, 0, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -331,8 +288,8 @@ CREATE TABLE IF NOT EXISTS `matches_players` (
   `injury` smallint(5) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_players_matches_matches1` (`match_id`),
-  KEY `players_team_id` (`players_team_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+  KEY `fk_matches_players_players_teams1` (`players_team_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 --
 -- Contenu de la table `matches_players`
@@ -348,7 +305,17 @@ INSERT INTO `matches_players` (`id`, `match_id`, `players_team_id`, `position`, 
 (17, 1, 8, 1, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (18, 1, 9, 2, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (19, 1, 10, 3, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 1, 11, 4, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(20, 1, 11, 4, 0, '13:43:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(21, 2, 2, 0, 0, '11:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 2, 3, 1, 0, '11:01:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 2, 4, 2, 0, '11:01:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, 2, 5, 3, 0, '11:01:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 2, 6, 4, 0, '11:02:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 2, 7, 0, 1, '11:02:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, 2, 8, 1, 1, '11:02:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 2, 9, 2, 1, '11:02:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 2, 10, 3, 1, '11:02:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, 2, 11, 4, 1, '11:03:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -372,11 +339,10 @@ CREATE TABLE IF NOT EXISTS `players` (
   `rebound` tinyint(3) unsigned NOT NULL,
   `block` tinyint(3) unsigned NOT NULL,
   `steal` tinyint(3) unsigned NOT NULL,
-  `defence` tinyint(3) unsigned NOT NULL,
-  `fatigue` tinyint(3) unsigned NOT NULL,
+  `defense` tinyint(3) unsigned NOT NULL,
   `form` tinyint(3) unsigned NOT NULL,
   `experience` mediumint(8) unsigned NOT NULL,
-  `temperament` tinyint(3) unsigned NOT NULL COMMENT 'aggressive:0, calm:1, vicous:2, timid:3',
+  `spirit` tinyint(3) unsigned NOT NULL COMMENT 'aggressive:0, calm:1, vicous:2, timid:3',
   `injury` tinyint(3) unsigned NOT NULL,
   `speciality` tinyint(3) unsigned NOT NULL COMMENT 'dunker:0, nasher:1, blocker:2',
   PRIMARY KEY (`id`),
@@ -387,17 +353,17 @@ CREATE TABLE IF NOT EXISTS `players` (
 -- Contenu de la table `players`
 --
 
-INSERT INTO `players` (`id`, `country_id`, `first_name`, `name`, `age`, `height`, `salary`, `skill`, `shoot`, `3points`, `dribble`, `assist`, `rebound`, `block`, `steal`, `defence`, `fatigue`, `form`, `experience`, `temperament`, `injury`, `speciality`) VALUES
-(54254, 1, 'A3', 'PlayerA3', 22, 180, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0),
-(54255, 1, 'A1', 'PlayerA1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54256, 1, 'A2', 'PlayerA2', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54257, 1, 'A4', 'PlayerA4', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54258, 1, 'A5', 'PlayerA5', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54259, 1, 'B1', 'PlayerB1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54260, 1, 'B2', 'PlayerB2', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54261, 1, 'B3', 'PlayerB3', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54262, 1, 'B4', 'PlayerB4', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
-(54263, 1, 'B5', 'PlayerB5', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0);
+INSERT INTO `players` (`id`, `country_id`, `first_name`, `name`, `age`, `height`, `salary`, `skill`, `shoot`, `3points`, `dribble`, `assist`, `rebound`, `block`, `steal`, `defense`, `form`, `experience`, `spirit`, `injury`, `speciality`) VALUES
+(54254, 1, 'A3', 'PlayerA3', 22, 180, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0),
+(54255, 1, 'A1', 'PlayerA1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54256, 1, 'A2', 'PlayerA2', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54257, 1, 'A4', 'PlayerA4', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54258, 1, 'A5', 'PlayerA5', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54259, 1, 'B1', 'PlayerB1', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54260, 1, 'B2', 'PlayerB2', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54261, 1, 'B3', 'PlayerB3', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54262, 1, 'B4', 'PlayerB4', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0),
+(54263, 1, 'B5', 'PlayerB5', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -447,11 +413,6 @@ CREATE TABLE IF NOT EXISTS `press_releases` (
   KEY `fk_communiques_teams1` (`team_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `press_releases`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -473,11 +434,6 @@ CREATE TABLE IF NOT EXISTS `rankings` (
   KEY `fk_classements_teams1` (`team_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `rankings`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -495,11 +451,6 @@ CREATE TABLE IF NOT EXISTS `rumors` (
   KEY `fk_rumeurs_divisions1` (`division_id`),
   KEY `fk_rumeurs_users1` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `rumors`
---
-
 
 -- --------------------------------------------------------
 
@@ -537,11 +488,6 @@ CREATE TABLE IF NOT EXISTS `strategies` (
   KEY `fk_strategy_teams1` (`team_id`),
   KEY `fk_strategy_matches1` (`match_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `strategies`
---
-
 
 -- --------------------------------------------------------
 
@@ -583,8 +529,8 @@ CREATE TABLE IF NOT EXISTS `teams` (
 --
 
 INSERT INTO `teams` (`id`, `user_id`, `division_id`, `name`, `logo`, `gymnasium_name`, `places_assises`, `places_vip`, `adjoints`, `attaches`, `eplucheurs`, `medecins`, `kines`, `chasseurs`, `stats`, `confiance`, `cash`, `matos`, `tenues`, `muscu`, `supporters`, `com_politique_gestion`, `com_ambition`) VALUES
-(30, 115, 5, 'Equipe A', '', 'Dan''s Stadium', 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
-(31, 115, 5, 'Equipe B', '', 'test stadium', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+(30, 117, 5, 'Equipe A', '', 'Dan''s Stadium', 100, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0),
+(31, 117, 5, 'Equipe B', '', 'test stadium', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -594,7 +540,7 @@ INSERT INTO `teams` (`id`, `user_id`, `division_id`, `name`, `logo`, `gymnasium_
 
 CREATE TABLE IF NOT EXISTS `trainers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `team_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `team_id` int(10) unsigned DEFAULT NULL,
   `first_name` varchar(64) COLLATE latin1_german2_ci NOT NULL,
   `name` varchar(64) COLLATE latin1_german2_ci NOT NULL,
   `age` smallint(5) unsigned NOT NULL,
@@ -605,14 +551,16 @@ CREATE TABLE IF NOT EXISTS `trainers` (
   `price` int(10) unsigned NOT NULL,
   `available` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `fk_trainers_teams1` (`team_id`),
-  KEY `fk_trainers_countries1` (`country_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
+  KEY `fk_trainers_countries1` (`country_id`),
+  KEY `fk_trainers_teams1` (`team_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `trainers`
 --
 
+INSERT INTO `trainers` (`id`, `team_id`, `first_name`, `name`, `age`, `country_id`, `level`, `style`, `salary`, `price`, `available`) VALUES
+(2, NULL, 'John', 'Doe', 38, 1, 1, 0, 1000, 10000, 1);
 
 -- --------------------------------------------------------
 
@@ -630,11 +578,6 @@ CREATE TABLE IF NOT EXISTS `trainings` (
   KEY `fk_trainings_teams1` (`team_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `trainings`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -650,11 +593,6 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   PRIMARY KEY (`id`),
   KEY `fk_economies_teams1` (`team_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `transactions`
---
-
 
 -- --------------------------------------------------------
 
@@ -680,11 +618,6 @@ CREATE TABLE IF NOT EXISTS `transferts` (
   KEY `fk_transferts_users1` (`gm_watch`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `transferts`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -708,14 +641,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `waiting` tinyint(1) NOT NULL DEFAULT '0',
   `group` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT 'member:0, moderator:1, gamemaster:2, anim_rp:3, admin:4',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=116 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=119 ;
 
 --
 -- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `password`, `validated`, `created`, `lastconnect`, `email`, `presentation`, `birthdate`, `gender`, `ip`, `avatar`, `inactive`, `waiting`, `group`) VALUES
-(115, 'Daniel', 'daniel', 1, '2011-11-20 13:49:07', '2011-11-20 13:41:00', 'dan@abc.com', '', '1975-09-02', 0, '158.165.54.25', '', 0, 0, 4);
+(117, 'daniel', '17c9ff8a453e01c38a952ee3e73189468d298b2a', 0, '2011-12-01 15:59:37', '2011-12-01 15:59:00', 'dan.gillet@email.com', '', '2011-12-01', 0, '192.168.1.1', '', 0, 0, 0),
+(118, 'test', '5f8f76c3d258051fdf4a57e7d677c32475760c78', 0, '2011-12-02 10:51:41', '2011-12-02 10:51:00', 'test@test.com', '', '2011-12-02', 0, '', '', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -735,11 +669,6 @@ CREATE TABLE IF NOT EXISTS `users_goals` (
   KEY `fk_users_goals_users1` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_german2_ci AUTO_INCREMENT=1 ;
 
---
--- Contenu de la table `users_goals`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -754,11 +683,6 @@ CREATE TABLE IF NOT EXISTS `vips` (
   PRIMARY KEY (`id`),
   KEY `fk_vip_users1` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Contenu de la table `vips`
---
-
 
 -- --------------------------------------------------------
 
@@ -775,11 +699,6 @@ CREATE TABLE IF NOT EXISTS `youth_investments` (
   PRIMARY KEY (`id`),
   KEY `fk_youth_training_centers_teams1` (`team_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `youth_investments`
---
-
 
 --
 -- Contraintes pour les tables exportées
@@ -846,8 +765,8 @@ ALTER TABLE `matches`
 -- Contraintes pour la table `matches_players`
 --
 ALTER TABLE `matches_players`
-  ADD CONSTRAINT `matches_players_ibfk_1` FOREIGN KEY (`players_team_id`) REFERENCES `players_teams` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_players_matches_matches1` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_players_matches_matches1` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `matches_players_ibfk_1` FOREIGN KEY (`players_team_id`) REFERENCES `players_teams` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `players`
@@ -943,3 +862,7 @@ ALTER TABLE `vips`
 --
 ALTER TABLE `youth_investments`
   ADD CONSTRAINT `fk_youth_training_centers_teams1` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

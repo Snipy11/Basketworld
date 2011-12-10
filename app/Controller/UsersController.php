@@ -7,6 +7,33 @@ App::uses('AppController', 'Controller');
  */
 class UsersController extends AppController {
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('add');
+    }
+    
+    public function login() {
+        if($this->request->is('post')) {
+            if($this->Auth->login()) {
+                $this->redirect($this->Auth->redirect());
+            } else {
+                $this->Session->setFlash(__('Votre login ou mot de passe est incorrect.'));
+            }
+        }            
+    }
+    
+    public function logout() {
+        $this->redirect($this->Auth->logout());
+    }
+        
+    public function isAuthorized($user) {
+        if(in_array($this->action, array('edit', 'delete'))) {
+            if($user['id'] != $this->request->params['pass'][0]) {
+                return false;
+            }
+            return true;
+        }
+    }
 
 /**
  * index method

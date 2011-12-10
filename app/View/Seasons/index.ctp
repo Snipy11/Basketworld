@@ -15,6 +15,7 @@
 		<td><?php echo h($season['Season']['year']); ?>&nbsp;</td>
 		<td><?php echo h($season['Season']['start_date']); ?>&nbsp;</td>
 		<td class="actions">
+			<?php echo $this->Html->link(__('Activer'), array('action' => 'activate', $season['Season']['id']), null, __('Etes-vous sûr de vouloir activer cette saison ? Cette opération est irréversible.')); ?>
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $season['Season']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $season['Season']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $season['Season']['id']), null, __('Are you sure you want to delete # %s?', $season['Season']['id'])); ?>
