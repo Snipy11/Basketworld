@@ -4,6 +4,8 @@ App::uses('AppModel', 'Model');
  * Country Model
  *
  * @property Division $Division
+ * @property PlayerFirstName $PlayerFirstName
+ * @property PlayerName $PlayerName
  * @property Player $Player
  * @property Trainer $Trainer
  */
@@ -42,6 +44,32 @@ class Country extends AppModel {
 	public $hasMany = array(
 		'Division' => array(
 			'className' => 'Division',
+			'foreignKey' => 'country_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'PlayerFirstName' => array(
+			'className' => 'PlayerFirstName',
+			'foreignKey' => 'country_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'PlayerName' => array(
+			'className' => 'PlayerName',
 			'foreignKey' => 'country_id',
 			'dependent' => false,
 			'conditions' => '',
