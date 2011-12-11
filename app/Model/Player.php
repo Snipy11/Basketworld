@@ -345,7 +345,7 @@ class Player extends AppModel {
 			$data['injury'] = 0;
 			$data['speciality'] = Player::NASHER;
 			$this->save($data, false);
-			$this->PlayerInTeam->createPlayerInTeam($team_id, $this->id);
+			$this->PlayerInTeam->createPlayerInTeam($team_id, $this->id, $i % 5);
 		}
 	}
 }
