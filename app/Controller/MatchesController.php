@@ -100,6 +100,34 @@ class MatchesController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
     
+    public function next()
+    {
+        if(!$this->request->params['requested']) {
+            throw new MethodNotAllowedException(__('Cette requête n\'est pas valable.'));
+        }
+        $conditions = array(
+            'OR' => array(
+                array(
+                    'home_team_id' => $this->request->params['named']['team'],
+                    'start_date >=' => date('Y-m-d', strtotime('now'))
+                ),
+                array(
+                    'visitor_team_id' => $this->request->params['named']['team'],
+                    'start_date >=' => date('Y-m-d', strtotime('now'))
+                )
+            )
+        );
+        $next_match = $this->Match->find('first', array(
+            'conditions' => $conditions,
+            'order' => 'Match.start_date'
+        ));
+        echo"<pre>";
+        print_r($next_match);
+        echo"</pre>";
+        return $next_match;
+    }
+    
+    
 /**
  * simulate method
  * 
