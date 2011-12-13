@@ -42,10 +42,10 @@ class UsersController extends AppController {
  *
  * @return void
  */
-	public function index() {
-		$this->User->recursive = 0;
-		$this->set('users', $this->paginate());
-	}
+    public function index() {
+	$this->User->recursive = 0;
+	$this->set('users', $this->paginate());
+    }
 
 /**
  * view method
@@ -53,58 +53,58 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		$this->set('user', $this->User->read(null, $id));
-	}
+    public function view($id = null) {
+	    $this->User->id = $id;
+	    if (!$this->User->exists()) {
+		throw new NotFoundException(__('Invalid user'));
+	    }
+	    $this->set('user', $this->User->read(null, $id));
+    }
 
 /**
  * add method
  *
  * @return void
  */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->User->create();
-            $this->request->data['User']['validated'] = 1;
-            $this->request->data['User']['lastconnect'] = strtotime('now');
-            $this->request->data['User']['ip'] = $this->request->clientIp();
-            $this->request->data['User']['avatar'] = '';
-            $this->request->data['User']['inactive'] = 0;
-            $this->request->data['User']['waiting'] = 0;
-            $this->request->data['User']['group'] = User::MEMBER;
-			if ($this->User->save($this->request->data)) {
-                $available_team = $this->User->Team->find('first', array(
-                    'conditions' => array('Team.user_id' => NULL),
-                    'fields' => array('Team.id', 'Team.name'),
-                    'contain' => array(
-                        'Division' => array(
-                            'order' => array('Division.hierarchy'),
-                            'fields' => array('Division.hierarchy')
-                        )
-                    )
-                ));
-                if(!empty($available_team)) {
-                    $this->User->Team->id = $available_team['Team']['id'];
-                    $this->User->Team->saveField('user_id', $this->User->id);
-                    $this->Session->setFlash(__("Vous avez été enregistré, et vous devenez le manager de l'équipe {$available_team['Team']['name']}."));
-                    
-                } else {
-                    $this->Session->setFlash(__('Vous avez été enregistré. Cependant aucune équipe n\'est disponible. Veuillez contacter un administrateur.'));
-                }
-                $this->Auth->login();
-                if(isset($this->User->Team->id)) {
-                    $this->Session->write('Auth.User.Team.id', $team_id);
-                }
-				$this->redirect(array('action' => 'welcome'));
-			} else {
-				$this->Session->setFlash(__('Une erreur s\'est produite druant votre enregistrement. Veuillez ré-essayer'));
-			}
+    public function add() {
+	if ($this->request->is('post')) {
+	    $this->User->create();
+	    $this->request->data['User']['validated'] = 1;
+	    $this->request->data['User']['lastconnect'] = date('Y-m-d H:i:s', strtotime('now'));
+	    $this->request->data['User']['ip'] = $this->request->clientIp();
+	    $this->request->data['User']['avatar'] = '';
+	    $this->request->data['User']['inactive'] = 0;
+	    $this->request->data['User']['waiting'] = 0;
+	    $this->request->data['User']['group'] = User::MEMBER;
+	    if ($this->User->save($this->request->data)) {
+		$available_team = $this->User->Team->find('first', array(
+		    'conditions' => array('Team.user_id' => NULL),
+		    'fields' => array('Team.id', 'Team.name'),
+		    'contain' => array(
+			'Division' => array(
+			    'order' => array('Division.hierarchy'),
+			    'fields' => array('Division.hierarchy')
+			)
+		    )
+		));
+		if(!empty($available_team)) {
+		    $this->User->Team->id = $available_team['Team']['id'];
+		    $this->User->Team->saveField('user_id', $this->User->id);
+		    $this->Session->setFlash(__("Vous avez été enregistré, et vous devenez le manager de l'équipe {$available_team['Team']['name']}."));
+		    
+		} else {
+		    $this->Session->setFlash(__('Vous avez été enregistré. Cependant aucune équipe n\'est disponible. Veuillez contacter un administrateur.'));
 		}
+		$this->Auth->login($this->request->data['User']);
+		if(!empty($available_team['Team']['id'])) {
+		    $this->Session->write('Auth.User.Team.id', $available_team['Team']['id']);
+		}
+		$this->redirect(array('action' => 'welcome'));
+	    } else {
+		$this->Session->setFlash(__('Une erreur s\'est produite durant votre enregistrement. Veuillez ré-essayer'));
+	    }
 	}
+    }
 
 /**
  * edit method
@@ -112,22 +112,22 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('The user has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
-			}
-		} else {
-			$this->request->data = $this->User->read(null, $id);
-		}
+    public function edit($id = null) {
+	$this->User->id = $id;
+	if (!$this->User->exists()) {
+	    throw new NotFoundException(__('Invalid user'));
 	}
+	if ($this->request->is('post') || $this->request->is('put')) {
+	    if ($this->User->save($this->request->data)) {
+		$this->Session->setFlash(__('The user has been saved'));
+		$this->redirect(array('action' => 'index'));
+	    } else {
+		$this->Session->setFlash(__('The user could not be saved. Please, try again.'));
+	    }
+	} else {
+	    $this->request->data = $this->User->read(null, $id);
+	}
+    }
 
 /**
  * delete method
@@ -135,25 +135,25 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
-		if (!$this->request->is('post')) {
-			throw new MethodNotAllowedException();
-		}
-		$this->User->id = $id;
-		if (!$this->User->exists()) {
-			throw new NotFoundException(__('Invalid user'));
-		}
-		if ($this->User->delete()) {
-			$this->Session->setFlash(__('User deleted'));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->Session->setFlash(__('User was not deleted'));
-		$this->redirect(array('action' => 'index'));
+    public function delete($id = null) {
+	if (!$this->request->is('post')) {
+	    throw new MethodNotAllowedException();
 	}
+	$this->User->id = $id;
+	if (!$this->User->exists()) {
+	    throw new NotFoundException(__('Invalid user'));
+	}
+	if ($this->User->delete()) {
+	    $this->Session->setFlash(__('User deleted'));
+	    $this->redirect(array('action'=>'index'));
+	}
+	$this->Session->setFlash(__('User was not deleted'));
+	$this->redirect(array('action' => 'index'));
+    }
     
     public function welcome()
     {
-        if($this->Auth->loggedIn()) {
+	if($this->Auth->loggedIn() && $this->Session->check('Auth.User.Team.id')) {
             $this->render('member');
         } else {
             $this->render('visitor');

@@ -39,12 +39,23 @@ class PlayerNamesController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			$this->PlayerName->create();
-			if ($this->PlayerName->save($this->request->data)) {
-				$this->Session->setFlash(__('The player name has been saved'));
-				$this->redirect(array('action' => 'index'));
+			$lines = file($this->request->data['PlayerName']['name']['tmp_name'],
+							FILE_IGNORE_NEW_LINES | FILE_TEXT | FILE_SKIP_EMPTY_LINES);
+			unlink($this->request->data['PlayerName']['name']['tmp_name']);
+			$fields = array('name', 'country_id');
+			foreach($lines as $line) {
+				$values[] = array(
+					$line,
+					$this->request->data['PlayerName']['country_id']
+				);
+			}
+			$db = $this->PlayerName->getDataSource();
+			if(!$db->insertMulti($this->PlayerName->table, $fields, $values)) {
+				$db->rollback($this);
+				$this->Session->setFlash(__('Une erreur s\'est produite lors de l\'enregistrement des noms. Veuillez réessayer.'));
 			} else {
-				$this->Session->setFlash(__('The player name could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Les noms ont été enregistrés avec succès.'));
+				$this->redirect(array('action' => 'index'));
 			}
 		}
 		$countries = $this->PlayerName->Country->find('list');
@@ -97,4 +108,5 @@ class PlayerNamesController extends AppController {
 		$this->Session->setFlash(__('Player name was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+	
 }

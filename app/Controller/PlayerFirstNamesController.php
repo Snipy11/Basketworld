@@ -39,12 +39,23 @@ class PlayerFirstNamesController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			$this->PlayerFirstName->create();
-			if ($this->PlayerFirstName->save($this->request->data)) {
-				$this->Session->setFlash(__('The player first name has been saved'));
-				$this->redirect(array('action' => 'index'));
+			$lines = file($this->request->data['PlayerFirstName']['first_name']['tmp_name'],
+							FILE_IGNORE_NEW_LINES | FILE_TEXT | FILE_SKIP_EMPTY_LINES);
+			unlink($this->request->data['PlayerFirstName']['first_name']['tmp_name']);
+			$fields = array('first_name', 'country_id');
+			foreach($lines as $line) {
+				$values[] = array(
+					$line,
+					$this->request->data['PlayerFirstName']['country_id']
+				);
+			}
+			$db = $this->PlayerFirstName->getDataSource();
+			if(!$db->insertMulti($this->PlayerFirstName->table, $fields, $values)) {
+				$db->rollback($this);
+				$this->Session->setFlash(__('Une erreur s\'est produite lors de l\'enregistrement des prénoms. Veuillez réessayer.'));
 			} else {
-				$this->Session->setFlash(__('The player first name could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('Les prénoms ont été enregistrés avec succès.'));
+				$this->redirect(array('action' => 'index'));
 			}
 		}
 		$countries = $this->PlayerFirstName->Country->find('list');

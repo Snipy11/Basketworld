@@ -46,4 +46,21 @@ class PlayerFirstName extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	public function getRandomFirstName($country_id) {
+		$count = Cache::read('firstNameCount' . $country_id);
+		if($count === false) {
+			$count = $this->find('count', array(
+				'conditions' => array('country_id' => $country_id)
+			));
+			Cache::write('firstNameCount' . $country_id, $count);
+		}
+		$name = $this->find('first', array(
+			'conditions' => array('country_id' => $country_id),
+			'offset' => mt_rand(0, $count-1),
+			'recursive' => -1,
+			'fields' => 'first_name'
+		));
+		return $name['PlayerFirstName']['first_name'];
+	}
 }
