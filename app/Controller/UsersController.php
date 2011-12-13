@@ -16,7 +16,7 @@ class UsersController extends AppController {
         if($this->request->is('post')) {
             if($this->Auth->login()) {
                 $team_id = $this->User->Team->field('id', array('Team.user_id' => $this->Auth->user('id')));
-                $this->Session->write('Auth.User.Team.id', $team_id);
+                $this->Session->write('Auth.User.team_id', $team_id);
                 $this->redirect($this->Auth->redirect());
             } else {
                 $this->Session->setFlash(__('Votre login ou mot de passe est incorrect.'));
@@ -97,7 +97,7 @@ class UsersController extends AppController {
 		}
 		$this->Auth->login($this->request->data['User']);
 		if(!empty($available_team['Team']['id'])) {
-		    $this->Session->write('Auth.User.Team.id', $available_team['Team']['id']);
+		    $this->Session->write('Auth.User.team_id', $available_team['Team']['id']);
 		}
 		$this->redirect(array('action' => 'welcome'));
 	    } else {
@@ -153,7 +153,7 @@ class UsersController extends AppController {
     
     public function welcome()
     {
-	if($this->Auth->loggedIn() && $this->Session->check('Auth.User.Team.id')) {
+	if($this->Auth->loggedIn() && $this->Session->check('Auth.User.team_id')) {
             $this->render('member');
         } else {
             $this->render('visitor');

@@ -1,59 +1,33 @@
 <div class="matchesPlayers index">
-	<h2><?php echo __('Matches Players');?></h2>
+	<h2><?php echo __('Ordre de match');?></h2>
+	<dl>
+		<dt><?php echo __('Date'); ?> : </dt>
+		<dd><?php echo utf8_encode(strftime('Le %A %#d %B %Y', strtotime($match['Match']['start_date']))) ?></dd>
+		<dt><?php echo __('Domicile') ?> :</dt>
+		<dd><?php echo $match['HomeTeam']['name'] ?></dd>
+		<dt><?php echo __('Visiteur') ?> :</dt>
+		<dd><?php echo $match['VisitorTeam']['name'] ?></dd>
+	</dl>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php echo $this->Paginator->sort('match_id');?></th>
-			<th><?php echo $this->Paginator->sort('players_team_id');?></th>
-			<th><?php echo $this->Paginator->sort('position');?></th>
-			<th><?php echo $this->Paginator->sort('at_home');?></th>
-			<th><?php echo $this->Paginator->sort('play_time');?></th>
-			<th><?php echo $this->Paginator->sort('2pts_attempts');?></th>
-			<th><?php echo $this->Paginator->sort('2pts_scored');?></th>
-			<th><?php echo $this->Paginator->sort('3pts_attempts');?></th>
-			<th><?php echo $this->Paginator->sort('3pts_scored');?></th>
-			<th><?php echo $this->Paginator->sort('rebounds_offensive');?></th>
-			<th><?php echo $this->Paginator->sort('rebounds_defensive');?></th>
-			<th><?php echo $this->Paginator->sort('freethrows_attempts');?></th>
-			<th><?php echo $this->Paginator->sort('freethrows_scored');?></th>
-			<th><?php echo $this->Paginator->sort('assists');?></th>
-			<th><?php echo $this->Paginator->sort('steals');?></th>
-			<th><?php echo $this->Paginator->sort('blocks');?></th>
-			<th><?php echo $this->Paginator->sort('fouls');?></th>
-			<th><?php echo $this->Paginator->sort('injury');?></th>
+			<th><?php echo $this->Paginator->sort('Joueur');?></th>
+			<th><?php echo $this->Paginator->sort('Position habituelle');?></th>
+			<th><?php echo $this->Paginator->sort('Position');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	$i = 0;
 	foreach ($matchesPlayers as $matchesPlayer): ?>
 	<tr>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['id']); ?>&nbsp;</td>
+
 		<td>
-			<?php echo $this->Html->link($matchesPlayer['Match']['id'], array('controller' => 'matches', 'action' => 'view', $matchesPlayer['Match']['id'])); ?>
+			<?php echo h($matchesPlayer['Player']['first_name'] .' '. $matchesPlayer['Player']['name']); ?>
 		</td>
-		<td>
-			<?php echo $this->Html->link($matchesPlayer['PlayersTeam']['id'], array('controller' => 'players_teams', 'action' => 'view', $matchesPlayer['PlayersTeam']['id'])); ?>
-		</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['position']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['at_home']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['play_time']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['2pts_attempts']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['2pts_scored']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['3pts_attempts']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['3pts_scored']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['rebounds_offensive']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['rebounds_defensive']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['freethrows_attempts']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['freethrows_scored']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['assists']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['steals']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['blocks']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['fouls']); ?>&nbsp;</td>
-		<td><?php echo h($matchesPlayer['MatchesPlayer']['injury']); ?>&nbsp;</td>
+		<td><?php echo h(MatchesPlayer::positions($matchesPlayer['PlayersTeam']['default_position'])); ?>&nbsp;</td>
+		<td><?php echo h(MatchesPlayer::positions($matchesPlayer['MatchesPlayer']['position'])); ?>&nbsp;</td>
+
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $matchesPlayer['MatchesPlayer']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $matchesPlayer['MatchesPlayer']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $matchesPlayer['MatchesPlayer']['id']), null, __('Are you sure you want to delete # %s?', $matchesPlayer['MatchesPlayer']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $match['Match']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -64,7 +38,6 @@
 	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
 	));
 	?>	</p>
-
 	<div class="paging">
 	<?php
 		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
@@ -76,7 +49,9 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Matches Player'), array('action' => 'add')); ?></li>
+		<?php if($this->Paginator->params->paging['MatchesPlayer']['count'] == 0): ?>
+		<li><?php echo $this->Html->link(__('Nouvel ordre de match'), array('action' => 'add', $match['Match']['id'])); ?></li>
+		<?php endif; ?>
 		<li><?php echo $this->Html->link(__('List Matches'), array('controller' => 'matches', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Match'), array('controller' => 'matches', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Players Teams'), array('controller' => 'players_teams', 'action' => 'index')); ?> </li>

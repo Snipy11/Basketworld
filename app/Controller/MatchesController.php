@@ -14,8 +14,23 @@ class MatchesController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Match->recursive = 0;
-		$this->set('matches', $this->paginate());
+	    $team_id = $this->Auth->user('team_id');
+	    $start_date = $this->Match->HomeTeam->Division->Season->field('Season.start_date', array(
+		'Season.start_date <=' => date('Y-m-d', strtotime('now'))
+	    ),
+	    'start_date DESC');
+	    $this->paginate = array(
+		'conditions' => array(
+		    'Match.start_date >=' => $start_date,
+		    'OR' => array(
+			'Match.home_team_id' => $team_id,
+			'Match.visitor_team_id' => $team_id
+		    )	
+		),
+		'fields' => array('HomeTeam.id', 'VisitorTeam.id', 'HomeTeam.name', 'VisitorTeam.name', 'start_date',
+		    'home_points', 'visitor_points', 'type')
+	    );
+	    $this->set('matches', $this->paginate('Match'));
 	}
 
 /**
@@ -106,15 +121,10 @@ class MatchesController extends AppController {
             throw new MethodNotAllowedException(__('Cette requête n\'est pas valable.'));
         }
         $conditions = array(
-            'OR' => array(
-                array(
-                    'home_team_id' => $this->request->params['named']['team'],
-                    'start_date >=' => date('Y-m-d', strtotime('now'))
-                ),
-                array(
-                    'visitor_team_id' => $this->request->params['named']['team'],
-                    'start_date >=' => date('Y-m-d', strtotime('now'))
-                )
+            'start_date >=' => date('Y-m-d', strtotime('now')),
+	    'OR' => array(
+		'home_team_id' => $this->request->params['named']['team'],
+		'visitor_team_id' => $this->request->params['named']['team']
             )
         );
         $next_match = $this->Match->find('first', array(
