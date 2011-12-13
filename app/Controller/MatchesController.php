@@ -121,10 +121,7 @@ class MatchesController extends AppController {
             'conditions' => $conditions,
             'order' => 'Match.start_date'
         ));
-        echo"<pre>";
-        print_r($next_match);
-        echo"</pre>";
-        return $next_match;
+        return compact('next_match');
     }
     
     
