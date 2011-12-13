@@ -13,7 +13,7 @@ class MatchesPlayersController extends AppController {
  *
  * @return void
  */
-	public function index($match_id) {
+	public function index($match_id = null) {
 		$this->MatchesPlayer->Match->id = $match_id;
 		$team_id = $this->Auth->user('team_id');
 		if (!$this->MatchesPlayer->Match->exists() || 
@@ -24,10 +24,11 @@ class MatchesPlayersController extends AppController {
 		$this->paginate = array(
 		'conditions' => array(
 		    'MatchesPlayer.match_id' => $match_id,
+		    'PlayersTeam.team_id' => $team_id
 		),
 		'fields' => array('MatchesPlayer.match_id', 'MatchesPlayer.players_team_id',
 					'MatchesPlayer.position', 'MatchesPlayer.id', 'Player.first_name', 'Player.name',
-					'PlayersTeam.default_position'),
+					'PlayersTeam.default_position', 'PlayersTeam.team_id'),
 		'recursive' => -1,
 		'joins' => array(
 			array(
@@ -104,7 +105,7 @@ class MatchesPlayersController extends AppController {
 				$this->Session->setFlash(__('Une erreur s\'est produite lors de l\'enregistrement de l\'ordre de match. Veuillez réessayer.'));
 			} else {
 				$this->Session->setFlash(__('L\'ordre de match a été enregistré avec succès.'));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index', $match_id));
 			}
 		}
 		$playersTeams_raw = $this->MatchesPlayer->PlayersTeam->find('list', array(
