@@ -25,7 +25,10 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		</div>
 		<div id="menu" class='actions'>
 		    <?php echo $this->Html->link(__('Accueil'), '/'); ?>
-		    <?php echo $this->Html->link(__('Mes matches'), '/Matches/index'); ?>
+		    <?php echo $this->Html->link(__('Calendrier'), '/Matches'); ?>
+		    <?php echo $this->Html->link(__('Championnat'), '/Rankings'); ?>
+		    <?php echo $this->Html->link(__('Effectif'), '/PlayersTeams'); ?>
+		    <?php echo $this->Html->link(__('Entraînement'), '/Trainings'); ?>
 		</div>
 		<div id="content">
             <div style="text-align:right">

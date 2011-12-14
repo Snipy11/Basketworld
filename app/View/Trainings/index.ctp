@@ -2,28 +2,18 @@
 	<h2><?php echo __('Trainings');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php echo $this->Paginator->sort('team_id');?></th>
-			<th><?php echo $this->Paginator->sort('created');?></th>
-			<th><?php echo $this->Paginator->sort('weekday');?></th>
-			<th><?php echo $this->Paginator->sort('type');?></th>
+			<th><?php echo $this->Paginator->sort('weekday', __('Jour'));?></th>
+			<th><?php echo $this->Paginator->sort('type', __('Entraînement'));?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	$i = 0;
 	foreach ($trainings as $training): ?>
 	<tr>
-		<td><?php echo h($training['Training']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($training['Team']['name'], array('controller' => 'teams', 'action' => 'view', $training['Team']['id'])); ?>
-		</td>
-		<td><?php echo h($training['Training']['created']); ?>&nbsp;</td>
-		<td><?php echo h($training['Training']['weekday']); ?>&nbsp;</td>
-		<td><?php echo h($training['Training']['type']); ?>&nbsp;</td>
+		<td><?php echo ucfirst(strftime('%A', strtotime("Monday +{$training['Training']['weekday']} days"))); ?>&nbsp;</td>
+		<td><?php echo Training::type($training['Training']['type']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $training['Training']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $training['Training']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $training['Training']['id']), null, __('Are you sure you want to delete # %s?', $training['Training']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

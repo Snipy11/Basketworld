@@ -15,6 +15,11 @@ class RankingsController extends AppController {
  */
 	public function index() {
 		$this->Ranking->recursive = 0;
+		$this->Ranking->Team->id = $this->Auth->user('team_id');
+		$division = $this->Ranking->Team->field('division_id');
+		$this->paginate = array(
+			'conditions' => array('Ranking.division_id' => $division)
+		);
 		$this->set('rankings', $this->paginate());
 	}
 
