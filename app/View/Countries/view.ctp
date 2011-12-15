@@ -27,6 +27,10 @@
 		<li><?php echo $this->Html->link(__('New Country'), array('action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Divisions'), array('controller' => 'divisions', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Division'), array('controller' => 'divisions', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Player First Names'), array('controller' => 'player_first_names', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Player First Name'), array('controller' => 'player_first_names', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Player Names'), array('controller' => 'player_names', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Player Name'), array('controller' => 'player_names', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Players'), array('controller' => 'players', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Player'), array('controller' => 'players', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Trainers'), array('controller' => 'trainers', 'action' => 'index')); ?> </li>
@@ -67,6 +71,72 @@
 	<div class="actions">
 		<ul>
 			<li><?php echo $this->Html->link(__('New Division'), array('controller' => 'divisions', 'action' => 'add'));?> </li>
+		</ul>
+	</div>
+</div>
+<div class="related">
+	<h3><?php echo __('Related Player First Names');?></h3>
+	<?php if (!empty($country['PlayerFirstName'])):?>
+	<table cellpadding = "0" cellspacing = "0">
+	<tr>
+		<th><?php echo __('Id'); ?></th>
+		<th><?php echo __('First Name'); ?></th>
+		<th><?php echo __('Country Id'); ?></th>
+		<th class="actions"><?php echo __('Actions');?></th>
+	</tr>
+	<?php
+		$i = 0;
+		foreach ($country['PlayerFirstName'] as $playerFirstName): ?>
+		<tr>
+			<td><?php echo $playerFirstName['id'];?></td>
+			<td><?php echo $playerFirstName['first_name'];?></td>
+			<td><?php echo $playerFirstName['country_id'];?></td>
+			<td class="actions">
+				<?php echo $this->Html->link(__('View'), array('controller' => 'player_first_names', 'action' => 'view', $playerFirstName['id'])); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'player_first_names', 'action' => 'edit', $playerFirstName['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'player_first_names', 'action' => 'delete', $playerFirstName['id']), null, __('Are you sure you want to delete # %s?', $playerFirstName['id'])); ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+
+	<div class="actions">
+		<ul>
+			<li><?php echo $this->Html->link(__('New Player First Name'), array('controller' => 'player_first_names', 'action' => 'add'));?> </li>
+		</ul>
+	</div>
+</div>
+<div class="related">
+	<h3><?php echo __('Related Player Names');?></h3>
+	<?php if (!empty($country['PlayerName'])):?>
+	<table cellpadding = "0" cellspacing = "0">
+	<tr>
+		<th><?php echo __('Id'); ?></th>
+		<th><?php echo __('Name'); ?></th>
+		<th><?php echo __('Country Id'); ?></th>
+		<th class="actions"><?php echo __('Actions');?></th>
+	</tr>
+	<?php
+		$i = 0;
+		foreach ($country['PlayerName'] as $playerName): ?>
+		<tr>
+			<td><?php echo $playerName['id'];?></td>
+			<td><?php echo $playerName['name'];?></td>
+			<td><?php echo $playerName['country_id'];?></td>
+			<td class="actions">
+				<?php echo $this->Html->link(__('View'), array('controller' => 'player_names', 'action' => 'view', $playerName['id'])); ?>
+				<?php echo $this->Html->link(__('Edit'), array('controller' => 'player_names', 'action' => 'edit', $playerName['id'])); ?>
+				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'player_names', 'action' => 'delete', $playerName['id']), null, __('Are you sure you want to delete # %s?', $playerName['id'])); ?>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</table>
+<?php endif; ?>
+
+	<div class="actions">
+		<ul>
+			<li><?php echo $this->Html->link(__('New Player Name'), array('controller' => 'player_names', 'action' => 'add'));?> </li>
 		</ul>
 	</div>
 </div>
@@ -120,9 +190,9 @@
 			<td><?php echo $player['defense'];?></td>
 			<td><?php echo $player['form'];?></td>
 			<td><?php echo $player['experience'];?></td>
-			<td><?php echo Player::spirits($player['spirit']);?></td>
+			<td><?php echo $player['spirit'];?></td>
 			<td><?php echo $player['injury'];?></td>
-			<td><?php echo Player::specialities($player['speciality']);?></td>
+			<td><?php echo $player['speciality'];?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'players', 'action' => 'view', $player['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'players', 'action' => 'edit', $player['id'])); ?>

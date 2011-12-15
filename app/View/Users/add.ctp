@@ -6,17 +6,10 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('password');
         echo $this->Form->input('password_confirmation', array('type' => 'password'));
-		echo $this->Form->input('validated');
-		echo $this->Form->input('lastconnect');
 		echo $this->Form->input('email');
 		echo $this->Form->input('presentation');
 		echo $this->Form->input('birthdate', array('minYear' => '1940'));
 		echo $this->Form->input('gender', array('options' => User::genders() ));
-		echo $this->Form->input('ip');
-		echo $this->Form->input('avatar');
-		echo $this->Form->input('inactive');
-		echo $this->Form->input('waiting');
-		echo $this->Form->input('group', array('options' => User::groups() ));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

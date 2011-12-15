@@ -1,11 +1,16 @@
-<div class="playersTeams form">
+<div class="playersTe></div>ams form">
 <?php echo $this->Form->create('PlayersTeam');?>
 	<fieldset>
 		<legend><?php echo __('Edit Players Team'); ?></legend>
+		<h3><?php echo $this->data['Player']['first_name'] ." ". $this->data['Player']['name'] ?></h3>
 	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('team_id');
-		echo $this->Form->input('player_id');
+		echo $this->Form->input('id', array('type' => 'hidden'));
+		echo $this->Form->input('team_id', array('type' => 'hidden'));
+		echo $this->Form->input('player_id', array('type' => 'hidden'));
+		echo $this->Form->input('default_position', array(
+			'options' => PlayersTeam::positions(),
+			'label' => 'Position'
+		));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>

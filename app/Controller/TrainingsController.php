@@ -14,7 +14,12 @@ class TrainingsController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Training->recursive = 0;
+		$this->Training->recursive = -1;
+		$team_id = $this->Auth->user('team_id');
+		$this->paginate = array(
+			'conditions' => array('Training.team_id' => $team_id),
+			'contain' => array('Team')
+		);
 		$this->set('trainings', $this->paginate());
 	}
 
@@ -39,16 +44,23 @@ class TrainingsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			$this->Training->create();
-			if ($this->Training->save($this->request->data)) {
-				$this->Session->setFlash(__('The training has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The training could not be saved. Please, try again.'));
+			$now = date('Y-m-d H:i:s');
+			$fields = array('team_id', 'created', 'weekday', 'type');
+			foreach($this->request->data['Training'] as $data) {
+				$values[] = array($data['team_id'], $now, $data['weekday'], $data['type']);
 			}
+			$db = $this->Training->getDataSource();
+			if(!$db->insertMulti($this->Training->table, $fields, $values)) {
+				$db->rollback($this);
+				$this->Session->setFlash(__('Une erreur s\'est produite lors de l\'enregistrement. Veuillez réessayer.'));
+			} else {
+				$this->Session->setFlash(__('Les entraînements sont enregistrés.'));
+				$this->redirect(array('action' => 'index'));
+			}
+			
 		}
-		$teams = $this->Training->Team->find('list');
-		$this->set(compact('teams'));
+		$team_id = $this->Training->Team->field('id', array('Team.id' => $this->Auth->user('team_id')));
+		$this->set(compact('team_id'));
 	}
 
 /**

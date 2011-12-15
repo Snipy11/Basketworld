@@ -2,27 +2,13 @@
 <?php echo $this->Form->create('MatchesPlayer');?>
 	<fieldset>
 		<legend><?php echo __('Edit Matches Player'); ?></legend>
+		<fieldset>
+			<legend><?php echo MatchesPlayer::positions($this->data['MatchesPlayer']['position']); ?></legend>
 	<?php
-		echo $this->Form->input('id');
-		echo $this->Form->input('match_id');
-		echo $this->Form->input('players_team_id');
-		echo $this->Form->input('position', array('options' => MatchesPlayer::positions() ));
-		echo $this->Form->input('at_home');
-		echo $this->Form->input('play_time');
-		echo $this->Form->input('2pts_attempts');
-		echo $this->Form->input('2pts_scored');
-		echo $this->Form->input('3pts_attempts');
-		echo $this->Form->input('3pts_scored');
-		echo $this->Form->input('rebounds_offensive');
-		echo $this->Form->input('rebounds_defensive');
-		echo $this->Form->input('freethrows_attempts');
-		echo $this->Form->input('freethrows_scored');
-		echo $this->Form->input('assists');
-		echo $this->Form->input('steals');
-		echo $this->Form->input('blocks');
-		echo $this->Form->input('fouls');
-		echo $this->Form->input('injury');
+		echo $this->Form->input('players_team_id', array('label' => __('Joueur')));
+
 	?>
+		</fieldset>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
 </div>

@@ -4,6 +4,8 @@ App::uses('AppModel', 'Model');
  * Country Model
  *
  * @property Division $Division
+ * @property PlayerFirstName $PlayerFirstName
+ * @property PlayerName $PlayerName
  * @property Player $Player
  * @property Trainer $Trainer
  */
@@ -53,6 +55,32 @@ class Country extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
+		'PlayerFirstName' => array(
+			'className' => 'PlayerFirstName',
+			'foreignKey' => 'country_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
+		'PlayerName' => array(
+			'className' => 'PlayerName',
+			'foreignKey' => 'country_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Player' => array(
 			'className' => 'Player',
 			'foreignKey' => 'country_id',
@@ -80,5 +108,19 @@ class Country extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	public function getRandomCountry() {
+		$count = Cache::read('countryCount');
+		if($count === false) {
+			$count = $this->find('count');
+			Cache::write('countryCount', $count);
+		}
+		$country = $this->find('first', array(
+			'offset' => mt_rand(0, $count-1),
+			'recursive' => -1,
+			'fields' => 'id'
+		));
+		return $country['Country']['id'];
+	}
 
 }

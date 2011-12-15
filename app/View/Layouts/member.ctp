@@ -23,6 +23,13 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 		<div id="header">
 			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
 		</div>
+		<div id="menu" class='actions'>
+		    <?php echo $this->Html->link(__('Accueil'), '/'); ?>
+		    <?php echo $this->Html->link(__('Calendrier'), '/Matches'); ?>
+		    <?php echo $this->Html->link(__('Championnat'), '/Rankings'); ?>
+		    <?php echo $this->Html->link(__('Effectif'), '/PlayersTeams'); ?>
+		    <?php echo $this->Html->link(__('Entraînement'), '/Trainings'); ?>
+		</div>
 		<div id="content">
             <div style="text-align:right">
             <?php echo __('Bienvenue ').$current_user['name'].". "; ?> <?php echo $this->Html->link('Logout', array('controller' => 'users', 'action' => 'logout')); ?>

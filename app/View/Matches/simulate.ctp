@@ -17,10 +17,12 @@
 	</ul>
 	<h3><?php echo __("Statistiques des joueurs"); ?></h3>
 	<h2><?php echo $match['HomeTeam']['name']; ?></h2>
-	<?php foreach($match['PlayersInMatch'] as $playerStat): 
-		if($playerStat['PlayersTeam']['team_id'] != $match['HomeTeam']['id']) 
-			continue; ?>
-		<h5><?php echo $playerStat['PlayersTeam']['Player']['name']; ?></h5>
+	<?php foreach($match['Players'] as $player): 
+		$playerStat = $player['PlayersInMatch'];
+		if($player['PlayersTeam']['team_id'] != $match['HomeTeam']['id']):
+			continue; 
+		endif; ?>
+		<h5><?php echo $player['Player']['name']; ?></h5>
 		<table>
 			<tr><td><?php echo __("Tentatives 2 points"); ?></td><td><?php echo $playerStat['2pts_attempts']; ?></td></tr>
 			<tr><td><?php echo __("2 points marqués"); ?></td><td><?php echo $playerStat['2pts_scored']; ?></td></tr>
@@ -38,10 +40,12 @@
 	<?php endforeach; ?>
 	
 	<h2><?php echo $match['VisitorTeam']['name']; ?></h2>
-	<?php foreach($match['PlayersInMatch'] as $playerStat): 
-		if($playerStat['PlayersTeam']['team_id'] != $match['VisitorTeam']['id']) 
-			continue; ?>
-		<h5><?php echo $playerStat['PlayersTeam']['Player']['name']; ?></h5>
+	<?php foreach($match['Players'] as $player): 
+		$playerStat = $player['PlayersInMatch'];
+		if($player['PlayersTeam']['team_id'] != $match['VisitorTeam']['id']):
+			continue; 
+		endif; ?>
+		<h5><?php echo $player['Player']['name']; ?></h5>
 		<table>
 			<tr><td><?php echo __("Tentatives 2 points"); ?></td><td><?php echo $playerStat['2pts_attempts']; ?></td></tr>
 			<tr><td><?php echo __("2 points marqués"); ?></td><td><?php echo $playerStat['2pts_scored']; ?></td></tr>

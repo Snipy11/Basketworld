@@ -570,6 +570,7 @@
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Team Id'); ?></th>
 		<th><?php echo __('Player Id'); ?></th>
+        <th><?php echo __('Default position'); ?></th>
 		<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
@@ -579,6 +580,7 @@
 			<td><?php echo $playersInTeam['id'];?></td>
 			<td><?php echo $playersInTeam['team_id'];?></td>
 			<td><?php echo $playersInTeam['player_id'];?></td>
+            <td><?php echo $playersInTeam['default_position'];?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'players_teams', 'action' => 'view', $playersInTeam['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'players_teams', 'action' => 'edit', $playersInTeam['id'])); ?>

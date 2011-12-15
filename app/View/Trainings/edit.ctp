@@ -2,10 +2,11 @@
 <?php echo $this->Form->create('Training');?>
 	<fieldset>
 		<legend><?php echo __('Edit Training'); ?></legend>
+		<h3><?php echo ucfirst(strftime('%A', strtotime("Monday +{$this->data['Training']['weekday']} days"))); ?></h3>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('team_id');
-		echo $this->Form->input('weekday');
+		echo $this->Form->input('team_id', array('type' => 'hidden'));
+		echo $this->Form->input('weekday', array('type' => 'hidden'));
 		echo $this->Form->input('type', array('options' => Training::type() ));
 	?>
 	</fieldset>

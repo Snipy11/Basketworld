@@ -2,15 +2,11 @@
 	<h2><?php echo __('Matches');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
 			<th><?php echo $this->Paginator->sort('home_team_id');?></th>
 			<th><?php echo $this->Paginator->sort('visitor_team_id');?></th>
 			<th><?php echo $this->Paginator->sort('start_date');?></th>
 			<th><?php echo $this->Paginator->sort('home_points');?></th>
 			<th><?php echo $this->Paginator->sort('visitor_points');?></th>
-			<th><?php echo $this->Paginator->sort('normal_spectators');?></th>
-			<th><?php echo $this->Paginator->sort('vip_spectators');?></th>
-			<th><?php echo $this->Paginator->sort('finished');?></th>
 			<th><?php echo $this->Paginator->sort('type');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
@@ -18,7 +14,6 @@
 	$i = 0;
 	foreach ($matches as $match): ?>
 	<tr>
-		<td><?php echo h($match['Match']['id']); ?>&nbsp;</td>
 		<td>
 			<?php echo $this->Html->link($match['HomeTeam']['name'], array('controller' => 'teams', 'action' => 'view', $match['HomeTeam']['id'])); ?>
 		</td>
@@ -28,15 +23,11 @@
 		<td><?php echo h($match['Match']['start_date']); ?>&nbsp;</td>
 		<td><?php echo h($match['Match']['home_points']); ?>&nbsp;</td>
 		<td><?php echo h($match['Match']['visitor_points']); ?>&nbsp;</td>
-		<td><?php echo h($match['Match']['normal_spectators']); ?>&nbsp;</td>
-		<td><?php echo h($match['Match']['vip_spectators']); ?>&nbsp;</td>
-		<td><?php echo h($match['Match']['finished']); ?>&nbsp;</td>
-		<td><?php echo h($match['Match']['type']); ?>&nbsp;</td>
+		<td><?php echo h(Match::types($match['Match']['type'])); ?>&nbsp;</td>
 		<td class="actions">
+			<?php echo $this->Html->link(__('Ordre de match'), array('controller' => 'MatchesPlayers', 'action' => 'index', $match['Match']['id'])); ?>
             <?php echo $this->Html->link(__('Simulate'), array('action' => 'simulate', $match['Match']['id'])); ?>
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $match['Match']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $match['Match']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $match['Match']['id']), null, __('Are you sure you want to delete # %s?', $match['Match']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

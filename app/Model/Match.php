@@ -196,15 +196,27 @@ class Match extends AppModel {
 			$day_switch = 0;
 			for ($j = 0; $j < $teamCount-1; $j++) {	
 				for ($i = 0; $i < $teamCount/2; $i++) {
-					$division_matches[] = array(
-						$division['Team'][$i]['id'],
+					if($j % 2 == 0) {
+                        $division_matches[] = array(
+                            $division['Team'][$i]['id'],
+                            $division['Team'][$teamCount-1 - $i]['id'],
+                            date('Y-m-d H:i:s', $match_date_stamp),
+                            0,
+                            0,
+                            0,
+                            Match::LEAGUE
+                        );
+                    } else {
+                        $division_matches[] = array(
 						$division['Team'][$teamCount-1 - $i]['id'],
+                        $division['Team'][$i]['id'],
 						date('Y-m-d H:i:s', $match_date_stamp),
 						0,
 						0,
 						0,
 						Match::LEAGUE
 					);
+                }
 				}
 				$this->array_rotate($division['Team']);
 				$day = ($day_switch++ % 2 == 0) ? "saturday" : "wednesday";

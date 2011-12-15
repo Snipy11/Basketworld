@@ -63,3 +63,6 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
+
+	
+    setlocale(LC_TIME, "french");

@@ -15,7 +15,17 @@ class PlayersTeamsController extends AppController {
  */
 	public function index() {
 		$this->PlayersTeam->recursive = 0;
+		$team_id = $this->Auth->user('team_id');
+		$this->paginate = array(
+			'conditions' => array('PlayersTeam.team_id' => $team_id),
+			'contain' => array('Player')
+		);
 		$this->set('playersTeams', $this->paginate());
+		$team = $this->PlayersTeam->Team->find('first', array(
+			'conditions' => array('Team.id' => $team_id),
+			'recursive' => -1
+		));
+		$this->set(compact('team'));
 	}
 
 /**
@@ -73,9 +83,6 @@ class PlayersTeamsController extends AppController {
 		} else {
 			$this->request->data = $this->PlayersTeam->read(null, $id);
 		}
-		$teams = $this->PlayersTeam->Team->find('list');
-		$players = $this->PlayersTeam->Player->find('list');
-		$this->set(compact('teams', 'players'));
 	}
 
 /**

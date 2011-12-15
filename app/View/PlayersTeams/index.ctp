@@ -1,27 +1,28 @@
 <div class="playersTeams index">
-	<h2><?php echo __('Players Teams');?></h2>
+	<h2><?php echo __('Effectif');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id');?></th>
-			<th><?php echo $this->Paginator->sort('team_id');?></th>
 			<th><?php echo $this->Paginator->sort('player_id');?></th>
+			<th><?php echo $this->Paginator->sort('Player.skill', 'Compétence');?></th>
+			<th><?php echo $this->Paginator->sort('default_position', 'Position');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
 	$i = 0;
 	foreach ($playersTeams as $playersTeam): ?>
 	<tr>
-		<td><?php echo h($playersTeam['PlayersTeam']['id']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($playersTeam['Team']['name'], array('controller' => 'teams', 'action' => 'view', $playersTeam['Team']['id'])); ?>
+			<?php echo $this->Html->link($playersTeam['Player']['first_name'] .' '. $playersTeam['Player']['name'], array('controller' => 'players', 'action' => 'view', $playersTeam['Player']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($playersTeam['Player']['name'], array('controller' => 'players', 'action' => 'view', $playersTeam['Player']['id'])); ?>
+			<?php echo $playersTeam['Player']['skill']; ?>
+		</td>
+		<td>
+			<?php echo PlayersTeam::positions($playersTeam['PlayersTeam']['default_position']); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $playersTeam['PlayersTeam']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $playersTeam['PlayersTeam']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $playersTeam['PlayersTeam']['id']), null, __('Are you sure you want to delete # %s?', $playersTeam['PlayersTeam']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('controller' => 'Players', 'action' => 'view', $playersTeam['Player']['id'])); ?>
+			<?php echo $this->Html->link(__('Changer position'), array('action' => 'edit', $playersTeam['PlayersTeam']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

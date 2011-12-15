@@ -2,11 +2,16 @@
 <?php echo $this->Form->create('Training');?>
 	<fieldset>
 		<legend><?php echo __('Add Training'); ?></legend>
+		<?php for($i = 0; $i < 7; $i++): ?>
+		<fieldset>
+			<legend><?php echo strftime('%A', strtotime("Monday +$i days")); ?></legend>
 	<?php
-		echo $this->Form->input('team_id');
-		echo $this->Form->input('weekday');
-		echo $this->Form->input('type', array('options' => Training::type() ));
+		echo $this->Form->input("Training.$i.team_id", array('type' => 'hidden', 'value' => $team_id));
+		echo $this->Form->input("Training.$i.weekday", array('type' => 'hidden', 'value' => $i));
+		echo $this->Form->input("Training.$i.type", array('options' => Training::type() ));
 	?>
+		</fieldset>
+		<?php endfor; ?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit'));?>
 </div>
