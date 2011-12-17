@@ -376,7 +376,6 @@
 	<tr>
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Team Id'); ?></th>
-		<th><?php echo __('Created'); ?></th>
 		<th><?php echo __('Weekday'); ?></th>
 		<th><?php echo __('Type'); ?></th>
 		<th class="actions"><?php echo __('Actions');?></th>
@@ -387,7 +386,6 @@
 		<tr>
 			<td><?php echo $training['id'];?></td>
 			<td><?php echo $training['team_id'];?></td>
-			<td><?php echo $training['created'];?></td>
 			<td><?php echo $training['weekday'];?></td>
 			<td><?php echo $training['type'];?></td>
 			<td class="actions">

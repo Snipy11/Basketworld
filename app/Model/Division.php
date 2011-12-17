@@ -141,13 +141,28 @@ class Division extends AppModel {
 		for ($i = 1; $i < pow(2, $level); $i++)  {
 			$this->create();
 			$division['hierarchy'] = $i;
-			$current_level = floor(log($i, 2)) + 1;
+			$current_level = $this->myLog2($i) + 1;
 			$division['name'] = "Division " . ($current_level) . chr(65 + ($i % pow(2, $current_level-1)));
 			$division['country_id'] = $country_id;
 			$division['season_id'] = $season_id;
 			$this->save($division);
 		}
 	}
+    
+    private function myLog2($value) {
+        $b = array(0x2, 0xC, 0xF0, 0xFF00, 0xFFFF0000);
+        $S = array(1, 2, 4, 8, 16);
+        $ret = 0;
+        
+        for ($i = 4; $i >= 0; $i--) {
+            if ($value & $b[$i]) {
+                $value >>= $S[$i];
+                $ret |= $S[$i];
+            } 
+        }
+        return $ret;
+    }
+    
 
 
 }

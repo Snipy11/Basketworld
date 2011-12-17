@@ -112,15 +112,22 @@ class Country extends AppModel {
 	public function getRandomCountry() {
 		$count = Cache::read('countryCount');
 		if($count === false) {
-			$count = $this->find('count');
+			$count = $this->find('count', array(
+                'recursive' => -1,
+                'fields' => 'id'
+            ));
 			Cache::write('countryCount', $count);
 		}
-		$country = $this->find('first', array(
-			'offset' => mt_rand(0, $count-1),
-			'recursive' => -1,
-			'fields' => 'id'
-		));
-		return $country['Country']['id'];
+        $countries = Cache::read('countries');
+        if($countries === false) {
+            $countries = $this->find('all', array(
+                'recursive' => -1,
+                'fields' => 'id'
+            ));
+            Cache::write('countries', $countries);
+        }
+        $offset = mt_rand(0, $count-1);
+		return $countries[$offset]['Country']['id'];
 	}
 
 }

@@ -51,16 +51,22 @@ class PlayerFirstName extends AppModel {
 		$count = Cache::read('firstNameCount' . $country_id);
 		if($count === false) {
 			$count = $this->find('count', array(
-				'conditions' => array('country_id' => $country_id)
+				'conditions' => array('country_id' => $country_id),
+                'recursive' => -1,
+                'fields' => 'first_name'
 			));
 			Cache::write('firstNameCount' . $country_id, $count);
 		}
-		$name = $this->find('first', array(
-			'conditions' => array('country_id' => $country_id),
-			'offset' => mt_rand(0, $count-1),
-			'recursive' => -1,
-			'fields' => 'first_name'
-		));
-		return $name['PlayerFirstName']['first_name'];
+        $names = Cache::read('randomFirstNames' . $country_id);
+        if($names === false) {
+            $names = $this->find('all', array(
+                'conditions' => array('country_id' => $country_id),
+                'recursive' => -1,
+                'fields' => 'first_name'
+            ));
+            Cache::write('randomFirstNames' . $country_id, $names);
+        }
+        $offset = mt_rand(0, $count-1);
+		return $names[$offset]['PlayerFirstName']['first_name'];
 	}
 }

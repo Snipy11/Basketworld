@@ -44,10 +44,9 @@ class TrainingsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			$now = date('Y-m-d H:i:s');
-			$fields = array('team_id', 'created', 'weekday', 'type');
+			$fields = array('team_id', 'weekday', 'type');
 			foreach($this->request->data['Training'] as $data) {
-				$values[] = array($data['team_id'], $now, $data['weekday'], $data['type']);
+				$values[] = array($data['team_id'], $data['weekday'], $data['type']);
 			}
 			$db = $this->Training->getDataSource();
 			if(!$db->insertMulti($this->Training->table, $fields, $values)) {

@@ -86,46 +86,50 @@ class Season extends AppModel {
 			)
 			))
 		 ));
+        $previous_season_division_depth = $this->Division->field('MAX(Division.hierarchy)', array(
+            'Division.season_id' => $data['previous_season']['Season']['id']
+        ));
+        if(is_null($previous_season_division_depth)) {
+            $previous_season_division_depth = 0;
+        }
 		// Begin transaction.
 		$db = $this->getDataSource();
 		$transactionBegun = $db->begin($this);
 		
 		// For each division ordered by hierarchy DESC
 		foreach($data['season']['Division'] as $new_division) {
-			$previous_season_key = $this->divisionPreviousSeasonKey($data, $new_division);
-			
-			// If division from previous year has teams, move them in their new division
-			if($previous_season_key !== false &&
-			  !empty($data['previous_season']['Division'][$previous_season_key]['Ranking'])) {
-			// Get lower divisions keys if they exist
-			$lowerDivisionIds = $this->getLowerDivisionIds($data, $new_division);
-			$rankLength = count($data['previous_season']['Division'][$previous_season_key]['Ranking']);
-			// For each ranked team
-			foreach($data['previous_season']['Division'][$previous_season_key]['Ranking'] as $rankKey => $ranking) {
-				
-				//First team in the division from previous season can join the higher division (if not already in the 1st division)
-				if($rankKey == 0 && $new_division['hierarchy'] > 1) {
-				$upper_division_id = $this->getUpperDivisionId($data, $new_division);
-				$this->Division->Team->updateTeamDivision($ranking['Team']['id'], $upper_division_id);
-				
-				// Last 2 teams in the division from previous season join the lowest left and right divisions if it exists.
-				} elseif($lowerDivisionIds !== false && $rankKey >= $rankLength-2) {
-				if($rankKey == $rankLength-2) {
-					$this->Division->Team->updateTeamDivision($ranking['Team']['id'], $lowerDivisionIds['left']);
-				} else {
-					$this->Division->Team->updateTeamDivision($ranking['Team']['id'], $lowerDivisionIds['right']);
-				}
-				// All other teams stay in the same division
-				} else {
-				$this->Division->Team->updateTeamDivision($ranking['Team']['id'], $new_division['id']);
-				}
-			}
+            // If division existed in previous season, move its teams in the new divisions
+			if($new_division['hierarchy'] < pow($previous_season_division_depth, 2)) {
+                $previous_season_key = $this->divisionPreviousSeasonKey($data, $new_division);
+                // Get lower divisions keys if they exist
+                $lowerDivisionIds = $this->getLowerDivisionIds($data, $new_division);
+                $rankLength = count($data['previous_season']['Division'][$previous_season_key]['Ranking']);
+                // For each ranked team
+                foreach($data['previous_season']['Division'][$previous_season_key]['Ranking'] as $rankKey => $ranking) {
+                    
+                    //First team in the division from previous season can join the higher division (if not already in the 1st division)
+                    if($rankKey == 0 && $new_division['hierarchy'] > 1) {
+                    $upper_division_id = $this->getUpperDivisionId($data, $new_division);
+                    $this->Division->Team->updateTeamDivision($ranking['Team']['id'], $upper_division_id);
+                    
+                    // Last 2 teams in the division from previous season join the lowest left and right divisions if it exists.
+                    } elseif($lowerDivisionIds !== false && $rankKey >= $rankLength-2) {
+                    if($rankKey == $rankLength-2) {
+                        $this->Division->Team->updateTeamDivision($ranking['Team']['id'], $lowerDivisionIds['left']);
+                    } else {
+                        $this->Division->Team->updateTeamDivision($ranking['Team']['id'], $lowerDivisionIds['right']);
+                    }
+                    // All other teams stay in the same division
+                    } else {
+                    $this->Division->Team->updateTeamDivision($ranking['Team']['id'], $new_division['id']);
+                    }
+                }
 			} else {
-			 /* Create 8 new teams and 10 new players for each team in this division
-			  * if this division will be below an existing division, make only 7 teams 
-			  * and create one new team there in the division above. 
+			 /* Create 8 new teams and 10 new players for each team in this division.
+			  * If this division will be below an existing division, make only 7 teams 
+			  * and create one new team in the division above. 
 			  */
-			 if($new_division['hierarchy'] == 1) {
+			if($new_division['hierarchy'] >= pow($previous_season_division_depth + 1, 2)) {
 				$this->Division->Team->createDivisionTeams($new_division['id'], 8);
 			} else {
 				$this->Division->Team->createDivisionTeams($new_division['id'], 7);
@@ -168,10 +172,10 @@ class Season extends AppModel {
     private function divisionPreviousSeasonKey($data, $new_division) {
 		if(!empty($data['previous_season'])) {
 			foreach($data['previous_season']['Division'] as $key => $division) {
-			if($division['country_id'] == $new_division['country_id'] &&
-				$division['hierarchy'] == $new_division['hierarchy']) {
-				return $key;
-			}
+                if($division['country_id'] == $new_division['country_id'] &&
+                    $division['hierarchy'] == $new_division['hierarchy']) {
+                    return $key;
+                }
 			}
 		}
 		return false;

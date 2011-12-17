@@ -330,8 +330,10 @@ class Player extends AppModel {
  * 
  */    
 	public function createPlayers($team_id) {
-		for ($i = 0; $i < 10; $i++) {
-			$this->create();
+		$this->create();
+        $players = array();
+        for ($i = 0; $i < 10; $i++) {
+			$this->id = false;
 			$country_id = $this->Country->getRandomCountry();
 			$data['country_id'] = $country_id;
 			$data['first_name'] = $this->Country->PlayerFirstName->getRandomFirstName($country_id);
@@ -346,7 +348,8 @@ class Player extends AppModel {
 			$data['injury'] = 0;
 			$data['speciality'] = Player::NASHER;
 			$this->save($data, false);
-			$this->PlayerInTeam->createPlayerInTeam($team_id, $this->id, $i % 5);
+			$players[] = array('id' => $this->id, 'default_position' => $i % 5);
 		}
+        $this->PlayerInTeam->createPlayerInTeam($team_id, $players);
 	}
 }

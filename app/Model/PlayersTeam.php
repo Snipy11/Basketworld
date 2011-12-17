@@ -77,12 +77,16 @@ class PlayersTeam extends AppModel {
  * Create a new link of a player in a team.
  * 
  */    
-	public function createPlayerInTeam($team_id, $player_id, $default_position) {
-		$this->create();
-		$data['team_id'] = $team_id;
-		$data['player_id'] = $player_id;
-        $data['default_position'] = $default_position;
-		$this->save($data, false);		
+	public function createPlayerInTeam($team_id, $players) {
+		$fields = array('team_id', 'player_id', 'default_position');
+        $values = array();
+        foreach($players as $player) {
+            $values[] = array($team_id, $player['id'], $player['default_position']);
+        }
+        $db = $this->getDataSource();
+		if(!$db->insertMulti($this->table, $fields, $values)) {
+			$db->rollback($this);
+		}	
 	}
 
 }

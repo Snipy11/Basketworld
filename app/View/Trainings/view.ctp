@@ -11,11 +11,6 @@
 			<?php echo $this->Html->link($training['Team']['name'], array('controller' => 'teams', 'action' => 'view', $training['Team']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($training['Training']['created']); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Weekday'); ?></dt>
 		<dd>
 			<?php echo h($training['Training']['weekday']); ?>
