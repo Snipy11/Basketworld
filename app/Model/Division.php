@@ -74,11 +74,6 @@ class Division extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'PlayerSkill' => array(
-            'className' => 'PlayerSkill',
-			'foreignKey' => 'division_id',
-			'dependent' => false,
-        ),
         'Ranking' => array(
 			'className' => 'Ranking',
 			'foreignKey' => 'division_id',

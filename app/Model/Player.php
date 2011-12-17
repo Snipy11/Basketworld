@@ -228,7 +228,7 @@ class Player extends AppModel {
  * Create new teams and 10 new players in each team.
  * 
  */    
-	public function createPlayers($team_id, $division_id) {
+	public function createPlayers($team_id, $season_id) {
 		$this->create();
         $players = array();
         for ($i = 0; $i < 10; $i++) {
@@ -246,7 +246,9 @@ class Player extends AppModel {
 			$this->save($data, false);
 			$players[] = array('id' => $this->id, 'default_position' => $i % 5);
 		}
-        $this->PlayerSkill->createPlayerSkills($players, $division_id);
+        $this->PlayerSkill->createPlayerSkills($players, $season_id);
         $this->PlayerInTeam->createPlayerInTeam($players, $team_id);
 	}
+    
+    
 }

@@ -855,7 +855,7 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`player_skills` (
   `form` TINYINT UNSIGNED NOT NULL ,
   `experience` MEDIUMINT UNSIGNED NOT NULL ,
   `player_id` INT UNSIGNED NOT NULL ,
-  `division_id` INT UNSIGNED NOT NULL ,
+  `season_id` INT UNSIGNED NOT NULL ,
   `created` DATE NOT NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_player_skills_players1`
@@ -863,9 +863,9 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`player_skills` (
     REFERENCES `basketwo`.`players` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_player_skills_divisions1`
-    FOREIGN KEY (`division_id` )
-    REFERENCES `basketwo`.`divisions` (`id` )
+  CONSTRAINT `fk_player_skills_seasons1`
+    FOREIGN KEY (`season_id` )
+    REFERENCES `basketwo`.`seasons` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
