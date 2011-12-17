@@ -70,4 +70,16 @@ class Training extends AppModel {
 			'order' => ''
 		)
 	);
+    
+    public function createTrainings($team_id) {
+        $fields = array('team_id', 'weekday', 'type');
+        for($weekday = 0; $weekday <7; $weekday++) {
+            $values[] = array($team_id, $weekday, Training::REST);
+        }
+        $db = $this->getDataSource();
+		if(!$db->insertMulti($this->table, $fields, $values)) {
+			$db->rollback($this);
+		}
+    }
+    
 }

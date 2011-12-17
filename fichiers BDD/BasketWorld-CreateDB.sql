@@ -2,7 +2,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-DROP SCHEMA IF EXISTS `basket_world` ;
 CREATE SCHEMA IF NOT EXISTS `basket_world` ;
 USE `basket_world` ;
 
@@ -580,6 +579,7 @@ CREATE  TABLE IF NOT EXISTS `basket_world`.`players_teams` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
   `player_id` INT UNSIGNED NOT NULL ,
+  `default_position` TINYINT UNSIGNED NOT NULL COMMENT 'Meneur:0, Arrière:1, Ailier_shooter:2, Ailier_fort:3, Pivot:4' ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_players_teams_players1`
     FOREIGN KEY (`player_id` )
@@ -684,7 +684,6 @@ DROP TABLE IF EXISTS `basket_world`.`trainings` ;
 CREATE  TABLE IF NOT EXISTS `basket_world`.`trainings` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
-  `created` DATETIME NOT NULL ,
   `weekday` TINYINT NOT NULL ,
   `type` TINYINT UNSIGNED NOT NULL COMMENT 'rest:0, shoot:1, _3points:2, dribble:3, assist:4, rebound:5, block:6, steal:7, defense:8' ,
   PRIMARY KEY (`id`) ,

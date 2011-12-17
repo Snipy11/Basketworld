@@ -485,8 +485,9 @@ class Team extends AppModel {
  * 
  */    
     public function createDivisionTeams($division_id, $number_of_teams) {
+        $this->create();
         for($i=0; $i<$number_of_teams; $i++) {
-            $this->create();
+            $this->id = false;
             $team['division_id'] = $division_id;
             $team['name'] = "Team " . $i; //TODO Need team names.
             $team['gymnasium_name'] = "{$team['name']} Arena";
@@ -502,6 +503,7 @@ class Team extends AppModel {
             $team['com_ambition'] = Team::NOTHING;
             $this->save($team, false);
 			$this->PlayersInTeam->Player->createPlayers($this->id);
+            $this->Training->createTrainings($this->id);
         }
     }
 
