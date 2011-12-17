@@ -502,7 +502,7 @@ class Team extends AppModel {
             $team['com_politique_gestion'] = Team::TRADING;
             $team['com_ambition'] = Team::NOTHING;
             $this->save($team, false);
-			$this->PlayersInTeam->Player->createPlayers($this->id);
+			$this->PlayersInTeam->Player->createPlayers($this->id, $division_id);
             $this->Training->createTrainings($this->id);
         }
     }

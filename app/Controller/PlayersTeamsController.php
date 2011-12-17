@@ -18,7 +18,7 @@ class PlayersTeamsController extends AppController {
 		$team_id = $this->Auth->user('team_id');
 		$this->paginate = array(
 			'conditions' => array('PlayersTeam.team_id' => $team_id),
-			'contain' => array('Player')
+			'contain' => array('Player' => array('PlayerSkill'))
 		);
 		$this->set('playersTeams', $this->paginate());
 		$team = $this->PlayersTeam->Team->find('first', array(

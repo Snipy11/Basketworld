@@ -108,116 +108,6 @@ class Player extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
-		'skill' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'shoot' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'3points' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'dribble' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'assist' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'rebound' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'block' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'steal' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'defense' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'form' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'experience' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
 		'spirit' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
@@ -273,7 +163,14 @@ class Player extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Transfert' => array(
+		'PlayerSkill' => array(
+            'className' => 'PlayerSkill',
+			'foreignKey' => 'player_id',
+			'dependent' => false,
+            'order' => 'PlayerSkill.created DESC',
+            'limit' => 1
+        ),
+        'Transfert' => array(
 			'className' => 'Transfert',
 			'foreignKey' => 'player_id',
 			'dependent' => false,
@@ -331,7 +228,7 @@ class Player extends AppModel {
  * Create new teams and 10 new players in each team.
  * 
  */    
-	public function createPlayers($team_id) {
+	public function createPlayers($team_id, $division_id) {
 		$this->create();
         $players = array();
         for ($i = 0; $i < 10; $i++) {
@@ -343,15 +240,13 @@ class Player extends AppModel {
 			$data['age'] = 20;
 			$data['height'] = 200;
 			$data['salary'] = 1000;
-			$data['skill'] = $data['shoot'] = $data['3points'] = $data['dribble'] = $data['assist'] =
-			$data['rebound'] = $data['block'] = $data['steal'] = $data['defense'] = $data['form'] = 20;
-			$data['experience'] = 0;
 			$data['spirit'] = Player::CALM;
 			$data['injury'] = 0;
 			$data['speciality'] = Player::NASHER;
 			$this->save($data, false);
 			$players[] = array('id' => $this->id, 'default_position' => $i % 5);
 		}
-        $this->PlayerInTeam->createPlayerInTeam($team_id, $players);
+        $this->PlayerSkill->createPlayerSkills($players, $division_id);
+        $this->PlayerInTeam->createPlayerInTeam($players, $team_id);
 	}
 }

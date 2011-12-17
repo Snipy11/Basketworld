@@ -9,17 +9,6 @@
 			<th><?php echo $this->Paginator->sort('age');?></th>
 			<th><?php echo $this->Paginator->sort('height');?></th>
 			<th><?php echo $this->Paginator->sort('salary');?></th>
-			<th><?php echo $this->Paginator->sort('skill');?></th>
-			<th><?php echo $this->Paginator->sort('shoot');?></th>
-			<th><?php echo $this->Paginator->sort('3points');?></th>
-			<th><?php echo $this->Paginator->sort('dribble');?></th>
-			<th><?php echo $this->Paginator->sort('assist');?></th>
-			<th><?php echo $this->Paginator->sort('rebound');?></th>
-			<th><?php echo $this->Paginator->sort('block');?></th>
-			<th><?php echo $this->Paginator->sort('steal');?></th>
-			<th><?php echo $this->Paginator->sort('defense');?></th>
-			<th><?php echo $this->Paginator->sort('form');?></th>
-			<th><?php echo $this->Paginator->sort('experience');?></th>
 			<th><?php echo $this->Paginator->sort('spirit');?></th>
 			<th><?php echo $this->Paginator->sort('injury');?></th>
 			<th><?php echo $this->Paginator->sort('speciality');?></th>
@@ -38,17 +27,6 @@
 		<td><?php echo h($player['Player']['age']); ?>&nbsp;</td>
 		<td><?php echo h($player['Player']['height']); ?>&nbsp;</td>
 		<td><?php echo h($player['Player']['salary']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['skill']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['shoot']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['3points']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['dribble']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['assist']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['rebound']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['block']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['steal']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['defense']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['form']); ?>&nbsp;</td>
-		<td><?php echo h($player['Player']['experience']); ?>&nbsp;</td>
 		<td><?php echo h(Player::spirits($player['Player']['spirit'])); ?>&nbsp;</td>
 		<td><?php echo h($player['Player']['injury']); ?>&nbsp;</td>
 		<td><?php echo h(Player::specialities($player['Player']['speciality'])); ?>&nbsp;</td>

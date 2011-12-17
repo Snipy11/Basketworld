@@ -42,7 +42,7 @@ class Country extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Division' => array(
+        'Division' => array(
 			'className' => 'Division',
 			'foreignKey' => 'country_id',
 			'dependent' => false,
