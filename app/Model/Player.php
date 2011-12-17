@@ -42,6 +42,7 @@ class Player extends AppModel {
             self::DUNKER => __('Dunker'),
             self::NASHER => __('Nasher'),
             self::BLOCKER => __('Blocker'),
+            self::SHOOTER => __('Shooter'),
         );
         return parent::enum($value, $options);
     }
@@ -49,6 +50,7 @@ class Player extends AppModel {
     const DUNKER = 0;
     const NASHER = 1;
     const BLOCKER = 2;
+    const SHOOTER = 3;
 
 /**
  * Validation rules
