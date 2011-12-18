@@ -58,26 +58,36 @@ class PlayerSkill extends AppModel {
  */ 
     public function removeSkillHistory($new_season_id, $previous_season_id) {
         $players = $this->Player->find('all', array(
-            'recursive' => -1,
-            'fields' => 'Player.id'
+            'fields' => 'Player.id',
+            'contain' => array(
+                'PlayerSkill' => array(
+                    'conditions' => array('PlayerSkill.season_id' => $previous_season_id),
+                    'fields' => array('PlayerSkill.id', 'PlayerSkill.created'),
+                )
+            )
         ));
-        debug($players);
-        exit;
-        foreach($players as $player) {
-            $first_skill = $this->find('first', array(
-                'conditions' => array('PlayerSkill.player_id' => $player['Player']['id'],
-                                    'PlayerSkill.season_id' => $previous_season_id),
-                'order' => 'PlayerSkill.created',
-                'recursive' => -1,
-                'field' => array('PlayerSkill.id')
-            ));
-            if(!empty($first_skill)) {
-                $this->id = $first_skill['PlayerSkill']['id'];
-                $this->saveField('season_id', $new_season_id);
-            }
+        // Get the latest skills and move them to the next season
+        $first_skill_ids = Set::classicExtract($players, '{n}.PlayerSkill.0.id');
+
+        foreach($first_skill_ids as $first_skill_id) {
+            $this->id = $first_skill_id;
+            $this->saveField('season_id', $new_season_id);
         }
-        // To be continued...
-        // Check in Set::extract to select the ids to be deleted...
+        
+        // Select all the skills remaining expect the oldest one, for history.
+        $players = $this->Player->find('all', array(
+            'fields' => 'Player.id',
+            'contain' => array(
+                'PlayerSkill' => array(
+                    'conditions' => array('PlayerSkill.season_id' => $previous_season_id),
+                    'fields' => array('PlayerSkill.id', 'PlayerSkill.created'),
+                    'order' => 'PlayerSkill.created ASC',
+                    'offset' => 1 // Keep oldest record
+                )
+            )
+        ));
+        $ids = Set::extract('/PlayerSkill/id', $players);
+        $this->deleteAll(array('PlayerSkill.id' => $ids));
     }
     
 }

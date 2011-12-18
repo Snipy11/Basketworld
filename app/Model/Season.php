@@ -108,7 +108,7 @@ class Season extends AppModel {
 		// For each division ordered by hierarchy DESC
 		foreach($data['season']['Division'] as $new_division) {
             // If division existed in previous season, move its teams in the new divisions
-			if($new_division['hierarchy'] < pow($previous_season_division_depth, 2)) {
+			if($new_division['hierarchy'] < pow(2, $previous_season_division_depth)) {
                 $previous_season_key = $this->divisionPreviousSeasonKey($data, $new_division);
                 // Get lower divisions keys if they exist
                 $lowerDivisionIds = $this->getLowerDivisionIds($data, $new_division);
