@@ -43,20 +43,32 @@ class PlayerNamesController extends AppController {
 							FILE_IGNORE_NEW_LINES | FILE_TEXT | FILE_SKIP_EMPTY_LINES);
 			unlink($this->request->data['PlayerName']['name']['tmp_name']);
 			$fields = array('name', 'country_id');
+            
 			foreach($lines as $line) {
+                $name = $this->PlayerName->find('first', array(
+                    'conditions' => array('PlayerName.name' => $line,
+                                    'country_id' => $this->request->data['PlayerName']['country_id']),
+                    'recursive' => -1
+                ));
+                if(!empty($name)) continue;
 				$values[] = array(
 					$line,
 					$this->request->data['PlayerName']['country_id']
 				);
 			}
-			$db = $this->PlayerName->getDataSource();
-			if(!$db->insertMulti($this->PlayerName->table, $fields, $values)) {
-				$db->rollback($this);
-				$this->Session->setFlash(__('Une erreur s\'est produite lors de l\'enregistrement des noms. Veuillez réessayer.'));
-			} else {
-				$this->Session->setFlash(__('Les noms ont été enregistrés avec succès.'));
-				$this->redirect(array('action' => 'index'));
-			}
+            if(isset($values)) {
+                $db = $this->PlayerName->getDataSource();
+                if(!$db->insertMulti($this->PlayerName->table, $fields, $values)) {
+                    $db->rollback($this);
+                    $this->Session->setFlash(__('Une erreur s\'est produite lors de l\'enregistrement des noms. Veuillez réessayer.'));
+                } else {
+                    $this->Session->setFlash(__('Les noms ont été enregistrés avec succès.'));
+                    $this->redirect(array('action' => 'index'));
+                }
+            } else {
+                $this->Session->setFlash(__('Tous les noms existent déjà dans la base de donnée.'));
+                $this->redirect(array('action' => 'index'));
+            }
 		}
 		$countries = $this->PlayerName->Country->find('list');
 		$this->set(compact('countries'));

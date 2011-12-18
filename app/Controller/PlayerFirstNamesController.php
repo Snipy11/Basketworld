@@ -44,6 +44,12 @@ class PlayerFirstNamesController extends AppController {
 			unlink($this->request->data['PlayerFirstName']['first_name']['tmp_name']);
 			$fields = array('first_name', 'country_id');
 			foreach($lines as $line) {
+                $first_name = $this->PlayerName->find('first', array(
+                    'conditions' => array('PlayerName.name' => $line,
+                                    'country_id' => $this->request->data['PlayerName']['country_id']),
+                    'recursive' => -1
+                ));
+                if(!empty($first_name)) continue;
 				$values[] = array(
 					$line,
 					$this->request->data['PlayerFirstName']['country_id']
