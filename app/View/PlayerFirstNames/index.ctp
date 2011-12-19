@@ -43,6 +43,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Player First Name'), array('action' => 'add')); ?></li>
+        <li><?php echo $this->Html->link(__('Ajouter fichier de prénoms'), array('action' => 'addFromFile')); ?></li>
 		<li><?php echo $this->Html->link(__('List Countries'), array('controller' => 'countries', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Country'), array('controller' => 'countries', 'action' => 'add')); ?> </li>
 	</ul>

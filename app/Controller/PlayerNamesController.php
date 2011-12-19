@@ -37,7 +37,22 @@ class PlayerNamesController extends AppController {
  *
  * @return void
  */
-	public function add() {
+    public function add() {
+        if ($this->request->is('post')) {
+            $this->PlayerName->create();
+            if($this->PlayerName->save($this->request->data)) {
+               $this->Session->setFlash(__('Ce nom a été enregistré.'));
+               $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('Le nom n\'a pas pu être enregistré. Veuillez ré-essayer.'));
+			}
+        }
+        $countries = $this->PlayerName->Country->find('list');
+		$this->set(compact('countries'));
+    }
+    
+    
+    public function addFromFile() {
 		if ($this->request->is('post')) {
 			$lines = file($this->request->data['PlayerName']['name']['tmp_name'],
 							FILE_IGNORE_NEW_LINES | FILE_TEXT | FILE_SKIP_EMPTY_LINES);

@@ -1,9 +1,9 @@
 <div class="playerNames form">
-<?php echo $this->Form->create('PlayerName', array('type' => 'file'));?>
+<?php echo $this->Form->create('PlayerName');?>
 	<fieldset>
 		<legend><?php echo __('Add Player Name'); ?></legend>
 	<?php
-		echo $this->Form->input('name', array('type' => 'file'));
+		echo $this->Form->input('name');
 		echo $this->Form->input('country_id');
 	?>
 	</fieldset>
