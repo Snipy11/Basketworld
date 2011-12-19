@@ -484,7 +484,7 @@ class Team extends AppModel {
  * Create new teams and 10 new players in each team.
  * 
  */    
-    public function createDivisionTeams($division_id, $number_of_teams) {
+    public function createDivisionTeams($season_id, $division_id, $number_of_teams) {
         $this->create();
         for($i=0; $i<$number_of_teams; $i++) {
             $this->id = false;
@@ -502,7 +502,7 @@ class Team extends AppModel {
             $team['com_politique_gestion'] = Team::TRADING;
             $team['com_ambition'] = Team::NOTHING;
             $this->save($team, false);
-			$this->PlayersInTeam->Player->createPlayers($this->id);
+			$this->PlayersInTeam->Player->createPlayers($this->id, $season_id);
             $this->Training->createTrainings($this->id);
         }
     }

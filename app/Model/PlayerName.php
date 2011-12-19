@@ -27,8 +27,15 @@ class PlayerName extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+            'unique' => array(
+                'rule' => array('isUniqueInField', 'country_id'),
+                'message' => 'Ce nom existe déjà dans ce pays.'
+            )
 		),
+        
 	);
+
+    
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 

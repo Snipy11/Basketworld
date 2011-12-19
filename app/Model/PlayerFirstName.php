@@ -27,6 +27,10 @@ class PlayerFirstName extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
+            'unique' => array(
+                'rule' => array('isUniqueInField', 'country_id'),
+                'message' => 'Ce prénom existe déjà dans ce pays.'
+            )
 		),
 	);
 

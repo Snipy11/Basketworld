@@ -48,7 +48,12 @@ class Season extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Division' => array(
+        'PlayerSkill' => array(
+            'className' => 'PlayerSkill',
+			'foreignKey' => 'season_id',
+			'dependent' => false,
+        ),
+        'Division' => array(
 			'className' => 'Division',
 			'foreignKey' => 'season_id',
 			'dependent' => false,
@@ -62,8 +67,8 @@ class Season extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-	
-	public function activate($id) {
+	   
+    public function activate($id) {
 			
 		/* Update the Teams' division_id to reflect their new position.
 		 * Take all divisions from current season and new season
@@ -96,10 +101,14 @@ class Season extends AppModel {
 		$db = $this->getDataSource();
 		$transactionBegun = $db->begin($this);
 		
+        // Delete all history of player skills from previous season, but keep the first one. 
+        // Copy the last one if any to the new season.
+        $this->PlayerSkill->removeSkillHistory($data['season']['Season']['id'], $data['previous_season']['Season']['id']);
+        
 		// For each division ordered by hierarchy DESC
 		foreach($data['season']['Division'] as $new_division) {
             // If division existed in previous season, move its teams in the new divisions
-			if($new_division['hierarchy'] < pow($previous_season_division_depth, 2)) {
+			if($new_division['hierarchy'] < pow(2, $previous_season_division_depth)) {
                 $previous_season_key = $this->divisionPreviousSeasonKey($data, $new_division);
                 // Get lower divisions keys if they exist
                 $lowerDivisionIds = $this->getLowerDivisionIds($data, $new_division);
@@ -125,19 +134,20 @@ class Season extends AppModel {
                     }
                 }
 			} else {
-			 /* Create 8 new teams and 10 new players for each team in this division.
-			  * If this division will be below an existing division, make only 7 teams 
-			  * and create one new team in the division above. 
-			  */
-			if($new_division['hierarchy'] >= pow($previous_season_division_depth + 1, 2)) {
-				$this->Division->Team->createDivisionTeams($new_division['id'], 8);
-			} else {
-				$this->Division->Team->createDivisionTeams($new_division['id'], 7);
-				$upper_division_id = $this->getUpperDivisionId($data, $new_division);
-				$this->Division->Team->createDivisionTeams($upper_division_id, 1);
-			}
+                 /* Create 8 new teams and 10 new players for each team in this division.
+                  * If this division will be below an existing division, make only 7 teams 
+                  * and create one new team in the division above. 
+                  */
+                if($new_division['hierarchy'] >= pow($previous_season_division_depth + 1, 2)) {
+                    $this->Division->Team->createDivisionTeams($data['season']['Season']['id'], $new_division['id'], 8);
+                } else {
+                    $this->Division->Team->createDivisionTeams($data['season']['Season']['id'], $new_division['id'], 7);
+                    $upper_division_id = $this->getUpperDivisionId($data, $new_division);
+                    $this->Division->Team->createDivisionTeams($data['season']['Season']['id'], $upper_division_id, 1);
+                }
 			}
 		}
+        
 		// Commit the saves into the db
 		if(!$db->commit($this)) {
 			$db->rollback($this);

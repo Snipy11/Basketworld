@@ -41,7 +41,7 @@ class Division extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
+		)
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -74,7 +74,7 @@ class Division extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'Ranking' => array(
+        'Ranking' => array(
 			'className' => 'Ranking',
 			'foreignKey' => 'division_id',
 			'dependent' => false,
@@ -131,7 +131,7 @@ class Division extends AppModel {
 			'Division.hierarchy DESC'
 		);
 		if($last_hierarchy !== false) {
-			$level = floor(log($last_hierarchy, 2)) + 1;
+			$level = $this->myLog2($last_hierarchy) + 1;
 			return $level;
 		}
 		return 0;

@@ -127,6 +127,7 @@ class MatchesPlayersController extends AppController {
  */
 	public function edit($id = null) {
 		$this->MatchesPlayer->id = $id;
+        $team_id = $this->Auth->user('team_id');
 		if (!$this->MatchesPlayer->exists()) {
 			throw new NotFoundException(__('Mauvais ordre de match.'));
 		}
@@ -142,7 +143,8 @@ class MatchesPlayersController extends AppController {
 		}
 		$playersTeams_raw = $this->MatchesPlayer->PlayersTeam->find('list', array(
 			'fields' => array('PlayersTeam.id', 'Player.name', 'PlayersTeam.default_position'),
-			'recursive' => 0
+			'recursive' => 0,
+            'conditions' => array('PlayersTeam.team_id' => $team_id)
 		));
 		foreach($playersTeams_raw as $position => $players) {
 			$playersTeams[MatchesPlayer::positions($position)] = $players;

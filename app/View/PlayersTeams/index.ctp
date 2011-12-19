@@ -3,7 +3,7 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('player_id');?></th>
-			<th><?php echo $this->Paginator->sort('Player.skill', 'Compétence');?></th>
+			<th><?php echo $this->Paginator->sort('Player.PlayerSkill.0.skill', 'Compétence');?></th>
 			<th><?php echo $this->Paginator->sort('default_position', 'Position');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
@@ -15,7 +15,7 @@
 			<?php echo $this->Html->link($playersTeam['Player']['first_name'] .' '. $playersTeam['Player']['name'], array('controller' => 'players', 'action' => 'view', $playersTeam['Player']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $playersTeam['Player']['skill']; ?>
+			<?php echo $playersTeam['Player']['PlayerSkill'][0]['skill']; ?>
 		</td>
 		<td>
 			<?php echo PlayersTeam::positions($playersTeam['PlayersTeam']['default_position']); ?>

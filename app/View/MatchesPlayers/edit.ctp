@@ -7,7 +7,6 @@
 	<?php
 		echo $this->Form->input('players_team_id', array('label' => __('Joueur')));
 		echo $this->Form->input('match_id', array('type' => 'hidden', 'value' => $this->data['Match']['id']));
-
 	?>
 		</fieldset>
 	</fieldset>

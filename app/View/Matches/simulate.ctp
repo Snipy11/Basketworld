@@ -63,14 +63,7 @@
 	<?php endforeach; ?>
 </div>
 
-<div class="related">
-	<pre>
-	<?php
-	print_r($match);
-	?>
-	</pre>
 
-</div>
 
 <?php
 

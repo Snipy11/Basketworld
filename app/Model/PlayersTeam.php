@@ -77,7 +77,7 @@ class PlayersTeam extends AppModel {
  * Create a new link of a player in a team.
  * 
  */    
-	public function createPlayerInTeam($team_id, $players) {
+	public function createPlayerInTeam($players, $team_id) {
 		$fields = array('team_id', 'player_id', 'default_position');
         $values = array();
         foreach($players as $player) {

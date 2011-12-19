@@ -57,4 +57,17 @@ class AppModel extends Model {
     }
     
     
+    /**
+     * Validation rule. Check whether the field is unique within a given
+     * field
+     */
+    public function isUniqueInField($data, $field) {
+        $country_id = $this->data[$this->alias][$field];
+        $count = $this->find('count', array(
+            'conditions' => array($data, array($this->alias .'.'. $field => $country_id)),
+            'recursive' => -1
+        ));
+        return ($count == 0);
+    }
+    
 }

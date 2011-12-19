@@ -37,13 +37,33 @@ class PlayerFirstNamesController extends AppController {
  *
  * @return void
  */
-	public function add() {
+    public function add() {
+        if ($this->request->is('post')) {
+            $this->PlayerFirstName->create();
+            if($this->PlayerFirstName->save($this->request->data)) {
+               $this->Session->setFlash(__('Ce prénom a été enregistré.'));
+               $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('Le prénom n\'a pas pu être enregistré. Veuillez ré-essayer.'));
+			}
+        }
+        $countries = $this->PlayerFirstName->Country->find('list');
+		$this->set(compact('countries'));
+    }
+    
+	public function addFromFile() {
 		if ($this->request->is('post')) {
 			$lines = file($this->request->data['PlayerFirstName']['first_name']['tmp_name'],
 							FILE_IGNORE_NEW_LINES | FILE_TEXT | FILE_SKIP_EMPTY_LINES);
 			unlink($this->request->data['PlayerFirstName']['first_name']['tmp_name']);
 			$fields = array('first_name', 'country_id');
 			foreach($lines as $line) {
+                $first_name = $this->PlayerName->find('first', array(
+                    'conditions' => array('PlayerName.name' => $line,
+                                    'country_id' => $this->request->data['PlayerName']['country_id']),
+                    'recursive' => -1
+                ));
+                if(!empty($first_name)) continue;
 				$values[] = array(
 					$line,
 					$this->request->data['PlayerFirstName']['country_id']

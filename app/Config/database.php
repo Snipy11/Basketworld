@@ -7,7 +7,7 @@ class DATABASE_CONFIG {
 		'host' => 'localhost',
 		'login' => 'root',
 		'password' => '',
-		'database' => 'basket_world',
+		'database' => 'basketwo',
 		'encoding' => 'utf8'
 	);
 }
