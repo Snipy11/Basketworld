@@ -2,26 +2,13 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-<<<<<<< HEAD
 
 -- -----------------------------------------------------
--- Table `basketwomysql`.`users`
+-- Table `basketworld`.`users`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`users` ;
+DROP TABLE IF EXISTS `basketworld`.`users` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`users` (
-=======
-DROP SCHEMA IF EXISTS `basketwo` ;
-CREATE SCHEMA IF NOT EXISTS `basketwo` ;
-USE `basketwo` ;
-
--- -----------------------------------------------------
--- Table `basketwo`.`users`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`users` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`users` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`users` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(255) CHARACTER SET 'latin1' COLLATE 'latin1_german2_ci' NOT NULL ,
   `password` VARCHAR(40) CHARACTER SET 'latin1' COLLATE 'latin1_german2_ci' NOT NULL ,
@@ -45,19 +32,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`friends`
+-- Table `basketworld`.`friends`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`friends` ;
+DROP TABLE IF EXISTS `basketworld`.`friends` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`friends` (
-=======
--- Table `basketwo`.`friends`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`friends` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`friends` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`friends` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `from_user_id` INT UNSIGNED NOT NULL ,
   `to_user_id` INT UNSIGNED NOT NULL ,
@@ -66,20 +45,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`friends` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_amis_users1`
     FOREIGN KEY (`from_user_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_amis_users2`
     FOREIGN KEY (`to_user_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -88,19 +59,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`countries`
+-- Table `basketworld`.`countries`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`countries` ;
+DROP TABLE IF EXISTS `basketworld`.`countries` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`countries` (
-=======
--- Table `basketwo`.`countries`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`countries` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`countries` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`countries` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `country` VARCHAR(64) NOT NULL ,
   `flag` VARCHAR(128) NOT NULL COMMENT 'Will make a default flag.' ,
@@ -110,19 +73,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`seasons`
+-- Table `basketworld`.`seasons`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`seasons` ;
+DROP TABLE IF EXISTS `basketworld`.`seasons` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`seasons` (
-=======
--- Table `basketwo`.`seasons`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`seasons` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`seasons` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`seasons` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `year` SMALLINT UNSIGNED NOT NULL ,
   `start_date` DATETIME NOT NULL ,
@@ -134,19 +89,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`divisions`
+-- Table `basketworld`.`divisions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`divisions` ;
+DROP TABLE IF EXISTS `basketworld`.`divisions` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`divisions` (
-=======
--- Table `basketwo`.`divisions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`divisions` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`divisions` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`divisions` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `hierarchy` INT UNSIGNED NOT NULL ,
   `name` VARCHAR(64) NOT NULL ,
@@ -155,20 +102,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`divisions` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_divisions_countries1`
     FOREIGN KEY (`country_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`countries` (`id` )
-=======
-    REFERENCES `basketwo`.`countries` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`countries` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_divisions_seasons1`
     FOREIGN KEY (`season_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`seasons` (`id` )
-=======
-    REFERENCES `basketwo`.`seasons` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`seasons` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -177,19 +116,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`teams`
+-- Table `basketworld`.`teams`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`teams` ;
+DROP TABLE IF EXISTS `basketworld`.`teams` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`teams` (
-=======
--- Table `basketwo`.`teams`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`teams` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`teams` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`teams` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `user_id` INT UNSIGNED NULL DEFAULT NULL ,
   `division_id` INT UNSIGNED NOT NULL ,
@@ -216,20 +147,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`teams` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_teams_divisions1`
     FOREIGN KEY (`division_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`divisions` (`id` )
-=======
-    REFERENCES `basketwo`.`divisions` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`divisions` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_teams_users1`
     FOREIGN KEY (`user_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -238,19 +161,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`rankings`
+-- Table `basketworld`.`rankings`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`rankings` ;
+DROP TABLE IF EXISTS `basketworld`.`rankings` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`rankings` (
-=======
--- Table `basketwo`.`rankings`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`rankings` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`rankings` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`rankings` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `division_id` INT UNSIGNED NOT NULL ,
   `team_id` INT UNSIGNED NOT NULL ,
@@ -263,20 +178,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`rankings` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_classements_divisions1`
     FOREIGN KEY (`division_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`divisions` (`id` )
-=======
-    REFERENCES `basketwo`.`divisions` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`divisions` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_classements_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -286,19 +193,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`press_releases`
+-- Table `basketworld`.`press_releases`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`press_releases` ;
+DROP TABLE IF EXISTS `basketworld`.`press_releases` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`press_releases` (
-=======
--- Table `basketwo`.`press_releases`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`press_releases` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`press_releases` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`press_releases` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
   `title` VARCHAR(128) CHARACTER SET 'latin1' COLLATE 'latin1_german2_ci' NOT NULL ,
@@ -308,11 +207,7 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`press_releases` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_communiques_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -322,19 +217,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`friendly_match_requests`
+-- Table `basketworld`.`friendly_match_requests`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`friendly_match_requests` ;
+DROP TABLE IF EXISTS `basketworld`.`friendly_match_requests` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`friendly_match_requests` (
-=======
--- Table `basketwo`.`friendly_match_requests`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`friendly_match_requests` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`friendly_match_requests` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`friendly_match_requests` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `from_team_id` INT UNSIGNED NOT NULL ,
   `to_team_id` INT UNSIGNED NOT NULL ,
@@ -345,20 +232,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`friendly_match_requests` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_friendly match requests_teams1`
     FOREIGN KEY (`from_team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_friendly match requests_teams2`
     FOREIGN KEY (`to_team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -367,19 +246,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`transactions`
+-- Table `basketworld`.`transactions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`transactions` ;
+DROP TABLE IF EXISTS `basketworld`.`transactions` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`transactions` (
-=======
--- Table `basketwo`.`transactions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`transactions` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`transactions` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`transactions` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
   `amount` INT NOT NULL ,
@@ -388,11 +259,7 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`transactions` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_economies_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -402,19 +269,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`trainers`
+-- Table `basketworld`.`trainers`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`trainers` ;
+DROP TABLE IF EXISTS `basketworld`.`trainers` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`trainers` (
-=======
--- Table `basketwo`.`trainers`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`trainers` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`trainers` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`trainers` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NULL DEFAULT NULL ,
   `first_name` VARCHAR(64) CHARACTER SET 'latin1' COLLATE 'latin1_german2_ci' NOT NULL ,
@@ -429,20 +288,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`trainers` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_trainers_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_trainers_countries1`
     FOREIGN KEY (`country_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`countries` (`id` )
-=======
-    REFERENCES `basketwo`.`countries` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`countries` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -452,19 +303,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`events`
+-- Table `basketworld`.`events`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`events` ;
+DROP TABLE IF EXISTS `basketworld`.`events` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`events` (
-=======
--- Table `basketwo`.`events`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`events` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`events` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`events` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
   `text` TEXT CHARACTER SET 'latin1' COLLATE 'latin1_german2_ci' NOT NULL ,
@@ -473,11 +316,7 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`events` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_events_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -487,19 +326,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`players`
+-- Table `basketworld`.`players`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`players` ;
+DROP TABLE IF EXISTS `basketworld`.`players` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`players` (
-=======
--- Table `basketwo`.`players`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`players` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`players` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`players` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `country_id` INT UNSIGNED NOT NULL ,
   `first_name` VARCHAR(64) NOT NULL ,
@@ -513,11 +344,7 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`players` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_players_countries1`
     FOREIGN KEY (`country_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`countries` (`id` )
-=======
-    REFERENCES `basketwo`.`countries` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`countries` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -526,19 +353,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`matches`
+-- Table `basketworld`.`matches`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`matches` ;
+DROP TABLE IF EXISTS `basketworld`.`matches` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`matches` (
-=======
--- Table `basketwo`.`matches`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`matches` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`matches` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`matches` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `home_team_id` INT UNSIGNED NOT NULL ,
   `visitor_team_id` INT UNSIGNED NOT NULL ,
@@ -556,20 +375,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`matches` (
   INDEX `buts_ext` (`visitor_points` ASC) ,
   CONSTRAINT `fk_matches_teams1`
     FOREIGN KEY (`home_team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_matches_teams2`
     FOREIGN KEY (`visitor_team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -579,19 +390,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`grades_matches`
+-- Table `basketworld`.`grades_matches`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`grades_matches` ;
+DROP TABLE IF EXISTS `basketworld`.`grades_matches` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`grades_matches` (
-=======
--- Table `basketwo`.`grades_matches`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`grades_matches` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`grades_matches` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`grades_matches` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `match_id` INT UNSIGNED NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
@@ -600,20 +403,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`grades_matches` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_notes_matchs_matches1`
     FOREIGN KEY (`match_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`matches` (`id` )
-=======
-    REFERENCES `basketwo`.`matches` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`matches` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_notes_matchs_users1`
     FOREIGN KEY (`user_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -622,19 +417,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`goals`
+-- Table `basketworld`.`goals`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`goals` ;
+DROP TABLE IF EXISTS `basketworld`.`goals` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`goals` (
-=======
--- Table `basketwo`.`goals`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`goals` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`goals` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`goals` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `description` TEXT CHARACTER SET 'latin1' COLLATE 'latin1_german2_ci' NOT NULL ,
   `visible` TINYINT(1) NOT NULL DEFAULT 1 ,
@@ -648,19 +435,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`users_goals`
+-- Table `basketworld`.`users_goals`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`users_goals` ;
+DROP TABLE IF EXISTS `basketworld`.`users_goals` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`users_goals` (
-=======
--- Table `basketwo`.`users_goals`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`users_goals` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`users_goals` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`users_goals` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `goal_id` INT UNSIGNED NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
@@ -669,29 +448,17 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`users_goals` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_obj_membre_objectifs1`
     FOREIGN KEY (`goal_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`goals` (`id` )
-=======
-    REFERENCES `basketwo`.`goals` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`goals` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_obj_membre_users1`
     FOREIGN KEY (`gm_valid_user_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_users_goals_users1`
     FOREIGN KEY (`user_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -701,19 +468,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`instructions`
+-- Table `basketworld`.`instructions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`instructions` ;
+DROP TABLE IF EXISTS `basketworld`.`instructions` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`instructions` (
-=======
--- Table `basketwo`.`instructions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`instructions` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`instructions` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`instructions` (
   `id` TINYINT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `title` VARCHAR(128) CHARACTER SET 'latin1' COLLATE 'latin1_german2_ci' NOT NULL ,
   `description` TEXT CHARACTER SET 'latin1' COLLATE 'latin1_german2_ci' NOT NULL ,
@@ -727,19 +486,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`rumors`
+-- Table `basketworld`.`rumors`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`rumors` ;
+DROP TABLE IF EXISTS `basketworld`.`rumors` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`rumors` (
-=======
--- Table `basketwo`.`rumors`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`rumors` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`rumors` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`rumors` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `division_id` INT UNSIGNED NOT NULL ,
   `user_id` INT UNSIGNED NOT NULL ,
@@ -749,20 +500,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`rumors` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_rumeurs_divisions1`
     FOREIGN KEY (`division_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`divisions` (`id` )
-=======
-    REFERENCES `basketwo`.`divisions` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`divisions` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_rumeurs_users1`
     FOREIGN KEY (`user_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -771,19 +514,11 @@ DEFAULT CHARACTER SET = latin1;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`transferts`
+-- Table `basketworld`.`transferts`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`transferts` ;
+DROP TABLE IF EXISTS `basketworld`.`transferts` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`transferts` (
-=======
--- Table `basketwo`.`transferts`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`transferts` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`transferts` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`transferts` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `player_id` INT UNSIGNED NOT NULL ,
   `acquire_team_id` INT UNSIGNED NULL DEFAULT NULL ,
@@ -797,38 +532,22 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`transferts` (
   INDEX `fk_transferts_teams2` (`acquire_team_id` ASC) ,
   CONSTRAINT `fk_transferts_players1`
     FOREIGN KEY (`player_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`players` (`id` )
-=======
-    REFERENCES `basketwo`.`players` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`players` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transferts_teams2`
     FOREIGN KEY (`acquire_team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transferts_teams3`
     FOREIGN KEY (`sell_team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_transferts_users1`
     FOREIGN KEY (`gm_watch` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -838,19 +557,11 @@ COLLATE = latin1_german2_ci;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`players_teams`
+-- Table `basketworld`.`players_teams`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`players_teams` ;
+DROP TABLE IF EXISTS `basketworld`.`players_teams` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`players_teams` (
-=======
--- Table `basketwo`.`players_teams`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`players_teams` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`players_teams` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`players_teams` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
   `player_id` INT UNSIGNED NOT NULL ,
@@ -858,39 +569,23 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`players_teams` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_players_teams_players1`
     FOREIGN KEY (`player_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`players` (`id` )
-=======
-    REFERENCES `basketwo`.`players` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`players` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_players_teams_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`matches_players`
+-- Table `basketworld`.`matches_players`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`matches_players` ;
+DROP TABLE IF EXISTS `basketworld`.`matches_players` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`matches_players` (
-=======
--- Table `basketwo`.`matches_players`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`matches_players` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`matches_players` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`matches_players` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `match_id` INT UNSIGNED NOT NULL ,
   `players_team_id` INT UNSIGNED NOT NULL ,
@@ -912,39 +607,23 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`matches_players` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_players_matches_matches1`
     FOREIGN KEY (`match_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`matches` (`id` )
-=======
-    REFERENCES `basketwo`.`matches` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`matches` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_matches_players_players_teams1`
     FOREIGN KEY (`players_team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`players_teams` (`id` )
-=======
-    REFERENCES `basketwo`.`players_teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`players_teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`vips`
+-- Table `basketworld`.`vips`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`vips` ;
+DROP TABLE IF EXISTS `basketworld`.`vips` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`vips` (
-=======
--- Table `basketwo`.`vips`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`vips` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`vips` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`vips` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `user_id` INT UNSIGNED NOT NULL ,
   `created` DATETIME NOT NULL ,
@@ -952,30 +631,18 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`vips` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_vip_users1`
     FOREIGN KEY (`user_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`users` (`id` )
-=======
-    REFERENCES `basketwo`.`users` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`users` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`strategies`
+-- Table `basketworld`.`strategies`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`strategies` ;
+DROP TABLE IF EXISTS `basketworld`.`strategies` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`strategies` (
-=======
--- Table `basketwo`.`strategies`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`strategies` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`strategies` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`strategies` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
   `match_id` INT UNSIGNED NOT NULL ,
@@ -984,39 +651,23 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`strategies` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_strategy_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_strategy_matches1`
     FOREIGN KEY (`match_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`matches` (`id` )
-=======
-    REFERENCES `basketwo`.`matches` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`matches` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`trainings`
+-- Table `basketworld`.`trainings`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`trainings` ;
+DROP TABLE IF EXISTS `basketworld`.`trainings` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`trainings` (
-=======
--- Table `basketwo`.`trainings`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`trainings` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`trainings` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`trainings` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
   `weekday` TINYINT NOT NULL ,
@@ -1024,30 +675,18 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`trainings` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_trainings_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`youth_investments`
+-- Table `basketworld`.`youth_investments`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`youth_investments` ;
+DROP TABLE IF EXISTS `basketworld`.`youth_investments` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`youth_investments` (
-=======
--- Table `basketwo`.`youth_investments`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`youth_investments` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`youth_investments` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`youth_investments` (
   `id` INT UNSIGNED NOT NULL ,
   `team_id` INT UNSIGNED NOT NULL ,
   `amount` SMALLINT UNSIGNED NOT NULL ,
@@ -1056,30 +695,18 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`youth_investments` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_youth_training_centers_teams1`
     FOREIGN KEY (`team_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`teams` (`id` )
-=======
-    REFERENCES `basketwo`.`teams` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`teams` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`actions`
+-- Table `basketworld`.`actions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`actions` ;
+DROP TABLE IF EXISTS `basketworld`.`actions` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`actions` (
-=======
--- Table `basketwo`.`actions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`actions` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`actions` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`actions` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `description` VARCHAR(64) NOT NULL ,
   PRIMARY KEY (`id`) )
@@ -1087,19 +714,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`actions_matches`
+-- Table `basketworld`.`actions_matches`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`actions_matches` ;
+DROP TABLE IF EXISTS `basketworld`.`actions_matches` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`actions_matches` (
-=======
--- Table `basketwo`.`actions_matches`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`actions_matches` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`actions_matches` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`actions_matches` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `match_id` INT UNSIGNED NOT NULL ,
   `player1_id` INT UNSIGNED NOT NULL ,
@@ -1108,57 +727,33 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`actions_matches` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_actions_matches_matches1`
     FOREIGN KEY (`match_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`matches` (`id` )
-=======
-    REFERENCES `basketwo`.`matches` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`matches` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_actions_matches_players1`
     FOREIGN KEY (`player1_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`players` (`id` )
-=======
-    REFERENCES `basketwo`.`players` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`players` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_actions_matches_players2`
     FOREIGN KEY (`player2_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`players` (`id` )
-=======
-    REFERENCES `basketwo`.`players` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`players` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_actions_matches_actions1`
     FOREIGN KEY (`action_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`actions` (`id` )
-=======
-    REFERENCES `basketwo`.`actions` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`actions` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`languages`
+-- Table `basketworld`.`languages`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`languages` ;
+DROP TABLE IF EXISTS `basketworld`.`languages` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`languages` (
-=======
--- Table `basketwo`.`languages`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`languages` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`languages` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`languages` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `language` VARCHAR(64) NOT NULL ,
   PRIMARY KEY (`id`) )
@@ -1166,19 +761,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`action_descriptions`
+-- Table `basketworld`.`action_descriptions`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`action_descriptions` ;
+DROP TABLE IF EXISTS `basketworld`.`action_descriptions` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`action_descriptions` (
-=======
--- Table `basketwo`.`action_descriptions`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`action_descriptions` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`action_descriptions` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`action_descriptions` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `long_description` TEXT NOT NULL ,
   `action_id` INT UNSIGNED NOT NULL ,
@@ -1186,99 +773,59 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`action_descriptions` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_action_descriptions_actions1`
     FOREIGN KEY (`action_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`actions` (`id` )
-=======
-    REFERENCES `basketwo`.`actions` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`actions` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_action_descriptions_languages1`
     FOREIGN KEY (`language_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`languages` (`id` )
-=======
-    REFERENCES `basketwo`.`languages` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`languages` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`player_names`
+-- Table `basketworld`.`player_names`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`player_names` ;
+DROP TABLE IF EXISTS `basketworld`.`player_names` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`player_names` (
-=======
--- Table `basketwo`.`player_names`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`player_names` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`player_names` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`player_names` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(64) NULL ,
   `country_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_player_names_countries1`
     FOREIGN KEY (`country_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`countries` (`id` )
-=======
-    REFERENCES `basketwo`.`countries` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`countries` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`player_first_names`
+-- Table `basketworld`.`player_first_names`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`player_first_names` ;
+DROP TABLE IF EXISTS `basketworld`.`player_first_names` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`player_first_names` (
-=======
--- Table `basketwo`.`player_first_names`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`player_first_names` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`player_first_names` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`player_first_names` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `first_name` VARCHAR(64) NULL ,
   `country_id` INT UNSIGNED NOT NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_player_first_names_countries1`
     FOREIGN KEY (`country_id` )
-<<<<<<< HEAD
-    REFERENCES `basketwomysql`.`countries` (`id` )
-=======
-    REFERENCES `basketwo`.`countries` (`id` )
->>>>>>> origin/master
+    REFERENCES `basketworld`.`countries` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
-<<<<<<< HEAD
--- Table `basketwomysql`.`team_names`
+-- Table `basketworld`.`team_names`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwomysql`.`team_names` ;
+DROP TABLE IF EXISTS `basketworld`.`team_names` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwomysql`.`team_names` (
-=======
--- Table `basketwo`.`team_names`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`team_names` ;
-
-CREATE  TABLE IF NOT EXISTS `basketwo`.`team_names` (
->>>>>>> origin/master
+CREATE  TABLE IF NOT EXISTS `basketworld`.`team_names` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `name` VARCHAR(64) NULL ,
   `in_use` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 ,
@@ -1287,11 +834,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `basketwo`.`player_skills`
+-- Table `basketworld`.`player_skills`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `basketwo`.`player_skills` ;
+DROP TABLE IF EXISTS `basketworld`.`player_skills` ;
 
-CREATE  TABLE IF NOT EXISTS `basketwo`.`player_skills` (
+CREATE  TABLE IF NOT EXISTS `basketworld`.`player_skills` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `skill` SMALLINT UNSIGNED NOT NULL ,
   `shoot` TINYINT UNSIGNED NOT NULL ,
@@ -1310,12 +857,12 @@ CREATE  TABLE IF NOT EXISTS `basketwo`.`player_skills` (
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_player_skills_players1`
     FOREIGN KEY (`player_id` )
-    REFERENCES `basketwo`.`players` (`id` )
+    REFERENCES `basketworld`.`players` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_player_skills_seasons1`
     FOREIGN KEY (`season_id` )
-    REFERENCES `basketwo`.`seasons` (`id` )
+    REFERENCES `basketworld`.`seasons` (`id` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
