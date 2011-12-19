@@ -27,7 +27,7 @@
 		<td><?php echo h(MatchesPlayer::positions($matchesPlayer['MatchesPlayer']['position'])); ?>&nbsp;</td>
 
 		<td class="actions">
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $match['Match']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $matchesPlayer['MatchesPlayer']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

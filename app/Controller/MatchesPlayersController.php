@@ -133,7 +133,7 @@ class MatchesPlayersController extends AppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->MatchesPlayer->save($this->request->data)) {
 				$this->Session->setFlash(__('The matches player has been saved'));
-				$this->redirect(array('action' => 'index'));
+				$this->redirect(array('action' => 'index', $this->request->data['Match']['id']));
 			} else {
 				$this->Session->setFlash(__('The matches player could not be saved. Please, try again.'));
 			}

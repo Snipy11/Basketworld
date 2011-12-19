@@ -9,7 +9,7 @@ class AppController extends Controller {
             'loginRedirect' => array('controller' => 'users', 'action' => 'welcome'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'welcome'),
             'authError' => 'Vous ne pouvez pas accéder à cette page',
-            'authorize' => 'controller',
+            'authorize' => 'Controller',
             'authenticate' => array(
                 'Form' => array(
                     'fields' => array('username' => 'name')
