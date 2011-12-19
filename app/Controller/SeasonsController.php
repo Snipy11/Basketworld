@@ -38,31 +38,31 @@ class SeasonsController extends AppController {
 * @return void
 */
     public function add() {
-	if ($this->request->is('post')) {
-	    $this->Season->create();
-	    if ($this->Season->save($this->request->data)) {
-		foreach($this->request->data['Country'] as $country) {
-		    $this->Season->Division->createDivisions(
-			$country['id'],
-			$this->Season->id,
-			$country['level']
-		    );
-		}
-		$this->Session->setFlash(__('The season has been saved'));
-		$this->redirect(array('action' => 'index'));
-	    } else {
-		$this->Session->setFlash(__('The season could not be saved. Please, try again.'));
-	    }
-	}
-	$season = $this->Season->find('first', array(
-	    'order' => 'Season.year DESC'
-	));
-	$this->Season->Division->Country->recursive = -1;
-	$countries = $this->Season->Division->Country->find('all');
-	foreach($countries as &$country) {
-	    $country['level'] = $this->Season->Division->deepestLevel($country['Country']['id'], $season['Season']['id']);
-	}
-	$this->set(compact('season', 'countries'));
+        if ($this->request->is('post')) {
+            $this->Season->create();
+            if ($this->Season->save($this->request->data)) {
+                foreach($this->request->data['Division'] as $division) {
+                    $this->Season->Division->createDivisions(
+                    $division['country_id'],
+                    $this->Season->id,
+                    $division['level']
+                    );
+                }
+                $this->Session->setFlash(__('The season has been saved'));
+                $this->redirect(array('action' => 'index'));
+            } else {
+                $this->Session->setFlash(__('The season could not be saved. Please, try again.'));
+            }
+        }
+        $season = $this->Season->find('first', array(
+            'order' => 'Season.year DESC'
+        ));
+        $this->Season->Division->Country->recursive = -1;
+        $countries = $this->Season->Division->Country->find('all');
+        foreach($countries as &$country) {
+            $country['level'] = $this->Season->Division->deepestLevel($country['Country']['id'], $season['Season']['id']);
+        }
+        $this->set(compact('season', 'countries'));
     }    
 
 /**

@@ -12,8 +12,8 @@
 				<legend><?php echo __('Niveau de profondeur des divisions.') ?></legend>
 		<?php
 		foreach($countries as $key => $country):
-			echo $this->Form->hidden("Country.{$key}.id", array('value' => $country['Country']['id']));
-			echo $this->Form->input("Country.{$key}.level", array(
+			echo $this->Form->hidden("Division.{$key}.country_id", array('value' => $country['Country']['id']));
+			echo $this->Form->input("Division.{$key}.level", array(
 				'label' => $country['Country']['country'],
 				'default' => $country['level']
 			));

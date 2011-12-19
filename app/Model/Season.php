@@ -67,8 +67,8 @@ class Season extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-	
-	public function activate($id) {
+	   
+    public function activate($id) {
 			
 		/* Update the Teams' division_id to reflect their new position.
 		 * Take all divisions from current season and new season
