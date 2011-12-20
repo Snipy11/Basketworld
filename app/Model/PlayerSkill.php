@@ -44,7 +44,63 @@ class PlayerSkill extends AppModel {
         $values = array();
         $now = date('Y-m-d');
         foreach($players as $player) {
-            $values[] = array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, $player['id'], $season_id, $now);
+            switch($player['default_position']) {
+                case 0:
+                    $shoot = mt_rand(10, 20);
+                    $threePoints = mt_rand(10, 20);
+                    $dribble = mt_rand(15, 30);
+                    $assist = mt_rand(15, 30);
+                    $rebound = mt_rand(0, 5);
+                    $block = mt_rand(0, 5);
+                    $steal = mt_rand(5, 30);
+                    $defense = mt_rand(0, 30);
+                    break;
+                case 1:
+                    $shoot = mt_rand(10, 25);
+                    $threePoints = mt_rand(10, 25);
+                    $dribble = mt_rand(10, 30);
+                    $assist = mt_rand(15, 30);
+                    $rebound = mt_rand(0, 5);
+                    $block = mt_rand(0, 5);
+                    $steal = mt_rand(5, 30);
+                    $defense = mt_rand(0, 30);
+                    break;
+                case 2:
+                    $shoot = mt_rand(15, 30);
+                    $threePoints = mt_rand(15, 30);
+                    $dribble = mt_rand(5, 20);
+                    $assist = mt_rand(5, 20);
+                    $rebound = mt_rand(5, 15);
+                    $block = mt_rand(5, 15);
+                    $steal = mt_rand(5, 25);
+                    $defense = mt_rand(0, 30);
+                    break;
+                case 3:
+                    $shoot = mt_rand(15, 30);
+                    $threePoints = mt_rand(0, 10);
+                    $dribble = mt_rand(5, 20);
+                    $assist = mt_rand(5, 15);
+                    $rebound = mt_rand(10, 30);
+                    $block = mt_rand(5, 25);
+                    $steal = mt_rand(5, 20);
+                    $defense = mt_rand(0, 30);
+                    break;
+                case 4:
+                    $shoot = mt_rand(15, 30);
+                    $threePoints = mt_rand(0, 10);
+                    $dribble = mt_rand(5, 25);
+                    $assist = mt_rand(5, 10);
+                    $rebound = mt_rand(15, 35);
+                    $block = mt_rand(15, 30);
+                    $steal = mt_rand(5, 20);
+                    $defense = mt_rand(0, 30);
+                    break;
+                
+            }
+            App::uses('Math', 'Lib');
+            $skill = Math::avrg($shoot, $threePoints, $dribble, $assist, $rebound, $block, $steal, $defense);
+            $values[] = array($skill, $shoot, $threePoints, $dribble, $assist, $rebound, $block, $steal,
+                        $defense, 100, 0, $player['id'], $season_id, $now);
         }
         $db = $this->getDataSource();
 		if(!$db->insertMulti($this->table, $fields, $values)) {
@@ -68,10 +124,12 @@ class PlayerSkill extends AppModel {
         ));
         // Get the latest skills and move them to the next season
         $first_skill_ids = Set::classicExtract($players, '{n}.PlayerSkill.0.id');
-
-        foreach($first_skill_ids as $first_skill_id) {
-            $this->id = $first_skill_id;
-            $this->saveField('season_id', $new_season_id);
+        
+        if(!empty($first_skill_ids)) {
+            foreach($first_skill_ids as $first_skill_id) {
+                $this->id = $first_skill_id;
+                $this->saveField('season_id', $new_season_id);
+            }
         }
         
         // Select all the skills remaining expect the oldest one, for history.

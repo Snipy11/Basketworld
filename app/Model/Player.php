@@ -232,17 +232,34 @@ class Player extends AppModel {
 		$this->create();
         $players = array();
         for ($i = 0; $i < 10; $i++) {
+            $default_position = $i % 5;
 			$this->id = false;
 			$country_id = $this->Country->getRandomCountry();
 			$data['country_id'] = $country_id;
 			$data['first_name'] = $this->Country->PlayerFirstName->getRandomFirstName($country_id);
 			$data['name'] = $this->Country->PlayerName->getRandomName($country_id);;
 			$data['age'] = 20;
-			$data['height'] = 200;
+			switch($default_position) {
+                case 0:
+                    $data['height'] = mt_rand(160, 190);
+                    break;
+                case 1:
+                    $data['height'] = mt_rand(160, 195);
+                    break;
+                case 2:
+                    $data['height'] = mt_rand(180, 205);
+                    break;
+                case 3:
+                    $data['height'] = mt_rand(185, 210);
+                    break;
+                case 4:
+                    $data['height'] = mt_rand(185, 210);
+                    break;
+            }
 			$data['salary'] = 1000;
-			$data['spirit'] = Player::CALM;
+			$data['spirit'] = mt_rand(0, 3);
 			$data['injury'] = 0;
-			$data['speciality'] = Player::NASHER;
+			$data['speciality'] = mt_rand(0, 3);
 			$this->save($data, false);
 			$players[] = array('id' => $this->id, 'default_position' => $i % 5);
 		}
