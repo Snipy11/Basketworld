@@ -123,7 +123,8 @@ class Division extends AppModel {
 	 * @return int $level
 	 */
 	public function deepestLevel($country_id, $season_id) {
-		$last_hierarchy = $this->field('hierarchy', 
+		App::uses('Math', 'Lib');
+        $last_hierarchy = $this->field('hierarchy', 
 			array(
 				'Division.country_id' => $country_id,
 				'Division.season_id' => $season_id
@@ -131,17 +132,18 @@ class Division extends AppModel {
 			'Division.hierarchy DESC'
 		);
 		if($last_hierarchy !== false) {
-			$level = $this->myLog2($last_hierarchy) + 1;
+			$level = Math::highestBitSet($last_hierarchy) + 1;
 			return $level;
 		}
 		return 0;
 	}
 	
 	public function createDivisions($country_id, $season_id, $level) {
-		for ($i = 1; $i < pow(2, $level); $i++)  {
+		App::uses('Math', 'Lib');
+        for ($i = 1; $i < pow(2, $level); $i++)  {
 			$this->create();
 			$division['hierarchy'] = $i;
-			$current_level = $this->myLog2($i) + 1;
+			$current_level = Math::highestBitSet($i) + 1;
 			$division['name'] = "Division " . ($current_level) . chr(65 + ($i % pow(2, $current_level-1)));
 			$division['country_id'] = $country_id;
 			$division['season_id'] = $season_id;
