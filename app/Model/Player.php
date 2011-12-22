@@ -253,7 +253,7 @@ class Player extends AppModel {
                     $data['height'] = mt_rand(185, 210);
                     break;
                 case 4:
-                    $data['height'] = mt_rand(185, 210);
+                    $data['height'] = mt_rand(190, 215);
                     break;
             }
 			$data['salary'] = 1000;

@@ -491,14 +491,14 @@ class Team extends AppModel {
             $team['division_id'] = $division_id;
             $team['name'] = "Team " . $i; //TODO Need team names.
             $team['gymnasium_name'] = "{$team['name']} Arena";
-            $team['places_assises'] = 500;
+            $team['places_assises'] = 150;
             $team['places_vip'] = 0;
             $team['adjoints'] = $team['attaches'] = $team['eplucheurs'] = $team['medecins'] = $team['kines'] =
             $team['chasseurs'] = $team['stats'] = 0;
             $team['confiance'] = 50;
             $team['cash'] = 50000;
             $team['matos'] = $team['tenues'] = $team['muscu'] = 0;
-            $team['supporters'] = 200;
+            $team['supporters'] = 50;
             $team['com_politique_gestion'] = Team::TRADING;
             $team['com_ambition'] = Team::NOTHING;
             $this->save($team, false);
