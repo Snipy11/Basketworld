@@ -21,14 +21,23 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
 		</div>
 		<div id="menu" class='actions'>
-		    <?php echo $this->Html->link(__('Accueil'), '/'); ?>
-		    <?php echo $this->Html->link(__('Calendrier'), '/Matches'); ?>
-		    <?php echo $this->Html->link(__('Championnat'), '/Rankings'); ?>
+		    <?php echo $this->Html->link(__('Tableau de bord'), '/'); ?>
+            <?php echo $this->Html->link(__('Info club'), '/'); ?>
 		    <?php echo $this->Html->link(__('Effectif'), '/PlayersTeams'); ?>
 		    <?php echo $this->Html->link(__('Entraînement'), '/Trainings'); ?>
+            <?php echo $this->Html->link(__('Marché des transferts'), '/'); ?>
+		    <?php echo $this->Html->link(__('Calendrier'), '/Matches'); ?>
+		    <?php echo $this->Html->link(__('Championnat'), '/Rankings'); ?>
+		    <?php echo $this->Html->link(__('Amicaux'), '/'); ?>
+            <?php echo $this->Html->link(__('Bureaux du club'), '/'); ?>
+            <?php echo $this->Html->link(__('Economie'), '/'); ?>
+            <br /><br />
+            <?php echo $this->Html->link(__('Personnel et salariés'), '/'); ?>
+            <?php echo $this->Html->link(__('Salle'), '/'); ?>
+            <?php echo $this->Html->link(__('Centre de formation'), '/'); ?>
+            <?php echo $this->Html->link(__('Recherche'), '/'); ?>
 		</div>
 		<div id="content">
             <div style="text-align:right">
