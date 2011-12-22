@@ -54,4 +54,24 @@ class MatchesPlayer extends AppModel {
 			'order' => ''
 		)
 	);
+    
+    public function createDefault($match_id, $team_id) {
+        $fields = array('match_id', 'players_team_id', 'position');
+        $values = array();
+        for($position = 0; $position < 5; $position++) {
+            $playerTeam = $this->PlayersTeam->find('first', array(
+                'conditions' => array(
+                    'PlayersTeam.team_id' => $team_id,
+                    'PlayersTeam.default_position' => $position
+                ),
+                'recursive' => -1
+            ));
+            $values[] = array($match_id, $playerTeam['PlayersTeam']['id'], $position);
+        }
+        $db = $this->getDataSource();
+		if(!$db->insertMulti($this->table, $fields, $values)) {
+			$db->rollback($this);
+		}
+    }
+    
 }

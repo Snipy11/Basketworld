@@ -1,3 +1,4 @@
+<?php debug($match) ?>
 <div class="view" style="width:65%;">
 	<h2>Simulation de match</h2>
 	<p>Version alpha 1.0</p>

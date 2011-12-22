@@ -28,6 +28,7 @@
 			<?php echo $this->Html->link(__('Ordre de match'), array('controller' => 'MatchesPlayers', 'action' => 'index', $match['Match']['id'])); ?>
             <?php echo $this->Html->link(__('Simulate'), array('action' => 'simulate', $match['Match']['id'])); ?>
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $match['Match']['id'])); ?>
+            <?php echo $this->Html->link(__('Simuler semaine'), array('action' => 'simulateWeek', $match['Match']['start_date'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

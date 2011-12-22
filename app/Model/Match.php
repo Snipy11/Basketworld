@@ -269,4 +269,101 @@ class Match extends AppModel {
 		$array[$size-1] = $tail;
 	}
 
+    public function simulate($id = null) {
+        $this->id = $id;
+        if (!$this->exists()) {
+            throw new NotFoundException(__('Invalid match'));
+        }
+        $match = $this->find('first', array(
+                'contain' => array(
+                    'HomeTeam',
+                    'VisitorTeam'
+                ),
+                'conditions' => array('Match.id' => $id)
+            ));
+        //Check if each team has chosed their players for this match
+        $this->PlayersInMatch->unbindModel(array('belongsTo' => array('PlayersTeam')));
+        $this->PlayersInMatch->bindModel(array(
+            'hasOne' => array(
+            'PlayersTeam' => array(
+                'foreignKey' => false,
+                'conditions' => array('PlayersTeam.id = PlayersInMatch.players_team_id')
+            ),
+            'Player' => array(
+                'foreignKey' => false,
+                'conditions' => array('Player.id = PlayersTeam.player_id')
+            ),
+            'PlayerSkill' => array(
+                'foreignKey' => false,
+                'conditions' => array('PlayerSkill.player_id = Player.id'),
+                'order' => 'PlayerSkill.created DESC'
+            )
+            )
+        ));
+        $players = $this->PlayersInMatch->find('all', array(
+            'conditions' => array('PlayersInMatch.match_id' => $id),
+            'contain' => array('PlayersTeam', 'Player', 'PlayerSkill')
+        ));
+        
+        $playersInMatch = Set::combine(
+            $players,
+            '{n}.PlayersInMatch.position',
+            '{n}.Player.id',
+            '{n}.PlayersTeam.team_id'
+        );
+        $reQuery = false;
+        if(!array_key_exists($match['HomeTeam']['id'], $playersInMatch)) {
+            $this->PlayersInMatch->createDefault($id, $match['HomeTeam']['id']);
+            $reQuery = true;
+        }
+        if(!array_key_exists($match['VisitorTeam']['id'], $playersInMatch)) {
+            $this->PlayersInMatch->createDefault($id, $match['VisitorTeam']['id']);
+            $reQuery = true;
+        }
+        if($reQuery = true) {
+            $this->PlayersInMatch->unbindModel(array('belongsTo' => array('PlayersTeam')));
+            $this->PlayersInMatch->bindModel(array(
+                'hasOne' => array(
+                'PlayersTeam' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('PlayersTeam.id = PlayersInMatch.players_team_id')
+                ),
+                'Player' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('Player.id = PlayersTeam.player_id')
+                ),
+                'PlayerSkill' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('PlayerSkill.player_id = Player.id'),
+                    'order' => 'PlayerSkill.created DESC'
+                )
+                )
+            ));
+            $players = $this->PlayersInMatch->find('all', array(
+                'conditions' => array('PlayersInMatch.match_id' => $id),
+                'contain' => array('PlayersTeam', 'Player', 'PlayerSkill')
+            ));
+        }
+        $match['Players'] = $players;
+        // Initialize all the stats to 0
+        foreach($match['Players'] as &$player) {
+            foreach($player['PlayersInMatch'] as &$value) {
+            if(is_null($value)) $value = 0;
+            }
+        }
+        App::uses('MatchSimulator', 'Lib');
+        $match['Match']['home_points'] = $match['Match']['visitor_points'] = 0;
+        $MatchSimulator = new MatchSimulator($match);
+        $MatchSimulator->changeState(MiseEnJeu::getInstance());
+        while($MatchSimulator->match['Match']['home_points'] < 15 &&
+               $MatchSimulator->match['Match']['visitor_points'] < 15 ) {
+            $MatchSimulator->play();
+        }
+        $this->save($match['Match']);
+        foreach($match['Players'] as $playerInMatch) {
+            $this->PlayersInMatch->save($playerInMatch['PlayersInMatch']);
+        }
+    }
+
 }
+
