@@ -281,8 +281,8 @@ class Match extends AppModel {
                 ),
                 'conditions' => array('Match.id' => $id)
             ));
-        //Check if each team has chosed their players for this match
-        $this->PlayersInMatch->unbindModel(array('belongsTo' => array('PlayersTeam')));
+        //Check if each team has chosen their players for this match
+        $this->PlayersInMatch->unbindModel(array('belongsTo' => array('PlayersTeam')), false);
         $this->PlayersInMatch->bindModel(array(
             'hasOne' => array(
             'PlayersTeam' => array(
@@ -299,7 +299,7 @@ class Match extends AppModel {
                 'order' => 'PlayerSkill.created DESC'
             )
             )
-        ));
+        ), false);
         $players = $this->PlayersInMatch->find('all', array(
             'conditions' => array('PlayersInMatch.match_id' => $id),
             'contain' => array('PlayersTeam', 'Player', 'PlayerSkill')
@@ -321,24 +321,6 @@ class Match extends AppModel {
             $reQuery = true;
         }
         if($reQuery = true) {
-            $this->PlayersInMatch->unbindModel(array('belongsTo' => array('PlayersTeam')));
-            $this->PlayersInMatch->bindModel(array(
-                'hasOne' => array(
-                'PlayersTeam' => array(
-                    'foreignKey' => false,
-                    'conditions' => array('PlayersTeam.id = PlayersInMatch.players_team_id')
-                ),
-                'Player' => array(
-                    'foreignKey' => false,
-                    'conditions' => array('Player.id = PlayersTeam.player_id')
-                ),
-                'PlayerSkill' => array(
-                    'foreignKey' => false,
-                    'conditions' => array('PlayerSkill.player_id = Player.id'),
-                    'order' => 'PlayerSkill.created DESC'
-                )
-                )
-            ));
             $players = $this->PlayersInMatch->find('all', array(
                 'conditions' => array('PlayersInMatch.match_id' => $id),
                 'contain' => array('PlayersTeam', 'Player', 'PlayerSkill')
