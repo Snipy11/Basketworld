@@ -345,6 +345,40 @@ class Match extends AppModel {
         foreach($match['Players'] as $playerInMatch) {
             $this->PlayersInMatch->save($playerInMatch['PlayersInMatch']);
         }
+        $homeTeam = $this->HomeTeam->find('first', array(
+            'conditions' => array('HomeTeam.id' => $match['HomeTeam']['id']),
+            'contain' => array('Ranking' => array(
+                'conditions' => array('Ranking.division_id' => $match['HomeTeam']['division_id'])
+            ))
+        ));
+        $visitorTeam = $this->VisitorTeam->find('first', array(
+            'conditions' => array('VisitorTeam.id' => $match['VisitorTeam']['id']),
+            'contain' => array('Ranking' => array(
+                'conditions' => array('Ranking.division_id' => $match['VisitorTeam']['division_id'])
+            ))
+        ));
+        $homeRanking = $homeTeam['Ranking'][0];
+        $visitorRanking = $visitorTeam['Ranking'][0];
+        if($match['Match']['home_points'] > $match['Match']['visitor_points']) {
+            $homeRanking['points'] += 2;
+            $homeRanking['victories'] += 1;
+            $visitorRanking['defeats'] += 1;
+        } elseif($match['Match']['home_points'] < $match['Match']['visitor_points']) {
+            $visitorRanking['points'] += 2;
+            $visitorRanking['victories'] += 1;
+            $homeRanking['defeats'] += 1;
+        } else {
+            $homeRanking['points'] += 1;
+            $visitorRanking['points'] += 1;
+        }
+        $homeRanking['played'] += 1;
+        $visitorRanking['played'] += 1;
+        $homeRanking['points_scored'] += $match['Match']['home_points'];
+        $homeRanking['points_against'] += $match['Match']['visitor_points'];
+        $visitorRanking['points_scored'] += $match['Match']['visitor_points'];
+        $visitorRanking['points_against'] += $match['Match']['home_points'];
+        $this->HomeTeam->Ranking->saveMany(array($homeRanking, $visitorRanking),
+                                            array('validate' =>false));
     }
 
 }

@@ -256,3 +256,14 @@ class MatchesController extends AppController {
     }
     
 }
+
+        /*
+         * piece of subQuery to find the latest matches played.
+        $db = $this->getDataSource();
+        $subQuery = $db->buildStatement(array(
+            'fields' => 'MAX(Last_match.start_date) AS last_date',
+            'table' => $db->fullTableName($this),
+            'alias' => 'Last_match',
+            'conditions' => array('NOT' => array('Last_match.home_points' => null))
+        ), $this);
+        * */
