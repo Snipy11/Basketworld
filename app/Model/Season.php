@@ -104,7 +104,7 @@ class Season extends AppModel {
         // Delete all history of player skills from previous season, but keep the first one. 
         // Copy the last one if any to the new season.
         $this->PlayerSkill->removeSkillHistory($data['season']['Season']['id'], $data['previous_season']['Season']['id']);
-        
+        exit;
 		// For each division ordered by hierarchy DESC
 		foreach($data['season']['Division'] as $new_division) {
             // If division existed in previous season, move its teams in the new divisions

@@ -157,17 +157,25 @@ class Player extends AppModel {
 		)
 	);
 
+public $hasOne = array(
+        'PlayerSkill' => array(
+            'className' => 'PlayerSkill',
+			'foreignKey' => 'player_id',
+			'dependent' => false,
+            'order' => 'PlayerSkill.created DESC'
+        )
+    );
 /**
  * hasMany associations
  *
  * @var array
  */
 	public $hasMany = array(
-		'PlayerSkill' => array(
+		'PlayerSkills' => array(
             'className' => 'PlayerSkill',
 			'foreignKey' => 'player_id',
 			'dependent' => false,
-            'order' => 'PlayerSkill.created DESC',
+            'order' => 'PlayerSkills.created DESC',
             'limit' => 1
         ),
         'Transfert' => array(
