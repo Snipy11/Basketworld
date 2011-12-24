@@ -103,19 +103,16 @@ class PlayersController extends AppController {
 	}
     
     public function top5() {
-/*
         if(!$this->request->params['requested']) {
             throw new MethodNotAllowedException(__('Cette requête n\'est pas valable.'));
         }
-*/
         $players = $this->Player->find('all', array(
             'contain' => array('PlayerSkill' => array(
                 'order' => array('PlayerSkill.skill DESC')
             )),
             'limit' => 5
         ));
-        debug($players);
-        exit;
+        return compact('players');
     }
     
 }

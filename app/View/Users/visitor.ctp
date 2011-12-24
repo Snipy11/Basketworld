@@ -3,7 +3,7 @@
 <?php 
 echo $this->element('user_add'); 
 echo $this->element('last_matches', $this->requestAction('matches/lastResults'));
-
+echo $this->element('top5_players', $this->requestAction('players/top5'));
 
 ?>
 <div class="actions">
