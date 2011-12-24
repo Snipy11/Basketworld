@@ -7,6 +7,11 @@ App::uses('AppController', 'Controller');
  */
 class MatchesController extends AppController {
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('lastResults');
+    }
+    
 
 /**
  * index method
@@ -122,9 +127,9 @@ class MatchesController extends AppController {
         }
         $conditions = array(
             'start_date >=' => date('Y-m-d', strtotime('now')),
-	    'OR' => array(
-		'home_team_id' => $this->request->params['named']['team'],
-		'visitor_team_id' => $this->request->params['named']['team']
+            'OR' => array(
+                'home_team_id' => $this->request->params['named']['team'],
+                'visitor_team_id' => $this->request->params['named']['team']
             )
         );
         $next_match = $this->Match->find('first', array(
@@ -133,6 +138,48 @@ class MatchesController extends AppController {
         ));
         return compact('next_match');
     }
+    
+    public function lastResults() {
+        if(!$this->request->params['requested']) {
+            throw new MethodNotAllowedException(__('Cette requête n\'est pas valable.'));
+        }
+        // piece of subQuery to find the latest matches played.
+        $db = $this->Match->getDataSource();
+        $subQuery = $db->buildStatement(array(
+            'fields' => array('MAX(Last_match.start_date) AS last_date'),
+            'table' => $db->fullTableName($this->Match),
+            'alias' => 'Last_match',
+            'conditions' => array('NOT' => array('Last_match.home_points' => null)),
+            'order' => '',
+            'limit' => '',
+            'group' => ''
+        ), $this->Match);
+        $france_country_id = $this->Match->HomeTeam->Division->Country->field('id', array(
+            'country' => 'France'
+        ));
+        $last_matches = $this->Match->find('all', array(
+            'joins' => array(
+                array(
+                    'table' => "($subQuery)",
+                    'alias' => 'Last_m',
+                    'type' => 'INNER',
+                    'conditions' => array('Last_m.last_date = Match.start_date')
+                ),
+            ),
+            'contain' => array('HomeTeam' => array(
+                'fields' => array('HomeTeam.id', 'HomeTeam.name'),
+                'Division' => array(
+                    'fields' => array('Division.hierarchy', 'Division.country_id'),
+                    'conditions' => array('Division.hierarchy' => 1, 'Division.country_id' => $france_country_id)
+                )),
+                'VisitorTeam' => array(
+                    'fields' => array('VisitorTeam.name')
+                )
+            )
+        ));
+        return compact('last_matches');
+    }
+    
     
     
 /**
@@ -257,13 +304,4 @@ class MatchesController extends AppController {
     
 }
 
-        /*
-         * piece of subQuery to find the latest matches played.
-        $db = $this->getDataSource();
-        $subQuery = $db->buildStatement(array(
-            'fields' => 'MAX(Last_match.start_date) AS last_date',
-            'table' => $db->fullTableName($this),
-            'alias' => 'Last_match',
-            'conditions' => array('NOT' => array('Last_match.home_points' => null))
-        ), $this);
-        * */
+
