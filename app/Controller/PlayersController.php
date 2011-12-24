@@ -7,6 +7,10 @@ App::uses('AppController', 'Controller');
  */
 class PlayersController extends AppController {
 
+    public function beforeFilter() {
+        parent::beforeFilter();
+        $this->Auth->allow('top5');
+    }
 
 /**
  * index method
@@ -97,4 +101,21 @@ class PlayersController extends AppController {
 		$this->Session->setFlash(__('Player was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
+    
+    public function top5() {
+/*
+        if(!$this->request->params['requested']) {
+            throw new MethodNotAllowedException(__('Cette requête n\'est pas valable.'));
+        }
+*/
+        $players = $this->Player->find('all', array(
+            'contain' => array('PlayerSkill' => array(
+                'order' => array('PlayerSkill.skill DESC')
+            )),
+            'limit' => 5
+        ));
+        debug($players);
+        exit;
+    }
+    
 }
