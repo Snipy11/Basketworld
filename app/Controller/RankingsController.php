@@ -17,10 +17,14 @@ class RankingsController extends AppController {
 		$this->Ranking->recursive = 0;
 		$this->Ranking->Team->id = $this->Auth->user('team_id');
 		$division = $this->Ranking->Team->field('division_id');
-		$this->paginate = array(
-			'conditions' => array('Ranking.division_id' => $division)
-		);
-		$this->set('rankings', $this->paginate());
+        $rankings = $this->Ranking->find('all', array(
+            'conditions' => array('Ranking.division_id' => $division),
+            'order' => 'Ranking.points DESC'
+        ));
+        if(isset($this->request->params['requested']) && $this->request->params['requested']) {
+            return compact('rankings');
+        }
+		$this->set(compact('rankings'));
 	}
 
 /**
