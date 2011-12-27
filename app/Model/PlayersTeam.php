@@ -78,10 +78,10 @@ class PlayersTeam extends AppModel {
  * 
  */    
 	public function createPlayerInTeam($players, $team_id) {
-		$fields = array('team_id', 'player_id', 'default_position');
+		$fields = array('team_id', 'player_id', 'number', 'default_position');
         $values = array();
-        foreach($players as $player) {
-            $values[] = array($team_id, $player['id'], $player['default_position']);
+        foreach($players as $key => $player) {
+            $values[] = array($team_id, $player['id'], $key + 1, $player['default_position']);
         }
         $db = $this->getDataSource();
 		if(!$db->insertMulti($this->table, $fields, $values)) {

@@ -232,7 +232,7 @@ class MatchesController extends AppController {
         );
         $reQuery = false;
         if(!array_key_exists($match['HomeTeam']['id'], $playersInMatch)) {
-            $this->MatchesPlayer->createDefault($id, $match['HomeTeam']['id']);
+            $this->Match->PlayersInMatch->createDefault($id, $match['HomeTeam']['id']);
             $reQuery = true;
         }
         if(!array_key_exists($match['VisitorTeam']['id'], $playersInMatch)) {

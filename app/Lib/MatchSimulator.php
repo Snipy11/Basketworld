@@ -102,12 +102,15 @@ class JeuPlace extends State {
 
 class Interception extends State {
     public function play(& $sim) {
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['turnovers']++;
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation']--;
         $randomPlayer = mt_rand(0, 4);
         $sim->teamBall = $this->otherTeam($sim->teamBall);
         $sim->playerBallCarrier = $this->getPlayerKeyAtPosition($sim->match, $randomPlayer, $sim->teamBall);
         array_push($sim->matchDescription, 
         "{$sim->match['Players'][$sim->playerBallCarrier]['Player']['name']} intercepte le ballon.");
         $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['steals']++;
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation']++;
         $nextStates = array('JeuPlace', 'ContreAttaque');
         $sim->changeState($nextStates[array_rand($nextStates)]::getInstance());
     }
@@ -153,6 +156,7 @@ class Rate extends State {
     public $previousState;
     public function play(& $sim) {
         $this->previousState = $sim->previousState;
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation']--;
         array_push($sim->matchDescription, 
         "{$sim->match['Players'][$sim->playerBallCarrier]['Player']['name']} rate son tir.");
         if($sim->previousStateWas('FreeThrow')) {
@@ -179,12 +183,15 @@ class Reussi extends State {
         if($sim->previousStateWas('Tir3')) {
             $sim->match['Match'][$scorer] += 3;
             $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['3pts_scored']++;
+            $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation'] += 3;
         } elseif ($sim->previousStateWas('FreeThrow')) {
             $sim->match['Match'][$scorer] += 1;
             $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['freethrows_scored']++;
+            $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation'] += 1;
         } else {
             $sim->match['Match'][$scorer] += 2;
             $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['2pts_scored']++;
+            $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation'] += 2;
         }
         array_push($sim->matchDescription, 
         "{$sim->match['Players'][$sim->playerBallCarrier]['Player']['name']} Marque!\nScore actuel : {$sim->match['Match']['home_points']} - {$sim->match['Match']['visitor_points']}");
@@ -205,12 +212,14 @@ class Reussi extends State {
 
 class Contre extends State {
     public function play(& $sim) {
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation']--;
         $keyDefender = $this->getPlayerKeyAtPosition($sim->match, $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['position'], $this->otherTeam($sim->teamBall));
         array_push($sim->matchDescription, 
         "{$sim->match['Players'][$sim->playerBallCarrier]['Player']['name']} se fait contrer par {$sim->match['Players'][$keyDefender]['Player']['name']}.");
         $sim->teamBall = $this->otherTeam($sim->teamBall);
         $sim->playerBallCarrier = $keyDefender;
         $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['blocks']++;
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation']++;
         $d100 = mt_rand(1, 100);
         if($d100 < 30) $sim->changeState(ContreAttaque::getInstance());
         else $sim->changeState(MonteeBalle::getInstance());
@@ -221,6 +230,7 @@ class PasseDecisive extends State {
     public function play(& $sim) {
         $passingPlayerName = $sim->match['Players'][$sim->playerBallCarrier]['Player']['name'];
         $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['assists']++;
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation']++;
         $this->passToRandomPlayer($sim);
         array_push($sim->matchDescription, 
         "$passingPlayerName fait une passe décisive à {$sim->match['Players'][$sim->playerBallCarrier]['Player']['name']}.");
@@ -236,6 +246,7 @@ class RebOff extends State {
         array_push($sim->matchDescription, 
         "{$sim->match['Players'][$sim->playerBallCarrier]['Player']['name']} récupère le ballon sous le panier.");
         $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['rebounds_offensive']++;
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation']++;
         $nextStates = array('LayUp', 'JeuPlace');
         $sim->changeState($nextStates[array_rand($nextStates)]::getInstance());
     }
@@ -249,6 +260,7 @@ class RebDef extends State {
         array_push($sim->matchDescription, 
         "{$sim->match['Players'][$sim->playerBallCarrier]['Player']['name']} récupère le ballon sous le panier.");
         $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['rebounds_defensive']++;
+        $sim->match['Players'][$sim->playerBallCarrier]['PlayersInMatch']['evaluation']++;
         $nextStates = array('MonteeBalle', 'ContreAttaque');
         $sim->changeState($nextStates[array_rand($nextStates)]::getInstance());
     }

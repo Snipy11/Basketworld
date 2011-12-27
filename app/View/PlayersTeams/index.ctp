@@ -4,7 +4,8 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('player_id');?></th>
 			<th><?php echo $this->Paginator->sort('Player.PlayerSkill.skill', 'Compétence');?></th>
-			<th><?php echo $this->Paginator->sort('default_position', 'Position');?></th>
+            <th><?php echo $this->Paginator->sort('Numéro'); ?></th>
+            <th><?php echo $this->Paginator->sort('default_position', 'Position');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
 	</tr>
 	<?php
@@ -16,6 +17,9 @@
 		</td>
 		<td>
 			<?php echo $playersTeam['Player']['PlayerSkill']['skill']; ?>
+		</td>
+        <td>
+			<?php echo $playersTeam['PlayersTeam']['number']; ?>
 		</td>
 		<td>
 			<?php echo PlayersTeam::positions($playersTeam['PlayersTeam']['default_position']); ?>

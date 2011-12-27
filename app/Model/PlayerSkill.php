@@ -121,26 +121,27 @@ class PlayerSkill extends AppModel {
                     'fields' => array('PlayerSkills.id', 'PlayerSkills.created')),
             ),
         ));
-        foreach($players['PlayerSkill'] as $playerSkill) {
-            $this->id = $playerSkill['id'];
-            $this->saveField('season_id', $new_season_id);
-        }
-
         
-        // Select all the skills remaining expect the oldest one, for history.
-        $players = $this->Player->find('all', array(
-            'fields' => 'Player.id',
-            'contain' => array(
-                'PlayerSkills' => array(
-                    'conditions' => array('PlayerSkill.season_id' => $previous_season_id),
-                    'fields' => array('PlayerSkill.id', 'PlayerSkill.created'),
-                    'order' => 'PlayerSkill.created ASC',
-                    'offset' => 1 // Keep oldest record
+        if(!empty($players)) {
+            foreach($players['PlayerSkill'] as $playerSkill) {
+                $this->id = $playerSkill['id'];
+                $this->saveField('season_id', $new_season_id);
+            }        
+            // Select all the skills remaining expect the oldest one, for history.
+            $players = $this->Player->find('all', array(
+                'fields' => 'Player.id',
+                'contain' => array(
+                    'PlayerSkills' => array(
+                        'conditions' => array('PlayerSkill.season_id' => $previous_season_id),
+                        'fields' => array('PlayerSkill.id', 'PlayerSkill.created'),
+                        'order' => 'PlayerSkill.created ASC',
+                        'offset' => 1 // Keep oldest record
+                    )
                 )
-            )
-        ));
-        $ids = Set::extract('/PlayerSkill/id', $players);
-        $this->deleteAll(array('PlayerSkill.id' => $ids));
+            ));
+            $ids = Set::extract('/PlayerSkill/id', $players);
+            $this->deleteAll(array('PlayerSkill.id' => $ids));
+        }
     }
     
 }

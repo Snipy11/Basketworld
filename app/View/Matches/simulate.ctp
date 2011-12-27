@@ -1,4 +1,4 @@
-<?php debug($match) ?>
+
 <div class="view" style="width:65%;">
 	<h2>Simulation de match</h2>
 	<p>Version alpha 1.0</p>
@@ -37,6 +37,8 @@
 			<tr><td><?php echo __("Interceptions"); ?></td><td><?php echo $playerStat['steals']; ?></td></tr>
 			<tr><td><?php echo __("Contres"); ?></td><td><?php echo $playerStat['blocks']; ?></td></tr>
 			<tr><td><?php echo __("Fautes commises"); ?></td><td><?php echo $playerStat['fouls']; ?></td></tr>
+            <tr><td><?php echo __("Pertes de balle"); ?></td><td><?php echo $playerStat['turnovers']; ?></td></tr>
+            <tr><td><?php echo __("Evaluation"); ?></td><td><?php echo $playerStat['evaluation']; ?></td></tr>
 		</table>
 	<?php endforeach; ?>
 	
@@ -60,6 +62,8 @@
 			<tr><td><?php echo __("Interceptions"); ?></td><td><?php echo $playerStat['steals']; ?></td></tr>
 			<tr><td><?php echo __("Contres"); ?></td><td><?php echo $playerStat['blocks']; ?></td></tr>
 			<tr><td><?php echo __("Fautes commises"); ?></td><td><?php echo $playerStat['fouls']; ?></td></tr>
+            <tr><td><?php echo __("Pertes de balle"); ?></td><td><?php echo $playerStat['turnovers']; ?></td></tr>
+            <tr><td><?php echo __("Evaluation"); ?></td><td><?php echo $playerStat['evaluation']; ?></td></tr>
 		</table>
 	<?php endforeach; ?>
 </div>
