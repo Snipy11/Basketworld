@@ -53,10 +53,37 @@ class PlayersTeamsController extends AppController {
 		if (!$this->PlayersTeam->exists()) {
 			throw new NotFoundException(__('Invalid players team'));
 		}
+        $player = $this->PlayersTeam->find('first', array(
+            'conditions' => array('PlayersTeam.id' => $id),
+            'contain' => array('Team' => array('Division' => array('Season')))
+        ));
+        $seasonDate = $player['Team']['Division']['Season']['start_date'];
         $bestMatch = $this->PlayersTeam->MatchesPlayer->find('first', array(
             'conditions' => array('MatchesPlayer.players_team_id' => $id),
             'order' => array('MatchesPlayer.evaluation DESC'),
-            'contain' => array('Match' => array('HomeTeam', 'VisitorTeam'))
+            'contain' => array('Match' => array(
+                'conditions' => array('Match.start_date >=' => $seasonDate),
+                'HomeTeam',
+                'VisitorTeam'
+            ))
+        ));
+        $seasonStats = $this->PlayersTeam->MatchesPlayer->find('first', array(
+            'conditions' => array('MatchesPlayer.players_team_id' => $id),
+            'fields' => array('SUM(MatchesPlayer.2pts_attempts) AS 2pts_attempts',
+                'SUM(MatchesPlayer.2pts_scored) AS 2pts_scored',
+                'SUM(MatchesPlayer.3pts_attempts) AS 3pts_attempts',
+                'SUM(MatchesPlayer.3pts_scored) AS 3pts_scored',
+                'SUM(MatchesPlayer.rebounds_offensive) AS rebounds_offensive',
+                'SUM(MatchesPlayer.rebounds_defensive) AS rebounds_defensive',
+                'SUM(MatchesPlayer.freethrows_attempts) AS freethrows_attempts',
+                'SUM(MatchesPlayer.freethrows_scored) AS freethrows_scored',
+                'SUM(MatchesPlayer.assists) AS assists', 'SUM(MatchesPlayer.steals) AS steals',
+                'SUM(MatchesPlayer.blocks) AS blocks', 'SUM(MatchesPlayer.fouls) AS fouls',
+                'SUM(MatchesPlayer.turnovers) AS turnovers',
+                'SUM(MatchesPlayer.evaluation) AS evaluation'),
+            'contain' => array('Match' => array(
+                'conditions' => array('Match.start_date >=' => $seasonDate)
+            ))
         ));
         $this->PlayersTeam->unbindModel(array(
             'belongsTo' => array('Player'),
@@ -103,7 +130,7 @@ class PlayersTeamsController extends AppController {
             'contain' => array('Player', 'PlayerSkill', 'MatchesPlayer', 'Match', 'Country', 'HomeTeam', 'VisitorTeam')
         ));
 
-		$this->set(compact('playersTeam', 'bestMatch'));
+		$this->set(compact('playersTeam', 'bestMatch', 'seasonStats'));
 	}
 
 /**

@@ -114,6 +114,39 @@
 			&nbsp;
 		</dd>
 	</dl>
+<h2><?php  echo __('Statistiques de la saison en cours');?></h2>
+    <?php if(!empty($seasonStats[0]['2pts_attempts'])): ?>
+        <dl>
+            <dt><?php echo __('Tir 2pts tentés'); ?></dt>
+            <dd><?php echo $seasonStats[0]['2pts_attempts'] ?></dd>
+            <dt><?php echo __('Tir 2pts marqués'); ?></dt>
+            <dd><?php echo $seasonStats[0]['2pts_scored'] ?></dd>
+            <dt><?php echo __('Tir 3pts tentés'); ?></dt>
+            <dd><?php echo $seasonStats[0]['3pts_attempts'] ?></dd>
+            <dt><?php echo __('Tir 3pts marqués'); ?></dt>
+            <dd><?php echo $seasonStats[0]['3pts_scored'] ?></dd>
+            <dt><?php echo __('Rebonds offensifs'); ?></dt>
+            <dd><?php echo $seasonStats[0]['rebounds_offensive'] ?></dd>
+            <dt><?php echo __('Rebonds défensifs'); ?></dt>
+            <dd><?php echo $seasonStats[0]['rebounds_defensive'] ?></dd>
+            <dt><?php echo __('Lancer-francs tentés'); ?></dt>
+            <dd><?php echo $seasonStats[0]['freethrows_attempts'] ?></dd>
+            <dt><?php echo __('Lancer-francs marqués'); ?></dt>
+            <dd><?php echo $seasonStats[0]['freethrows_scored'] ?></dd>
+            <dt><?php echo __('Passes décisives'); ?></dt>
+            <dd><?php echo $seasonStats[0]['assists'] ?></dd>
+            <dt><?php echo __('Interception'); ?></dt>
+            <dd><?php echo $seasonStats[0]['steals'] ?></dd>
+            <dt><?php echo __('Contres'); ?></dt>
+            <dd><?php echo $seasonStats[0]['blocks'] ?></dd>
+            <dt><?php echo __('Pertes de balles'); ?></dt>
+            <dd><?php echo $seasonStats[0]['turnovers'] ?></dd>
+            <dt><?php echo __('Evaluation globale'); ?></dt>
+            <dd><?php echo $seasonStats[0]['evaluation'] ?></dd>
+        </dl>
+    <?php else: ?>
+        <?php echo __("Aucune statistique pour la saison en cours..."); ?>
+    <?php endif; ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
