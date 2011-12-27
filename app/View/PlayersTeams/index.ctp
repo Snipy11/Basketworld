@@ -1,9 +1,10 @@
+
 <div class="playersTeams index">
 	<h2><?php echo __('Effectif');?></h2>
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('player_id');?></th>
-			<th><?php echo $this->Paginator->sort('Player.PlayerSkill.skill', 'Compétence');?></th>
+			<th><?php echo $this->Paginator->sort('PlayerSkill.skill', 'Compétence');?></th>
             <th><?php echo $this->Paginator->sort('Numéro'); ?></th>
             <th><?php echo $this->Paginator->sort('default_position', 'Position');?></th>
 			<th class="actions"><?php echo __('Actions');?></th>
@@ -13,10 +14,10 @@
 	foreach ($playersTeams as $playersTeam): ?>
 	<tr>
 		<td>
-			<?php echo $this->Html->link($playersTeam['Player']['first_name'] .' '. $playersTeam['Player']['name'], array('controller' => 'players', 'action' => 'view', $playersTeam['Player']['id'])); ?>
+			<?php echo $this->Html->link($playersTeam['Player']['first_name'] .' '. $playersTeam['Player']['name'], array('controller' => 'playersteams', 'action' => 'view', $playersTeam['PlayersTeam']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $playersTeam['Player']['PlayerSkill']['skill']; ?>
+			<?php echo $playersTeam['PlayerSkill']['skill']; ?>
 		</td>
         <td>
 			<?php echo $playersTeam['PlayersTeam']['number']; ?>

@@ -38,57 +38,57 @@
 		</dd>
 		<dt><?php echo __('Skill'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['skill']); ?>
+			<?php echo h($player['PlayerSkill']['skill']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Shoot'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['shoot']); ?>
+			<?php echo h($player['PlayerSkill']['shoot']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('3points'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['3points']); ?>
+			<?php echo h($player['PlayerSkill']['3points']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Dribble'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['dribble']); ?>
+			<?php echo h($player['PlayerSkill']['dribble']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Assist'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['assist']); ?>
+			<?php echo h($player['PlayerSkill']['assist']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Rebound'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['rebound']); ?>
+			<?php echo h($player['PlayerSkill']['rebound']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Block'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['block']); ?>
+			<?php echo h($player['PlayerSkill']['block']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Steal'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['steal']); ?>
+			<?php echo h($player['PlayerSkill']['steal']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Defense'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['defense']); ?>
+			<?php echo h($player['PlayerSkill']['defense']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Form'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['form']); ?>
+			<?php echo h($player['PlayerSkill']['form']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Experience'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill'][0]['experience']); ?>
+			<?php echo h($player['PlayerSkill']['experience']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Spirit'); ?></dt>

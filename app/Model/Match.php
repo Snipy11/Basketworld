@@ -341,9 +341,9 @@ class Match extends AppModel {
                $MatchSimulator->match['Match']['visitor_points'] < 15 ) {
             $MatchSimulator->play();
         }
-        $this->save($match['Match']);
+        $this->save($match['Match'], false);
         foreach($match['Players'] as $playerInMatch) {
-            $this->PlayersInMatch->save($playerInMatch['PlayersInMatch']);
+            $this->PlayersInMatch->save($playerInMatch['PlayersInMatch'], false);
         }
         $homeTeam = $this->HomeTeam->find('first', array(
             'conditions' => array('HomeTeam.id' => $match['HomeTeam']['id']),

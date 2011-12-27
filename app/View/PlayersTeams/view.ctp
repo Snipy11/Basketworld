@@ -1,19 +1,116 @@
 <div class="playersTeams view">
-<h2><?php  echo __('Players Team');?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
+<h2><?php  echo __('Fiche du joueur');?></h2>
+    <dl>
+		<dt><?php echo __('Pays'); ?></dt>
 		<dd>
-			<?php echo h($playersTeam['PlayersTeam']['id']); ?>
+			<?php echo $playersTeam['Country']['country']; ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Team'); ?></dt>
+		<dt><?php echo __('First Name'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($playersTeam['Team']['name'], array('controller' => 'teams', 'action' => 'view', $playersTeam['Team']['id'])); ?>
+			<?php echo $playersTeam['Player']['first_name']; ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Player'); ?></dt>
+		<dt><?php echo __('Name'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($playersTeam['Player']['name'], array('controller' => 'players', 'action' => 'view', $playersTeam['Player']['id'])); ?>
+			<?php echo $playersTeam['Player']['name']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Age'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['Player']['age']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Height'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['Player']['height']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Salary'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['Player']['salary']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Skill'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['skill']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Shoot'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['shoot']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('3points'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['3points']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Dribble'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['dribble']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Assist'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['assist']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Rebound'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['rebound']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Block'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['block']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Steal'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['steal']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Defense'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['defense']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Form'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['form']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Experience'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['PlayerSkill']['experience']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Spirit'); ?></dt>
+		<dd>
+			<?php echo Player::spirits($playersTeam['Player']['spirit']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Injury'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['Player']['injury']; ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Speciality'); ?></dt>
+		<dd>
+			<?php echo Player::specialities($playersTeam['Player']['speciality']); ?>
+			&nbsp;
+		</dd>
+        <dt><?php echo __('Dernier match'); ?></dt>
+		<dd>
+			<?php echo $playersTeam['Match']['start_date'] ." : ". 
+                $playersTeam['HomeTeam']['name'] ." - ". $playersTeam['VisitorTeam']['name']; ?>
+			&nbsp;
+		</dd>
+        <dt><?php echo __('Meilleur match'); ?></dt>
+		<dd>
+			<?php echo $bestMatch['Match']['start_date'] ." : ". 
+                $bestMatch['Match']['HomeTeam']['name'] ." - ". $bestMatch['Match']['VisitorTeam']['name']; ?>
 			&nbsp;
 		</dd>
 	</dl>
@@ -33,64 +130,6 @@
 		<li><?php echo $this->Html->link(__('New Matches Player'), array('controller' => 'matches_players', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
-<div class="related">
-	<h3><?php echo __('Related Matches Players');?></h3>
-	<?php if (!empty($playersTeam['MatchesPlayer'])):?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Match Id'); ?></th>
-		<th><?php echo __('Players Team Id'); ?></th>
-		<th><?php echo __('Position'); ?></th>
-		<th><?php echo __('At Home'); ?></th>
-		<th><?php echo __('Play Time'); ?></th>
-		<th><?php echo __('2pts Attempts'); ?></th>
-		<th><?php echo __('2pts Scored'); ?></th>
-		<th><?php echo __('3pts Attempts'); ?></th>
-		<th><?php echo __('3pts Scored'); ?></th>
-		<th><?php echo __('Rebounds Offensive'); ?></th>
-		<th><?php echo __('Rebounds Defensive'); ?></th>
-		<th><?php echo __('Freethrows Attempts'); ?></th>
-		<th><?php echo __('Freethrows Scored'); ?></th>
-		<th><?php echo __('Assists'); ?></th>
-		<th><?php echo __('Steals'); ?></th>
-		<th><?php echo __('Blocks'); ?></th>
-		<th><?php echo __('Fouls'); ?></th>
-		<th><?php echo __('Injury'); ?></th>
-		<th class="actions"><?php echo __('Actions');?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($playersTeam['MatchesPlayer'] as $matchesPlayer): ?>
-		<tr>
-			<td><?php echo $matchesPlayer['id'];?></td>
-			<td><?php echo $matchesPlayer['match_id'];?></td>
-			<td><?php echo $matchesPlayer['players_team_id'];?></td>
-			<td><?php echo $matchesPlayer['position'];?></td>
-			<td><?php echo $matchesPlayer['at_home'];?></td>
-			<td><?php echo $matchesPlayer['play_time'];?></td>
-			<td><?php echo $matchesPlayer['2pts_attempts'];?></td>
-			<td><?php echo $matchesPlayer['2pts_scored'];?></td>
-			<td><?php echo $matchesPlayer['3pts_attempts'];?></td>
-			<td><?php echo $matchesPlayer['3pts_scored'];?></td>
-			<td><?php echo $matchesPlayer['rebounds_offensive'];?></td>
-			<td><?php echo $matchesPlayer['rebounds_defensive'];?></td>
-			<td><?php echo $matchesPlayer['freethrows_attempts'];?></td>
-			<td><?php echo $matchesPlayer['freethrows_scored'];?></td>
-			<td><?php echo $matchesPlayer['assists'];?></td>
-			<td><?php echo $matchesPlayer['steals'];?></td>
-			<td><?php echo $matchesPlayer['blocks'];?></td>
-			<td><?php echo $matchesPlayer['fouls'];?></td>
-			<td><?php echo $matchesPlayer['injury'];?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'matches_players', 'action' => 'view', $matchesPlayer['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'matches_players', 'action' => 'edit', $matchesPlayer['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'matches_players', 'action' => 'delete', $matchesPlayer['id']), null, __('Are you sure you want to delete # %s?', $matchesPlayer['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
 
 	<div class="actions">
 		<ul>

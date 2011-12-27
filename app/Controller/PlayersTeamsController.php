@@ -16,9 +16,23 @@ class PlayersTeamsController extends AppController {
 	public function index() {
 		$this->PlayersTeam->recursive = 0;
 		$team_id = $this->Auth->user('team_id');
+        $this->PlayersTeam->unbindModel(array('belongsTo' => array('Player')));
+        $this->PlayersTeam->bindModel(array(
+            'hasOne' => array(
+                'Player' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('Player.id = PlayersTeam.player_id')
+                ),
+                'PlayerSkill' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('PlayerSkill.player_id = Player.id'),
+                    'order' => 'PlayerSkill.created DESC'
+                )
+            )
+        ));
 		$this->paginate = array(
 			'conditions' => array('PlayersTeam.team_id' => $team_id),
-			'contain' => array('Player' => array('PlayerSkill'))
+			'contain' => array('Player', 'PlayerSkill')
 		);
 		$this->set('playersTeams', $this->paginate());
 		$team = $this->PlayersTeam->Team->find('first', array(
@@ -39,7 +53,57 @@ class PlayersTeamsController extends AppController {
 		if (!$this->PlayersTeam->exists()) {
 			throw new NotFoundException(__('Invalid players team'));
 		}
-		$this->set('playersTeam', $this->PlayersTeam->read(null, $id));
+        $bestMatch = $this->PlayersTeam->MatchesPlayer->find('first', array(
+            'conditions' => array('MatchesPlayer.players_team_id' => $id),
+            'order' => array('MatchesPlayer.evaluation DESC'),
+            'contain' => array('Match' => array('HomeTeam', 'VisitorTeam'))
+        ));
+        $this->PlayersTeam->unbindModel(array(
+            'belongsTo' => array('Player'),
+            'hasMany' => array('MatchesPlayer')
+        ));
+        $this->PlayersTeam->bindModel(array(
+            'hasOne' => array(
+                'Player' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('Player.id = PlayersTeam.player_id')
+                ),
+                'Country' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('Player.country_id = Country.id')
+                ),
+                'PlayerSkill' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('PlayerSkill.player_id = Player.id'),
+                    'order' => 'PlayerSkill.created DESC'
+                ),
+                'MatchesPlayer' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('MatchesPlayer.players_team_id = PlayersTeam.id')
+                ),
+                'Match' =>array(
+                    'foreignKey' => false,
+                    'conditions' => array('MatchesPlayer.match_id = Match.id', 'Match.home_points IS NOT NULL'),
+                    'order' => 'Match.start_date DESC'
+                ),
+                'HomeTeam' => array(
+                    'foreignKey' => false,
+                    'className' => 'Team',
+                    'conditions' => array('Match.home_team_id = HomeTeam.id')
+                ),
+                'VisitorTeam' => array(
+                    'foreignKey' => false,
+                    'className' => 'Team',
+                    'conditions' => array('Match.visitor_team_id = VisitorTeam.id')
+                )
+            )
+        ));
+        $playersTeam = $this->PlayersTeam->find('first', array(
+            'conditions' => array('PlayersTeam.id' => $id),
+            'contain' => array('Player', 'PlayerSkill', 'MatchesPlayer', 'Match', 'Country', 'HomeTeam', 'VisitorTeam')
+        ));
+
+		$this->set(compact('playersTeam', 'bestMatch'));
 	}
 
 /**
