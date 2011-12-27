@@ -565,6 +565,7 @@ CREATE  TABLE IF NOT EXISTS `basketworld`.`players_teams` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
   `team_id` INT UNSIGNED NOT NULL ,
   `player_id` INT UNSIGNED NOT NULL ,
+  `number` TINYINT UNSIGNED NOT NULL ,
   `default_position` TINYINT UNSIGNED NOT NULL COMMENT 'Meneur:0, Arrière:1, Ailier_shooter:2, Ailier_fort:3, Pivot:4' ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_players_teams_players1`
@@ -603,6 +604,8 @@ CREATE  TABLE IF NOT EXISTS `basketworld`.`matches_players` (
   `steals` SMALLINT UNSIGNED NULL DEFAULT NULL ,
   `blocks` SMALLINT UNSIGNED NULL DEFAULT NULL ,
   `fouls` SMALLINT UNSIGNED NULL DEFAULT NULL ,
+  `turnovers` SMALLINT UNSIGNED NULL DEFAULT NULL ,
+  `evaluation` SMALLINT UNSIGNED NULL DEFAULT NULL ,
   `injury` SMALLINT UNSIGNED NULL DEFAULT NULL ,
   PRIMARY KEY (`id`) ,
   CONSTRAINT `fk_players_matches_matches1`
