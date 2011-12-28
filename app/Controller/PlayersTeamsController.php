@@ -13,9 +13,15 @@ class PlayersTeamsController extends AppController {
  *
  * @return void
  */
-	public function index() {
+	public function index($team_id = null) {
 		$this->PlayersTeam->recursive = 0;
-		$team_id = $this->Auth->user('team_id');
+        if(is_null($team_id)) {
+            $team_id = $this->Auth->user('team_id');
+        }
+        $this->PlayersTeam->Team->id = $team_id;
+        if (!$this->PlayersTeam->Team->exists()) {
+			throw new NotFoundException(__('Invalid team'));
+		}
         $this->PlayersTeam->unbindModel(array('belongsTo' => array('Player')));
         $this->PlayersTeam->bindModel(array(
             'hasOne' => array(

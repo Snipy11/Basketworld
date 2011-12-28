@@ -29,7 +29,44 @@ class TeamsController extends AppController {
 		if (!$this->Team->exists()) {
 			throw new NotFoundException(__('Invalid team'));
 		}
-		$this->set('team', $this->Team->read(null, $id));
+        $this->Team->unbindModel(array('belongsTo' => array('Division', 'User')));
+        $this->Team->bindModel(array('hasOne' => array(
+            'Division' => array(
+                'foreignKey' => false,
+                'conditions' => array('Division.id = Team.division_id')
+            ),
+            'Season' => array(
+                'foreignKey' => false,
+                'conditions' => array('Season.id = Division.season_id')
+            ),
+            'Country' => array(
+                'foreignKey' => false,
+                'conditions' => array('Country.id = Division.country_id')
+            ),
+            'User' => array(
+                'foreignKey' => false,
+                'conditions' => array('Team.user_id = User.id')
+            )
+        )));
+        $team = $this->Team->find('first', array(
+            'conditions' => array('Team.id' => $id),
+            'contain' => array('Division', 'Country', 'Season', 'User')
+        ));
+        $victories = $this->Team->MatchHome->find('count', array(
+            'conditions' => array(
+                'OR' => array(
+                    array('MatchHome.home_team_id' => $id, 'MatchHome.home_points > MatchHome.visitor_points'),
+                    array('MatchHome.visitor_team_id' => $id, 'MatchHome.visitor_points > MatchHome.home_points')
+            ))
+        ));
+        $defeats = $this->Team->MatchHome->find('count', array(
+            'conditions' => array(
+                'OR' => array(
+                    array('MatchHome.home_team_id' => $id, 'MatchHome.home_points < MatchHome.visitor_points'),
+                    array('MatchHome.visitor_team_id' => $id, 'MatchHome.visitor_points < MatchHome.home_points')
+            ))
+        ));
+		$this->set(compact('team', 'victories', 'defeats'));
 	}
 
 /**

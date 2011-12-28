@@ -13,13 +13,27 @@ class RankingsController extends AppController {
  *
  * @return void
  */
-	public function index() {
+	public function index($division_id = null) {
 		$this->Ranking->recursive = 0;
-		$this->Ranking->Team->id = $this->Auth->user('team_id');
-		$division = $this->Ranking->Team->field('division_id');
-		$this->paginate = array(
-			'conditions' => array('Ranking.division_id' => $division)
-		);
+        if(is_null($division_id)) {
+            $this->Ranking->Team->id = $this->Auth->user('team_id');
+            $division_id = $this->Ranking->Team->field('division_id');
+        }
+		$this->Ranking->Division->id = $division_id;
+        if (!$this->Ranking->Division->exists()) {
+			throw new NotFoundException(__('Invalid division'));
+		}
+        if($this->request->params['requested']) {
+            $rankings = $this->Ranking->find('all', array(
+                'conditions' => array('Ranking.division_id' => $division_id),
+                'order' => array('Ranking.points DESC')
+            ));
+            return compact('rankings');
+        }
+        $this->paginate = array(
+			'conditions' => array('Ranking.division_id' => $division_id),
+            'order' => array('Ranking.points DESC')
+        );
 		$this->set('rankings', $this->paginate());
 	}
 

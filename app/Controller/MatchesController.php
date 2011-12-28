@@ -18,8 +18,14 @@ class MatchesController extends AppController {
  *
  * @return void
  */
-	public function index() {
-	    $team_id = $this->Auth->user('team_id');
+	public function index($team_id = null) {
+        if(is_null($team_id)) {
+            $team_id = $this->Auth->user('team_id');
+        }
+	    $this->Match->HomeTeam->id = $team_id;
+        if (!$this->Match->HomeTeam->exists()) {
+			throw new NotFoundException(__('Invalid team'));
+		}
 	    $start_date = $this->Match->HomeTeam->Division->Season->field('Season.start_date', array(
 		'Season.start_date <=' => date('Y-m-d', strtotime('now'))
 	    ),

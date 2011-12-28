@@ -38,53 +38,7 @@ class PlayersController extends AppController {
             'contain' => array('Country', 'PlayerSkill' => array('Season'))
         ));
         $seasonDate = $player['PlayerSkill']['Season']['start_date'];
-        
-        /*
-        $this->Player->PlayerInTeam->unbindModel(array(
-            'belongsTo' => array('Player'),
-            'hasMany' => array('MatchesPlayer')
-        ));
-        $this->Player->PlayerInTeam->bindModel(array(
-            'hasOne' => array(
-                'Player' => array(
-                    'foreignKey' => false,
-                    'conditions' => array('Player.id = PlayersTeam.player_id')
-                ),
-                'Country' => array(
-                    'foreignKey' => false,
-                    'conditions' => array('Player.country_id = Country.id')
-                ),
-                'PlayerSkill' => array(
-                    'foreignKey' => false,
-                    'conditions' => array('PlayerSkill.player_id = Player.id'),
-                    'order' => 'PlayerSkill.created DESC'
-                ),
-                'MatchesPlayer' => array(
-                    'foreignKey' => false,
-                    'conditions' => array('MatchesPlayer.players_team_id = PlayersTeam.id')
-                ),
-                'Match' =>array(
-                    'foreignKey' => false,
-                    'conditions' => array('MatchesPlayer.match_id = Match.id', 'Match.home_points IS NOT NULL'),
-                    'order' => 'Match.start_date DESC'
-                ),
-                'HomeTeam' => array(
-                    'foreignKey' => false,
-                    'className' => 'Team',
-                    'conditions' => array('Match.home_team_id = HomeTeam.id')
-                ),
-                'VisitorTeam' => array(
-                    'foreignKey' => false,
-                    'className' => 'Team',
-                    'conditions' => array('Match.visitor_team_id = VisitorTeam.id')
-                )
-            )
-        ));
-        $playersTeam = $this->Player->PlayersTeam->find('first', array(
-            'conditions' => array('PlayersTeam.id' => $id),
-            'contain' => array('Player', 'PlayerSkill', 'MatchesPlayer', 'Match', 'Country', 'HomeTeam', 'VisitorTeam')
-        ));
-        */
+
         $this->Player->PlayerInTeam->MatchesPlayer->unbindModel(array(
             'belongsTo' => array('Match', 'PlayersTeam')
         ), false);
