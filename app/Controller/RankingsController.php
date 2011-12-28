@@ -23,18 +23,14 @@ class RankingsController extends AppController {
         if (!$this->Ranking->Division->exists()) {
 			throw new NotFoundException(__('Invalid division'));
 		}
-        if($this->request->params['requested']) {
-            $rankings = $this->Ranking->find('all', array(
-                'conditions' => array('Ranking.division_id' => $division_id),
-                'order' => array('Ranking.points DESC')
-            ));
+        $rankings = $this->Ranking->find('all', array(
+            'conditions' => array('Ranking.division_id' => $division_id),
+            'order' => array('Ranking.points DESC')
+        ));
+        if(isset($this->request->params['requested']) && $this->request->params['requested']) {
             return compact('rankings');
         }
-        $this->paginate = array(
-			'conditions' => array('Ranking.division_id' => $division_id),
-            'order' => array('Ranking.points DESC')
-        );
-		$this->set('rankings', $this->paginate());
+		$this->set(compact('rankings'));
 	}
 
 /**

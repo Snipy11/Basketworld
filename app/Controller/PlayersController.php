@@ -179,14 +179,42 @@ class PlayersController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
     
-    public function top5() {
+    public function top5($division_id) {
         if(!$this->request->params['requested']) {
             throw new MethodNotAllowedException(__('Cette requête n\'est pas valable.'));
         }
-        $players = $this->Player->find('all', array(
-            'contain' => array('PlayerSkill' => array(
-                'order' => array('PlayerSkill.skill DESC')
-            )),
+        $this->Player->PlayerInTeam->Team->Division->id = $division_id;
+		if (!$this->Player->PlayerInTeam->Team->Division->exists()) {
+			throw new NotFoundException(__('Invalid division'));
+		}
+        $this->Player->PlayerInTeam->MatchesPlayer->unbindModel(array('belongsTo' => array('PlayersTeam')));
+        $this->Player->PlayerInTeam->MatchesPlayer->bindModel(array('hasOne' => array(
+            'PlayersTeam' => array(
+                'foreignKey' => false,
+                'conditions' => array('MatchesPlayer.players_team_id = PlayersTeam.id')
+            ),
+            'Player' => array(
+                'foreignKey' => false,
+                'conditions' => array('Player.id = PlayersTeam.player_id')
+            ),
+            'Team' => array(
+                'foreignKey' => false,
+                'conditions' => array('Team.id = PlayersTeam.team_id')
+            ),
+            'Division' => array(
+                'foreignKey' => false,
+                'conditions' => array('Division.id = Team.division_id')
+            ))
+        ));
+        $players = $this->Player->PlayerInTeam->MatchesPlayer->find('all', array(
+            'conditions' => array('Division.id' => $division_id),
+            'contain' => array('PlayersTeam', 'Player', 'Team', 'Division'),
+            'fields' => array(
+                'Player.id', 'Player.name', 'Player.first_name', 'Team.name', 'Team.id',
+                'AVG(MatchesPlayer.evaluation) AS global_eval'
+            ),
+            'group' => array('MatchesPlayer.players_team_id'),
+            'order' => 'global_eval DESC',
             'limit' => 5
         ));
         return compact('players');
