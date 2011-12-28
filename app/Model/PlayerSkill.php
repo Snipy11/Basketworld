@@ -30,7 +30,7 @@ class PlayerSkill extends AppModel {
 			'order' => ''
 		),
 		'Season' => array(
-			'className' => 'Division',
+			'className' => 'Season',
 			'foreignKey' => 'season_id',
 			'conditions' => '',
 			'fields' => '',

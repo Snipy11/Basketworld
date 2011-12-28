@@ -14,7 +14,7 @@
 	foreach ($playersTeams as $playersTeam): ?>
 	<tr>
 		<td>
-			<?php echo $this->Html->link($playersTeam['Player']['first_name'] .' '. $playersTeam['Player']['name'], array('controller' => 'playersteams', 'action' => 'view', $playersTeam['PlayersTeam']['id'])); ?>
+			<?php echo $this->Html->link($playersTeam['Player']['first_name'] .' '. $playersTeam['Player']['name'], array('controller' => 'players', 'action' => 'view', $playersTeam['Player']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $playersTeam['PlayerSkill']['skill']; ?>

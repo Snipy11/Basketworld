@@ -33,7 +33,130 @@ class PlayersController extends AppController {
 		if (!$this->Player->exists()) {
 			throw new NotFoundException(__('Invalid player'));
 		}
-		$this->set('player', $this->Player->read(null, $id));
+        $player = $this->Player->find('first', array(
+            'conditions' => array('Player.id' => $id),
+            'contain' => array('Country', 'PlayerSkill' => array('Season'))
+        ));
+        $seasonDate = $player['PlayerSkill']['Season']['start_date'];
+        
+        /*
+        $this->Player->PlayerInTeam->unbindModel(array(
+            'belongsTo' => array('Player'),
+            'hasMany' => array('MatchesPlayer')
+        ));
+        $this->Player->PlayerInTeam->bindModel(array(
+            'hasOne' => array(
+                'Player' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('Player.id = PlayersTeam.player_id')
+                ),
+                'Country' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('Player.country_id = Country.id')
+                ),
+                'PlayerSkill' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('PlayerSkill.player_id = Player.id'),
+                    'order' => 'PlayerSkill.created DESC'
+                ),
+                'MatchesPlayer' => array(
+                    'foreignKey' => false,
+                    'conditions' => array('MatchesPlayer.players_team_id = PlayersTeam.id')
+                ),
+                'Match' =>array(
+                    'foreignKey' => false,
+                    'conditions' => array('MatchesPlayer.match_id = Match.id', 'Match.home_points IS NOT NULL'),
+                    'order' => 'Match.start_date DESC'
+                ),
+                'HomeTeam' => array(
+                    'foreignKey' => false,
+                    'className' => 'Team',
+                    'conditions' => array('Match.home_team_id = HomeTeam.id')
+                ),
+                'VisitorTeam' => array(
+                    'foreignKey' => false,
+                    'className' => 'Team',
+                    'conditions' => array('Match.visitor_team_id = VisitorTeam.id')
+                )
+            )
+        ));
+        $playersTeam = $this->Player->PlayersTeam->find('first', array(
+            'conditions' => array('PlayersTeam.id' => $id),
+            'contain' => array('Player', 'PlayerSkill', 'MatchesPlayer', 'Match', 'Country', 'HomeTeam', 'VisitorTeam')
+        ));
+        */
+        $this->Player->PlayerInTeam->MatchesPlayer->unbindModel(array(
+            'belongsTo' => array('Match', 'PlayersTeam')
+        ), false);
+        $this->Player->PlayerInTeam->MatchesPlayer->bindModel(array('hasOne' => array(
+            'Match' => array(
+                'foreignKey' => false,
+                'conditions' => array('MatchesPlayer.match_id = Match.id', 'Match.home_points IS NOT NULL'),
+                'order' => 'Match.start_date DESC'
+            ),
+            'HomeTeam' => array(
+                'foreignKey' => false,
+                'className' => 'Team',
+                'conditions' => array('Match.home_team_id = HomeTeam.id')
+            ),
+            'VisitorTeam' => array(
+                'foreignKey' => false,
+                'className' => 'Team',
+                'conditions' => array('Match.visitor_team_id = VisitorTeam.id')
+            ),
+            'PlayersTeam' => array(
+                'foreignKey' => false,
+                'conditions' => array('MatchesPlayer.players_team_id = PlayersTeam.id'),
+            ),
+            'Player' => array(
+                'foreignKey' => false,
+                'conditions' => array('Player.id = PlayersTeam.player_id'),
+            ),
+        )), false);
+        $lastMatch = $this->Player->PlayerInTeam->MatchesPlayer->find('first', array(
+            'fields' => array('HomeTeam.name', 'VisitorTeam.name', 'Match.start_date', 
+                        'Match.home_points', 'Match.visitor_points'),
+            'conditions' => array('Match.start_date >=' => $seasonDate, 'Player.id' => $id),
+            'contain' => array(
+                'Match',
+                'HomeTeam',
+                'VisitorTeam',
+                'PlayersTeam',
+                'Player'
+            )
+        ));
+        $bestMatch = $this->Player->PlayerInTeam->MatchesPlayer->find('first', array(
+            'conditions' => array('Match.start_date >=' => $seasonDate, 'Player.id' => $id),
+            'order' => array('MatchesPlayer.evaluation DESC'),
+            'contain' => array(
+                'Match',
+                'HomeTeam',
+                'VisitorTeam',
+                'PlayersTeam',
+                'Player'
+            )
+        ));
+        $seasonStats = $this->Player->PlayerInTeam->MatchesPlayer->find('first', array(
+            'fields' => array('SUM(MatchesPlayer.2pts_attempts) AS 2pts_attempts',
+                'SUM(MatchesPlayer.2pts_scored) AS 2pts_scored',
+                'SUM(MatchesPlayer.3pts_attempts) AS 3pts_attempts',
+                'SUM(MatchesPlayer.3pts_scored) AS 3pts_scored',
+                'SUM(MatchesPlayer.rebounds_offensive) AS rebounds_offensive',
+                'SUM(MatchesPlayer.rebounds_defensive) AS rebounds_defensive',
+                'SUM(MatchesPlayer.freethrows_attempts) AS freethrows_attempts',
+                'SUM(MatchesPlayer.freethrows_scored) AS freethrows_scored',
+                'SUM(MatchesPlayer.assists) AS assists', 'SUM(MatchesPlayer.steals) AS steals',
+                'SUM(MatchesPlayer.blocks) AS blocks', 'SUM(MatchesPlayer.fouls) AS fouls',
+                'SUM(MatchesPlayer.turnovers) AS turnovers',
+                'SUM(MatchesPlayer.evaluation) AS evaluation'),
+            'conditions' => array('Match.start_date >=' => $seasonDate, 'Player.id' => $id),
+            'contain' => array(
+                'Match',
+                'PlayersTeam',
+                'Player'
+                )
+        ));
+		$this->set(compact('player', 'bestMatch', 'lastMatch', 'seasonStats'));
 	}
 
 /**

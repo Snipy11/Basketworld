@@ -1,112 +1,152 @@
 <div class="players view">
 <h2><?php  echo __('Player');?></h2>
 	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($player['Player']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Country'); ?></dt>
+		<dt><?php echo __('Pays'); ?></dt>
 		<dd>
 			<?php echo $this->Html->link($player['Country']['country'], array('controller' => 'countries', 'action' => 'view', $player['Country']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('First Name'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['first_name']); ?>
+			<?php echo $player['Player']['first_name']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Name'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['name']); ?>
+			<?php echo $player['Player']['name']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Age'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['age']); ?>
+			<?php echo $player['Player']['age']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Height'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['height']); ?>
+			<?php echo $player['Player']['height']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Salary'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['salary']); ?>
+			<?php echo $player['Player']['salary']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Skill'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['skill']); ?>
+			<?php echo $player['PlayerSkill']['skill']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Shoot'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['shoot']); ?>
+			<?php echo $player['PlayerSkill']['shoot']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('3points'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['3points']); ?>
+			<?php echo $player['PlayerSkill']['3points']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Dribble'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['dribble']); ?>
+			<?php echo $player['PlayerSkill']['dribble']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Assist'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['assist']); ?>
+			<?php echo $player['PlayerSkill']['assist']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Rebound'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['rebound']); ?>
+			<?php echo $player['PlayerSkill']['rebound']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Block'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['block']); ?>
+			<?php echo $player['PlayerSkill']['block']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Steal'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['steal']); ?>
+			<?php echo $player['PlayerSkill']['steal']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Defense'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['defense']); ?>
+			<?php echo $player['PlayerSkill']['defense']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Form'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['form']); ?>
+			<?php echo $player['PlayerSkill']['form']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Experience'); ?></dt>
 		<dd>
-			<?php echo h($player['PlayerSkill']['experience']); ?>
+			<?php echo $player['PlayerSkill']['experience']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Spirit'); ?></dt>
 		<dd>
-			<?php echo h(Player::spirits($player['Player']['spirit'])); ?>
+			<?php echo Player::spirits($player['Player']['spirit']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Injury'); ?></dt>
 		<dd>
-			<?php echo h($player['Player']['injury']); ?>
+			<?php echo $player['Player']['injury']; ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Speciality'); ?></dt>
 		<dd>
-			<?php echo h(Player::specialities($player['Player']['speciality'])); ?>
+			<?php echo Player::specialities($player['Player']['speciality']); ?>
+			&nbsp;
+		</dd>
+        <dt><?php echo __('Dernier match'); ?></dt>
+		<dd>
+			<?php echo $lastMatch['Match']['start_date'] ." : ". 
+                $lastMatch['HomeTeam']['name'] ." - ". $lastMatch['VisitorTeam']['name']; ?>
+			&nbsp;
+		</dd>
+        <dt><?php echo __('Meilleur match'); ?></dt>
+		<dd>
+			<?php echo $bestMatch['Match']['start_date'] ." : ". 
+                $bestMatch['HomeTeam']['name'] ." - ". $bestMatch['VisitorTeam']['name']; ?>
 			&nbsp;
 		</dd>
 	</dl>
+<h2><?php  echo __('Statistiques de la saison en cours');?></h2>
+    <?php if(!empty($seasonStats[0]['2pts_attempts'])): ?>
+        <dl>
+            <dt><?php echo __('Tir 2pts tentés'); ?></dt>
+            <dd><?php echo $seasonStats[0]['2pts_attempts'] ?></dd>
+            <dt><?php echo __('Tir 2pts marqués'); ?></dt>
+            <dd><?php echo $seasonStats[0]['2pts_scored'] ?></dd>
+            <dt><?php echo __('Tir 3pts tentés'); ?></dt>
+            <dd><?php echo $seasonStats[0]['3pts_attempts'] ?></dd>
+            <dt><?php echo __('Tir 3pts marqués'); ?></dt>
+            <dd><?php echo $seasonStats[0]['3pts_scored'] ?></dd>
+            <dt><?php echo __('Rebonds offensifs'); ?></dt>
+            <dd><?php echo $seasonStats[0]['rebounds_offensive'] ?></dd>
+            <dt><?php echo __('Rebonds défensifs'); ?></dt>
+            <dd><?php echo $seasonStats[0]['rebounds_defensive'] ?></dd>
+            <dt><?php echo __('Lancer-francs tentés'); ?></dt>
+            <dd><?php echo $seasonStats[0]['freethrows_attempts'] ?></dd>
+            <dt><?php echo __('Lancer-francs marqués'); ?></dt>
+            <dd><?php echo $seasonStats[0]['freethrows_scored'] ?></dd>
+            <dt><?php echo __('Passes décisives'); ?></dt>
+            <dd><?php echo $seasonStats[0]['assists'] ?></dd>
+            <dt><?php echo __('Interception'); ?></dt>
+            <dd><?php echo $seasonStats[0]['steals'] ?></dd>
+            <dt><?php echo __('Contres'); ?></dt>
+            <dd><?php echo $seasonStats[0]['blocks'] ?></dd>
+            <dt><?php echo __('Pertes de balles'); ?></dt>
+            <dd><?php echo $seasonStats[0]['turnovers'] ?></dd>
+            <dt><?php echo __('Evaluation globale'); ?></dt>
+            <dd><?php echo $seasonStats[0]['evaluation'] ?></dd>
+        </dl>
+    <?php else: ?>
+        <?php echo __("Aucune statistique pour la saison en cours..."); ?>
+    <?php endif; ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
